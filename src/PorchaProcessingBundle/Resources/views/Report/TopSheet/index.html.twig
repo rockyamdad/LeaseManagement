@@ -1,0 +1,110 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Service Request'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Service Request'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Top Sheet'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+            <div class="portlet light">
+                <div class="portlet-body">
+
+                    <form id="form-search" class="form-inline" role="form" method="post" action="">
+                        <div class="form-body">
+                            <table id="khatian-list">
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="ff[p.survey]" id="delivery-type"
+                                                    placeholder="{{ 'Survey'|trans }}" class="form-control survey_selector">
+                                                <option value="">{{ 'Survey'|trans }} {{ 'Select'|trans }}</option>
+                                                {% for suvey in suveys %}
+                                                    <option value="{{ suvey.id }}">{{ suvey.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="ff[p.upozila]" id="delivery-type"
+                                                    placeholder="{{ 'Upozila'|trans }}" class="form-control upozila_selector">
+                                                <option value="">{{ 'Upozila'|trans }} {{ 'Select'|trans }}</option>
+                                                {% for upozilla in upozillas %}
+                                                    <option value="{{ upozilla.id }}">{{ upozilla.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="ff[p.mouza]" id="delivery-type"
+                                                    placeholder="{{ 'Mouza'|trans }}" class="form-control mouza_selector">
+                                                <option value="">{{ "Mouza"|trans }} {{ 'Select'|trans }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input value="" name="ff[p.jlNo]"
+                                                   class="form-control jl_selector"
+                                                   placeholder="{{ "Jlno"|trans }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input value="{{ "now"|date("d-m-Y") }}" name="ff[sr.createdAt]"
+                                                   class="form-control date-picker" data-date-format="dd-mm-yyyy"
+                                                   placeholder="{{ "Request Date"|trans }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button class="btn green" id="btn-search"
+                                                        data-url="{{ path('report_top_sheet_list') }}"
+                                                        type="button">{{ 'Search'|trans }}</button>
+                                                <button class="btn green" id="btn-print"
+                                                        data-url="{{ path('report_top_sheet_list') }}"
+                                                        type="button" style="display: none">{{ 'Print'|trans }}</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </form>
+                    <hr/>
+
+                    <div class='table-data'>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+
+    <div class="modal fade" id="request-detail" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('assets/layout3/img/loading-spinner-grey.gif') }}" alt="" class="loading">
+                    <span> &nbsp;&nbsp;Loading... </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block include_javascripts %}
+    <script>var mode = null;</script>
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/service-request-list.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/porcha-request.js') }}" type="text/javascript"></script>
+{% endblock %}

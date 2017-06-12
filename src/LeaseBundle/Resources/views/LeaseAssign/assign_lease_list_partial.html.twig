@@ -1,0 +1,87 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'Lease Type'|trans}}</th>
+        <th>{{  'Mouza'|trans  }}</th>
+        <th>{{  'Khatian'|trans  }}</th>
+        <th>{{  'Khatian dag No'|trans}}</th>
+        <th>{{  'Applicant Info'|trans}}</th>
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'Lease Assign Status'|trans}}</th>
+        <th width="170"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if assignLeases is not empty  %}
+        {% for assignLease in assignLeases %}
+            {% if assignLease.applications is defined  %}
+                <tr>
+                <td>{{ assignLease.applications.lease.Bntype }}</td>
+                <td>{{ assignLease.applications.lease.khatian.mouza }}</td>
+                <td>{{ assignLease.applications.lease.khatian?assignLease.applications.lease.khatian.khatianNo:'' }}</td>
+                {% if assignLease.applications.lease.marketDetail %}
+                    <td>{{ assignLease.applications.lease.marketDetail.khatianDagNo|numberBanglaConvert  }}</td>
+                {% elseif assignLease.applications.lease.waterBodyDetails %}
+                    <td>
+                        {% for waterBodyDetail in assignLease.applications.lease.waterBodyDetails %}
+                            {{ waterBodyDetail.khatianDagNo|numberBanglaConvert  }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </td>
+                {% endif %}
+
+                <td>{{ assignLease.applications.applicant.name }}</td>
+                <td>{{ assignLease.applications.lease.getBnStartDate }}</td>
+                <td>{{ assignLease.applications.lease.getBnEndDate }}</td>
+                <td>
+                    {% if (assignLease.status == 'WAITING_FOR_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% elseif(assignLease.status == 'APPROVED') %}
+                        <span class="label label-success">{{ assignLease.status|trans }}</span>
+                    {% elseif(assignLease.status == 'TERMINATED') %}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% else %}
+                        <span class="label label-info">{{ 'Correction'|trans }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    {% if is_granted('ROLE_APPLICATION_VIEW') %}
+                        <a href="{{ path('lease_application_view', {'id': assignLease.applications.id}) }}" class="btn btn-lg"  title="{{ 'Application View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ASSIGN_LEASE_EDIT') and (assignLease.status != 'APPROVED') %}
+                        <a href="{{ path('register_6_lease_edit', {'id': assignLease.id}) }}" class="btn btn-lg"  title="{{ 'Edit'|trans }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    {% endif %}
+
+                    <a href="{{ path('khatian_pages',{'id':assignLease.applications.lease.khatian?assignLease.applications.lease.khatian.id:0}) }}" target="_blank" class="btn btn-lg"  title="{{ 'Khatian view'|trans }}">
+                        <i class="fa fa-file"></i>
+                    </a>
+
+                    {% if is_granted('ROLE_ASSIGN_LEASE_VIEW') %}
+                        <a href="{{ path('register_6_lease_view', {'id': assignLease.id}) }}" class="btn btn-lg"  title="{{ 'Register View'|trans }}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    {% endif %}
+
+
+                </td>
+
+            </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(assignLeases) }}
+</div>

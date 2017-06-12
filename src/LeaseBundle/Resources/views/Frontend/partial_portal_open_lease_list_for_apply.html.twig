@@ -1,0 +1,135 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header">
+    <thead>
+    {% if leases is not empty %}
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans }}</th>
+        {% if leases[0].type == 'Market'  %}
+        <th>{{  'Market Body'|trans }}</th>
+        {% elseif leases[0].type == 'WaterBody' %}
+            <th>{{  'Name'|trans }}</th>
+            <th>{{  'Mouza'|trans }}</th>
+        {% else %}
+            <th>{{  'Mouza'|trans }}</th>
+        {% endif %}
+        {% if leases[0].type != 'Gadget'  %}
+            <th>{{  'Khatian'|trans  }}</th>
+        {% endif %}
+        {% if leases[0].type != 'Gadget'  %}
+        <th>{{  'Khatian dag No'|trans  }}</th>
+        {% endif %}
+        {% if leases[0].type == 'Market'  %}
+            <th>{{  'Shop No'|trans}}</th>
+            <th>{{  'Amount'|trans}} (বর্গ ফুট) </th>
+        {% elseif leases[0].type == 'WaterBody' %}
+            <th>{{  'Shotangso'|trans}}</th>
+        {% else %}
+
+        {% endif %}
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'Status'|trans}}</th>
+        <th width="140"></th>
+    </tr>
+    {% endif %}
+    </thead>
+    <tbody>
+    {% if leases is not empty %}
+        {% for index,lease in leases %}
+            <tr>
+                <td>
+                    {{ ((leases.getCurrentPageNumber - 1) * leases.getItemNumberPerPage + index + 1)|numberBanglaConvert }}
+                </td>
+                {% if lease.type == 'Market'  %}
+                    <td>{{ lease.marketDetail.market.marketName }}</td>
+                {% elseif lease.type == 'WaterBody'  %}
+                    <td>{{ lease.name }}</td>
+                    <td>{{ lease.khatian.mouza }}</td>
+                {% else %}
+                    <td>{{ lease.gadget.mouza }}</td>
+                {% endif %}
+
+
+                {% if lease.khatian.khatianNo is defined and lease.type != 'Gadget' %}
+                    <td>{{ lease.khatian.khatianNo|numberBanglaConvert }}</td>
+                {% else %}
+
+                {% endif %}
+
+                {% if lease.marketDetail and lease.type != 'Gadget' %}
+                    <td>{{ lease.marketDetail.khatianDagNo|numberBanglaConvert  }}</td>
+                {% elseif lease.waterBodyDetails and lease.type != 'Gadget' %}
+                    <td>
+                        {% for waterBodyDetail in lease.waterBodyDetails %}
+                            {{ waterBodyDetail.khatianDagNo|numberBanglaConvert  }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </td>
+                {% else %}
+
+                {% endif %}
+
+                {% if lease.type == 'Market'  %}
+                    <td>{{ lease.marketDetail.shopNo|numberBanglaConvert }}</td>
+                    <td>{{ lease.shotangso|numberBanglaConvert }}</td>
+                {% elseif lease.type == 'WaterBody' %}
+                    <td>{{ lease.shotangso|numberBanglaConvert }}</td>
+                {% else %}
+
+                {% endif %}
+
+                <td>{{ lease.getBnStartDate}}</td>
+                <td>{{ lease.getBnEndDate }}</td>
+                <td>
+                    {% if (lease.status == 'TERMINATED') %}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% elseif(lease.status == 'CLOSED') %}
+                        {% if(lease.tender == '1') %}
+                            <span class="label label-success">{{ 'Enable'|trans }}</span>
+                        {% else %}
+                            <span class="label label-primary">{{ 'Assigned'|trans }}</span>
+                        {% endif %}
+                    {% elseif(lease.status == 'ACTIVE') %}
+                        <span class="label label-success">{{ 'Enable'|trans }}</span>
+                    {% elseif(lease.status == 'SUSPEND') %}
+                        <span class="label label-warning">{{ 'Suspend'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if lease.status == 'ACTIVE'  %}
+                        <a href="{{ path('citizen_lease_apply', {'id': lease.id, 'type':lease.type}) }}" class="btn purple btn-sm apply" id="apply" rel="{{ lease.type }}"  title="{{ 'apply for lease'|trans }}">
+                            <i class="fa fa-share-square"></i>
+                        </a>
+                    {% endif %}
+                    {% if lease.status == 'CLOSED'  and lease.type== 'WaterBody' and lease.tender == '1' %}
+                        <a href="{{ path('citizen_lease_apply', {'id': lease.id, 'type':lease.type}) }}" class="btn purple btn-sm apply" id="apply" rel="{{ lease.type }}"  title="{{ 'apply for lease'|trans }}">
+                            <i class="fa fa-share-square"></i>
+                        </a>
+                    {% endif %}
+                    {% if lease.khatian.id is defined%}
+                        <a href="{{ path('khatian_pages',{'id':lease.khatian.id}) }}" target="_blank" class="btn blue btn-sm"  title="{{ 'Khatian view'|trans }}">
+                            <i class="fa fa-file"></i>
+                        </a>
+                    {% endif %}
+                    {% if lease.gadget.id is defined %}
+                        <a href="{{ path('gadget_details', {'gadget': lease.gadget.id,'lease':lease}) }}" class="btn purple btn-sm "  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('lease_details', {'lease': lease.id}) }}" class="btn purple btn-sm "  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div style="clear: both;"></div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(leases) }}
+</div>

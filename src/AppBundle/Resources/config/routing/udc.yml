@@ -1,0 +1,40 @@
+udc_list:
+    path:     /admin/udc-office/list
+    defaults:
+        _controller: AppBundle:UDC:udcList
+
+add_udc_office:
+    path:     /admin/udc-office/new-udc-office
+    defaults: { _controller: AppBundle:UDC:addUdc }
+
+update_udc_office:
+    path:     /admin/update-udc-office/{id}
+    defaults: { _controller: AppBundle:UDC:updateUdc }
+
+porcha_request_udc_create:
+    path:     /service/porcha-request-udc/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:porchaRequestCreate,serviceType:porcha_request }
+
+porcha_udc_request_list:
+    path:     /service/list/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestList,serviceType:porcha_request }
+
+username_duplicate_check:
+   path:     /duplicacy-username
+   defaults: { _controller: AppBundle:UDC:duplicateUsernameCheck }
+   methods:  [POST]
+   options:
+           expose: true
+
+report_udc_court_fee:
+    path:     /report/court-fee-udc
+    defaults: { _controller: PorchaProcessingBundle:Report/CourtFee:index }
+
+udc_office_create:
+    path:     /udc/udc-office-create
+    defaults: { _controller: AppBundle:UDC:udcTypeOfficesCreate }
+
+udc_service_filter_by_app_id:
+    path:     /udc/udc-service-filter-by-app-id
+    defaults: { _controller: AppBundle:Dashboard:udcServiceFilterByAppId }
+

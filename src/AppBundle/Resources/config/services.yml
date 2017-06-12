@@ -1,0 +1,34 @@
+services:
+    app.model.data_import_manager:
+        class: AppBundle\Model\DataImportManager
+        arguments: [@doctrine.orm.entity_manager, @service_container]
+
+    elrs_user.login:
+        class: AppBundle\EventListener\LoginListener
+        arguments: [@doctrine.orm.entity_manager, @session]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.service.office_manager:
+        class: AppBundle\Service\OfficeManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    app.service.ac_land_manager:
+        class: AppBundle\Service\AcLandManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    app.service.settings_manager:
+        class: AppBundle\Service\SettingsManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    app.service.udc_manager:
+        class: AppBundle\Service\UdcManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    app.service.udc_api_manager:
+        class: AppBundle\Service\UdcApiManager
+        arguments: [%udc_api_username%, %udc_api_password%,@guzzle.client.api_crm]
+
+    app.service.app_manager:
+            class: AppBundle\Service\AppManager
+            arguments: [@doctrine.orm.entity_manager, @security.token_storage]

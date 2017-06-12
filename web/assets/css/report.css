@@ -1,0 +1,53 @@
+@media all
+{
+    .page-content {
+        background: #fff;
+        padding: 30px;
+    }
+    h2.portfolio {
+        background-color: #e9edef !important;
+        color: #80898e !important;
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+    h3.observation-group {
+        border-bottom: 2px solid #999;
+        color: #666;
+        padding: 5px 0;
+    }
+    .row.meta {
+        background-color: #e9edef;
+        margin: 0 -8px 8px;
+        padding: 4px 0;
+    }
+
+    img.doc-page {
+        width: 100%;
+        border: 1px solid #999;
+    }
+}
+
+@media print
+{
+    table { page-break-after:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    td    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+
+    .new-page,
+    .page-break-before{
+        page-break-before: always;
+    }
+    .last-item,
+    .page-break,
+    .page-break-after {
+        page-break-after: always;
+    }
+    .no-break {
+        page-break-inside: avoid;
+        page-break-after:auto;
+    }
+
+}

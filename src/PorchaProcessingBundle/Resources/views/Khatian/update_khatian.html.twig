@@ -1,0 +1,376 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Khatian'|trans }} {{ khatian.id ? 'Edit'|trans : 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Khatian'|trans }} {{ khatian.id ? 'Edit'|trans : 'Create'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans  }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('volume_khatian_list', {'id': khatian.volume.id}) }}">{{ 'List of Khatians'|trans  }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Create'|trans  }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="update-khatian-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+            <form class="form-horizontal" role="form" id="update-khatian" method="post" action="{{ form_action }}">
+
+            <div class="portlet light">
+                <div class="portlet-title">
+
+                    <div class="actions" style="float: left">
+                        <a href="javascript:history.back()" class="btn green">{{ 'Cancel'|trans }}</a>
+                        <button class="btn green workflow-action" data-action="DRAFT" type="submit">
+                            {{ 'Save As Draft'|trans }}
+                        </button>
+                        <button class="btn green workflow-action" data-action="READY_FOR_VERIFICATION" type="submit" >
+                            {{ 'Forward'|trans }}
+                        </button>
+                        <button class="btn green workflow-action next-entry" data-action="READY_FOR_VERIFICATION" type="submit" >
+                            {{ 'Forward & New Entry'|trans }}
+                        </button>
+                    </div>
+                    <div class="actions" style="float:right;">
+                        
+                         {% if (khatianPage.type == 'PAGE1' or khatianPage.type == 'PAGE1_ADDITIONAL') %}
+
+                            {% if survey_templates['PAGE1_ADDITIONAL'] is defined %}
+                                {% if survey_templates['PAGE1_ADDITIONAL']|length > 1 %}
+                                    <div class="btn-group">
+                                        <button id="btnGroupVerticalDrop1" type="button" class="btn blue dropdown-toggle" data-toggle="dropdown">
+                                            {{ 'Page1 Additional Page'|trans }} {{ 'Create'|trans }} <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu switch-template" role="menu" aria-labelledby="btnGroupVerticalDrop1" data-action="PAGE1_ADDITIONAL">
+                                            {% set i = 1 %}
+                                            {% for key,val in survey_templates['PAGE1_ADDITIONAL'] %}
+                                                <li><a href="javascript:;" rel="{{ key }}">{{ 'Template'|trans ~'-'~i|numberBanglaConvert }}</a></li>
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    {% for key,val in survey_templates['PAGE1_ADDITIONAL'] %}
+                                        <button class="btn blue page-action" data-action="PAGE1_ADDITIONAL" data-val="{{ key }}" type="submit">
+                                            {{ 'Page1 Additional Page'|trans }} {{ 'Create'|trans }}
+                                        </button>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if survey_templates['PAGE2'] is defined %}
+                                {% if survey_templates['PAGE2']|length > 1 %}
+                                    <div class="btn-group">
+                                        <button id="btnGroupVerticalDrop2" type="button" class="btn blue dropdown-toggle" data-toggle="dropdown">
+                                            {{ '2nd page'|trans }} {{ 'Create'|trans }} <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu switch-template" role="menu" aria-labelledby="btnGroupVerticalDrop2" data-action="PAGE2">
+                                            {% set i = 1 %}
+                                            {% for key,val in survey_templates['PAGE2'] %}
+                                                <li> <a href="javascript:;" rel="{{ key }}">{{ 'Template'|trans ~'-'~i|numberBanglaConvert }}</a></li>
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    {% for key,val in survey_templates['PAGE2'] %}
+                                        <button class="btn blue page-action" data-action="PAGE2" data-val="{{ key }}" type="submit">
+                                            {{ '2nd page'|trans }} {{ 'Create'|trans }}
+                                        </button>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if survey_templates[khatianPage.type] is defined and survey_templates[khatianPage.type]|length > 1 %}
+                                <div class="btn-group">
+                                    <button id="btnGroupVerticalDrop3" type="button" class="btn green dropdown-toggle" data-toggle="dropdown">
+                                        {{ 'Change this page template'|trans }} <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop3">
+                                        {% set i = 1 %}
+                                        {% for key,val in survey_templates[khatianPage.type] %}
+                                            <li><a href="{{ path('change_entry_template', {khatianLog: khatianLog.id, khatianPage: khatianPage.id, officeTemplate: key}) }}?sr={{ serviceRequestId }}">{{ 'Template'|trans ~'-'~i|numberBanglaConvert }}</a></li>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <button class="btn green page-action" data-action="PAGE_SAVE" type="submit">
+                                {{ 'Update This Page'|trans }}
+                            </button>
+                            {% if (khatianPage.type == 'PAGE1_ADDITIONAL') %}
+                                <a class="btn red" href="{{ delete_url }}">
+                                    {{ 'Delete This Page'|trans }}
+                                </a>
+                            {% endif %}
+
+                        {% elseif (khatianPage.type == 'PAGE2' or khatianPage.type == 'PAGE2_ADDITIONAL') %}
+
+                            {% if survey_templates['PAGE2_ADDITIONAL'] is defined %}
+                                {% if survey_templates['PAGE2_ADDITIONAL']|length > 1 %}
+                                    <div class="btn-group">
+                                        <button id="btnGroupVerticalDrop4" type="button" class="btn blue dropdown-toggle" data-toggle="dropdown">
+                                            {{ 'Page2 Additional Page'|trans }} {{ 'Create'|trans }} <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu switch-template" role="menu" aria-labelledby="btnGroupVerticalDrop4" data-action="PAGE2_ADDITIONAL">
+                                            {% set i = 1 %}
+                                            {% for key,val in survey_templates['PAGE2_ADDITIONAL'] %}
+                                                <li><a href="javascript:;" rel="{{ key }}">{{ 'Template'|trans ~'-'~i|numberBanglaConvert }}</a></li>
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    {% for key,val in survey_templates['PAGE2_ADDITIONAL'] %}
+                                        <button class="btn blue page-action" data-action="PAGE2_ADDITIONAL" data-val="{{ key }}" type="submit">
+                                            {{ 'Page2 Additional Page'|trans }} {{ 'Create'|trans }}
+                                        </button>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if survey_templates[khatianPage.type] is defined and survey_templates[khatianPage.type]|length > 1 %}
+                                <div class="btn-group">
+                                    <button id="btnGroupVerticalDrop5" type="button" class="btn green dropdown-toggle" data-toggle="dropdown">
+                                        {{ 'Change this page template'|trans }} <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop5">
+                                        {% set i = 1 %}
+                                        {% for key,val in survey_templates[khatianPage.type] %}
+                                            <li><a href="{{ path('change_entry_template', {khatianLog: khatianLog.id, khatianPage: khatianPage.id, officeTemplate: key}) }}?sr={{ serviceRequestId }}">{{ 'Template'|trans ~'-'~i|numberBanglaConvert }}</a></li>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <button class="btn green page-action" data-action="PAGE_SAVE" type="submit">
+                                {{ 'Update This Page'|trans }}
+                            </button>
+                            <a class="btn red" href="{{ delete_url }}">
+                                {{ 'Delete This Page'|trans }}
+                            </a>
+
+                        {% endif %}
+                        
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+
+                    {#{% if survey_templates|length > 1 %}#}
+                        {#{{ dump(survey_templates) }}#}
+                    {#{% endif %}#}
+
+                    <div class="clearfix"></div>
+                    <div class="row pull-left" style="margin-top: -9px">
+                        <div class="dataTables_paginate" style="margin-left: 10px">
+                        <ul class="pagination" style="float: left">
+                            <li>
+                                <div style="margin-top: 6px">{{ 'Khatian Pages'|trans }} : &nbsp;</div>
+                            </li>
+                        </ul>
+                        {% set pageId = khatianPage.id %}
+                        <ul class="pagination" style="float: left">
+                            {% if (page_links['PAGE1'] is defined) %}
+                                <li class="{{ (page_links['PAGE1'] == pageId) ? 'active' : '' }}">
+                                    {% if (page_links['PAGE1'] == pageId) %}
+                                        <span>{{ '1st page'|trans }}</span>
+                                    {% else %}
+                                        <a href="{{ path('entry_operator_khatian_page', {id: khatianLog.id, khatianPage: page_links['PAGE1']}) }}?sr={{ serviceRequestId }}" >{{ '1st page'|trans }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+
+                            {% if (page_links['PAGE1_ADDITIONAL'] is defined) %}
+                                <li class="disabled"><span>{{ 'Additional Page'|trans }} >> </span></li>
+                                {% for i in 0..page_links['PAGE1_ADDITIONAL']|length - 1 %}
+                                    <li class="{{ (page_links['PAGE1_ADDITIONAL'][i] == pageId) ? 'active' : '' }}">
+                                        {% if (page_links['PAGE1_ADDITIONAL'][i] == pageId) %}
+                                            <span>{{ numberBanglaConvert(i + 1) }}</span>
+                                        {% else %}
+                                            <a href="{{ path('entry_operator_khatian_page', {id: khatianLog.id, khatianPage: page_links['PAGE1_ADDITIONAL'][i]}) }}?sr={{ serviceRequestId }}" >{{ numberBanglaConvert(i + 1) }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if (page_links['PAGE2'] is defined) %}
+                                <li class="{{ (page_links['PAGE2'] == pageId) ? 'active' : '' }}">
+                                    {% if (page_links['PAGE2'] == pageId) %}
+                                        <span>{{ '2nd page'|trans }}</span>
+                                    {% else %}
+                                        <a href="{{ path('entry_operator_khatian_page', {id: khatianLog.id, khatianPage: page_links['PAGE2']}) }}?sr={{ serviceRequestId }}" >{{ '2nd page'|trans }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+
+                            {% if (page_links['PAGE2_ADDITIONAL'] is defined) %}
+                                <li class="disabled"><span>{{ 'Additional Page'|trans }} >> </span></li>
+                                {% for i in 0..page_links['PAGE2_ADDITIONAL']|length - 1 %}
+                                    <li class="{{ (page_links['PAGE2_ADDITIONAL'][i] == pageId) ? 'active' : '' }}">
+                                        {% if (page_links['PAGE2_ADDITIONAL'][i] == pageId) %}
+                                            <span>{{ numberBanglaConvert(i + 1) }}</span>
+                                        {% else %}
+                                            <a href="{{ path('entry_operator_khatian_page', {id: khatianLog.id, khatianPage: page_links['PAGE2_ADDITIONAL'][i]}) }}?sr={{ serviceRequestId }}" >{{ numberBanglaConvert(i + 1) }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    </div>
+
+                    <div class="pull-right">
+                        <a class="tooltips white-tooltip" data-placement="left" title="<table style=width:150px;font-size:16px;margin:5px>
+                        <tr><td colspan=2>বাংলা সাংকেতিক চিহ্ন সমূহের শর্টকাট</td></tr>
+                        <tr><td>#০১</td><td>/</td></tr>
+                        <tr><td>#০২</td><td>৵</td></tr>
+                        <tr><td>#০৩</td><td>৶</td></tr>
+                        <tr><td>#০৪</td><td>৷</td></tr>
+                        <tr><td>#০৫</td><td>৷/</td></tr>
+                        <tr><td>#০৬</td><td>৷৵</td></tr>
+                        <tr><td>#০৭</td><td>৷৶</td></tr>
+                        <tr><td>#০৮</td><td>৷৷</td></tr>
+                        <tr><td>#০৯</td><td>৷৷/</td></tr>
+                        <tr><td>#১০</td><td>৷৷৵</td></tr>
+                        <tr><td>#১১</td><td>৷৷৶</td></tr>
+                        <tr><td>#১২</td><td>৸</td></tr>
+                        <tr><td>#১৩</td><td>৸/</td></tr>
+                        <tr><td>#১৪</td><td>৸৵</td></tr>
+                        <tr><td>#১৫</td><td>৸৶</td></tr>
+                        <tr><td>#১৬</td><td>১৲</td></tr>
+                        <tr><td>#১৯</td><td><img src='/assets/layout3/img/gonda.png'/></td></tr>
+                        <tr><td>#২০</td><td>//</td></tr>
+                        <tr><td>#২১</td><td>৹</td></tr>
+                        <tr><td>#২২</td><td>८</td></tr>
+                        <tr><td>Ctrl+~</td><td>১/২</td></tr>
+                    </table>" data-html="true" rel="tooltip" href="#">
+                            <i class="fa fa-keyboard-o" style="font-size: 30px"></i>
+                        </a>
+                        <button class="btn blue" id="preview-khatian-page" data-url="{{ path('entry_operator_khatian_page_preview', {id: khatianPage.id}) }}" type="button" >
+                            {{ 'Preview'|trans }}
+                        </button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+
+                        {% if form_errors(form) is not empty %}
+                            {{ form_errors(form) }}
+                        {% endif %}
+
+                        {% if khatianPage.correctionLog and khatianPage.correctionLog.message is not empty %}
+                            <div class="col-sm-12">
+                                <div class="note note-danger">
+                                    <h4 class="block">{{ "Correction Message"|trans }}</h4>
+                                    {{ khatianPage.correctionLog.message|raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-sm-12" id="template-update">
+
+                            {% if template is not null %}
+                                {{ placeholderReplaceWithFields(template.body, form) }}
+                            {% else %}
+                                <h3>{{ 'Nothing to view'|trans }}</h3>
+                            {% endif %}
+                            {{ form_row(form._token) }}
+
+                        </div>
+                        <input type="hidden" id="khatianLogId" value="{{ khatianLog.id }}" />
+                        <input type="hidden" id="primary_khatian_no" value="{{ khatian.khatianNo }}" />
+                        <input type="hidden" id="entry_action_url" value="{{ form_action }}" />
+                        <input type="hidden" id="page-template" name="page-template" value="" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="portlet light">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Mouza Map Reference Link'|trans }}
+                                </label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.mouzaMapReference) }}
+                                </div>
+                            </div>
+                            {#<div class="form-group">#}
+                                {#<label class="col-md-3 control-label" style="">#}
+                                    {#{{ form_widget(form.displayRestricted) }} {{ form_label(form.displayRestricted, 'Display Restricted'|trans) }}#}
+                                {#</label>#}
+                            {#</div>#}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <input type="checkbox" name="non-deliverable" id="non-deliverable" {{ khatian.lastVersion.nonDeliverable is not empty ? 'checked' : '' }} /> {{ 'This Khatian is non deliveral'|trans }}
+                                </label>
+                                <div class="col-md-7" id="non-deliverable-reason" style="display:{{ khatian.lastVersion.nonDeliverable is not empty ? 'block' : 'none' }}">
+                                    <select name="remark-non-deliverable[]" id="remark-non-deliverable" class="form-control" multiple size="10">
+                                        {% for msg in nd_messages %}
+                                            <option value="{{ msg.id }}"
+                                                    {{ (khatian.lastVersion.nonDeliverable is not empty) ? (msg.id in khatian.lastVersion.nonDeliverable  ? 'selected="selected"' : '') : '' }}
+                                            >{{ msg.message }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="help-block">{{ 'non delivery remark'|trans }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+
+                        <input type="hidden" id="khatian-action" name="khatianAction" />
+                        <input type="hidden" id="next-entry" name="nextEntry" value="0" />
+                        <a href="javascript:history.back()" class="btn green">{{ 'Cancel'|trans }}</a>
+                        <button class="btn green workflow-action" data-action="DRAFT" type="submit">
+                            {{ 'Save As Draft'|trans }}
+                        </button>
+                        <button class="btn green workflow-action" data-action="READY_FOR_VERIFICATION" type="submit" >
+                            {{ 'Forward'|trans }}
+                        </button>
+                        <button class="btn green workflow-action next-entry" data-action="READY_FOR_VERIFICATION" type="submit" >
+                            {{ 'Forward & New Entry'|trans }}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="serviceRequestId" name="serviceRequestId" value="{{ serviceRequestId }}" />
+            </form>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block entry_operator_action %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+    <style>
+        .white-tooltip + .tooltip > .tooltip-inner {background-color: #fff; color: black; border: black 1px solid}
+        .white-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#fff; }
+        .white-tooltip + .tooltip.in { filter: alpha(opacity=100); opacity: 1; }
+    </style>
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/shortcut.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/porchaprocessing/js/shortcut-mapping.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/porchaprocessing/js/easykeymap/easykeymap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/porchaprocessing/js/khatian-update.js') }}"></script>
+{% endblock %}

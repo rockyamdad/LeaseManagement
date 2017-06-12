@@ -1,0 +1,3 @@
+report_court_fee:
+    path:     /report/court-fee
+    defaults: { _controller: PorchaProcessingBundle:Report/CourtFee:index }

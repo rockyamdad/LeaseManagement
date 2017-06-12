@@ -1,0 +1,118 @@
+{{ form_start(form, {'method': 'POST'}) }}
+
+    <h4>{{ 'User Profile Information'|trans }}</h4>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.profile.fullNameBn, { 'attr': {'class': ''} }) }}
+          {#  {{ form_row(form.profile.fathersFullNameBn, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.mothersFullNameBn, { 'attr': {'class': ''} }) }}#}
+            {#{{ form_row(form.profile.nid, { 'attr': {'class': ''} }) }}#}
+            {{ form_row(form.profile.cellphone, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.religion, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.currentAddress, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.designation, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.joiningDate, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.gender, { 'attr': {'class': ''} }) }}
+        </div>
+
+        <div class="col-sm-6">
+          {#  {{ form_row(form.profile.fullNameEn, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.fathersFullNameEn, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.mothersFullNameEn, { 'attr': {'class': ''} }) }}#}
+            {{ form_row(form.profile.brn) }}
+            {{ form_row(form.profile.telephone, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.educationLevel, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.permanentAddress, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.dob, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.joiningDateOfCurrentOffice, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.bloodGroup, { 'attr': {'class': ''} }) }}
+            {{ form_row(form.profile.disability, { 'attr': {'class': ''} }) }}
+        </div>
+    </div>
+
+    <hr>
+    <h4>{{ 'User Login Information'|trans }}</h4>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {% if form.username is defined %}
+                {{ form_row(form.username, { 'attr': {'class': ''} }) }}
+            {% else %}
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">{{ "Username"|trans }}:</label>
+                    <div class="col-sm-8 top7PxPadding">{{ user.username }}</div>
+                </div>
+            {% endif %}
+
+            {% if form.plainPassword is defined %}
+                {{ form_row(form.plainPassword.first, { 'attr': {'class': ''} }) }}
+            {% endif %}
+
+            {#{% if form.groups is defined %}
+                {{ form_row(form.groups, { 'attr': {'class': ''} }) }}
+            {% else %}
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">{{ "Role"|trans }}:</label>
+                    <div class="col-sm-8 top7PxPadding">{{ user.groups[0].name }}</div>
+                </div>
+            {% endif %}#}
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">{{ 'User Image'|trans }}</label>
+                <div class="col-md-4 top7PxPadding">
+                    {{ form_widget(form.profile.photoFile) }}
+                </div>
+
+
+
+                <div class="col-md-2">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">{{ 'User Signature'|trans }}</label>
+                <div class="col-md-4 top7PxPadding">
+                    {{ form_widget(form.profile.signatureFile) }}
+                </div>
+                <div class="col-md-2">
+                    {% if user.profile.signature is defined %}
+                        <img src="{{ asset(user.profile.signature) }}" width="110" height="50">
+                    {% endif %}
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            {% if form.username is defined %}
+                {{ form_row(form.email, { 'attr': {'class': ''} }) }}
+            {% else %}
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">{{ "Email"|trans }}:</label>
+                    <div class="col-sm-8 top7PxPadding">{{ user.email }}</div>
+                </div>
+            {% endif %}
+
+            {% if form.plainPassword is defined %}
+                {{ form_row(form.plainPassword.second, { 'attr': {'class': ''} }) }}
+            {% endif %}
+            <div class="col-md-2">
+                {% if user.profile.photo is defined %}
+                    <img src="{{ asset(user.profile.photo) }}" width="110" height="110">
+                {% endif %}
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    {{ form_row(form.submit, { 'attr': {'class': ''} }) }}
+
+{{ form_end(form) }}

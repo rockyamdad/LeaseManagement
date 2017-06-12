@@ -1,0 +1,37 @@
+lease_waterbody_application_list:
+    path:     /lease/water-application/list
+    defaults: { _controller: LeaseBundle:Application:index }
+
+lease_market_application_list:
+    path:     /lease/market-application/list
+    defaults: { _controller: LeaseBundle:Application:marketLeaseApplication }
+
+lease_gadget_application_list:
+    path:     /gadget/application/list
+    defaults: { _controller: LeaseBundle:Application:gadgetList }
+
+approved_lease_application_list:
+    path:     /lease/approved/application/list/{type}
+    defaults: { _controller: LeaseBundle:Application:ApprovedLeaseApplicationList }
+
+lease_application_view:
+    path:     /lease/application/view/{id}
+    defaults: { _controller: LeaseBundle:Application:view }
+
+lease_application_print_view:
+    path:     /lease/application/print/view/{id}
+    defaults: { _controller: LeaseBundle:Application:printView }
+
+manual_application:
+    path:     /manual-application-create/{id}
+    defaults: { _controller: LeaseBundle:Application:manualCreate }
+
+lease_wise_application_view:
+    path:     /lease_wise/application/view/{id}
+    defaults: { _controller: LeaseBundle:Application:LeaseWiseApplicationList }
+
+application_status_change:
+    path:     /application/{applicationId}/{status}
+    defaults: { _controller: LeaseBundle:Application:ApplicationStatusChange }
+
+

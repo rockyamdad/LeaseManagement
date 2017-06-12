@@ -1,0 +1,145 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Volume'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Volume'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('volume_list') }}">{{ 'List of Volumes'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Volume'|trans }} {{ 'Create'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="form-add-volume" role="form" method="post" action="{{ form_action }}">
+                        <div class="form-body">
+
+                            <div class="form-group {{ form_errors(form.survey) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'Survey'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.survey) }}
+                                    <span class="help-block">{{ form_errors(form.survey) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.district) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'District'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.district) }}
+                                    <span class="help-block">{{ form_errors(form.district) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">{{ 'Current Upozila'|trans }}</label>
+                                <div class="col-md-3">
+                                    {{ form_widget(form.upozila) }}
+                                    <span class="help-block">{{ form_errors(form.upozila) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.mouza) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'Mouza'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.mouza) }}
+                                    <span class="help-block">{{ form_errors(form.mouza) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.pargana) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label">{{ 'Pargona'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.pargana) }}
+                                    <span class="help-block">{{ form_errors(form.pargana) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.volumeNo) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'Volume No'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.volumeNo) }}
+                                    <span class="help-block">{{ form_errors(form.volumeNo) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">{{ 'in this volume'|trans ~ ' ' ~ 'first'|trans ~ ' ' ~ 'Khatian No'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.startKhatianNo) }}
+                                    <span class="help-block">{{ form_errors(form.startKhatianNo) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">{{ 'in this volume'|trans ~ ' ' ~ 'last'|trans ~ ' ' ~ 'Khatian No'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.endKhatianNo) }}
+                                    <span class="help-block">{{ form_errors(form.endKhatianNo) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.noOfKhatians) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label">{{ 'No of Khatians'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.noOfKhatians) }}
+                                    <span class="help-block">{{ form_errors(form.noOfKhatians) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Sub Khatian Nos'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.subKhatianNos) }}
+                                    <span class="help-block">{{ form_errors(form.subKhatianNos) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Missing Khatian Nos'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.missingKhatianNos) }}
+                                    <span class="help-block">{{ form_errors(form.missingKhatianNos) }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <a class="btn default" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                    <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/volume.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init();
+{% endblock %}
+

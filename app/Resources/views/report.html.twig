@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.1
+Version: 3.2.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}IBBL Audit{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+
+    {% block stylesheets %}
+        {% stylesheets
+        'assets/plugins/bootstrap/css/bootstrap.min.css'
+        'assets/css/components-rounded.css'
+        'assets/layout3/css/layout.css'
+        'assets/layout3/css/themes/default.css'
+        'assets/css/report.css'
+        'assets/css/style.css'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body>
+<!-- BEGIN PAGE CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN PAGE CONTENT -->
+    <div class="page-content">
+        {% block body %}
+        <!-- BEGIN PAGE CONTENT INNER -->
+        <div class="row">
+            <div class="col-md-12">
+                Page content goes here
+            </div>
+        </div>
+        <!-- END PAGE CONTENT INNER -->
+        {% endblock %}
+    </div>
+    <!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+</body>
+<!-- END BODY -->
+</html>

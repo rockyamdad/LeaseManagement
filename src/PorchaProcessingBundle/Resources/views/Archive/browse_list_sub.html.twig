@@ -1,0 +1,66 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ knp_pagination_sortable(volumes, 'Survey'|trans, 'v.survey') }}</th>
+        <th>{{ 'District'|trans ~ ' - ' ~ 'Thana'|trans ~ '/' ~ 'Upozila'|trans ~ ' - ' }} {{  knp_pagination_sortable(volumes, 'Mouza'|trans, 'm.name') }} {{ ' - ' ~ 'J. L'|trans }}</th>
+        <th>{{ knp_pagination_sortable(volumes, 'Volume No'|trans, 'v.canonicalvolumeNo') }}</th>
+        <th>{{ 'Khatian'|trans ~ ' ' ~ 'range'|trans }}</th>
+        <th>{{ 'Approved Khatian Count'|trans }}</th>
+        <th>{{ knp_pagination_sortable(volumes, 'No Entry Khatian Count'|trans, 'v.noEntryKhatianCount') }}</th>
+        <th width="120">{{ "Approved"|trans }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if volumes is not empty %}
+        {% for volume in volumes %}
+        <tr>
+            <td>{{ volume.survey.name }}</td>
+            {% set volumeMouzas = volume.volumeMouzas %}
+            <td>
+                {% if volumeMouzas %}
+                    {% for volumeMouza in volumeMouzas %}
+                        {% set jlno = jlnumberBySurveyType(volumeMouza.mouza, volume.survey.type)  %}
+                        {{ jlno['district'] }} -
+                        {{ jlno['thana'] }} -
+                        {{ volumeMouza.mouza.name }} -
+                        {{ jlno['name'] }} <br>
+                    {% endfor %}
+                {% endif %}
+            </td>
+            <td>{{ volume.volumeNo }}</td>
+            <td>
+                {% if volumeMouzas %}
+                    {% for volumeMouza in volumeMouzas %}
+                        {{ volumeMouza.startKhatianNo }} - {{ volumeMouza.endKhatianNo }} <br>
+                    {% endfor %}
+                {% endif %}
+            </td>
+            <td>{{ approvedKhatianCountByVolume(volume)|numberBanglaConvert }}</td>
+            <td>
+                <a data-toggle="modal" data-target="#ajax" href="{{ path('volume_no_entry_khatians', {id: volume.id}) }}" >
+                    {{ volume.noEntryKhatianCount|numberBanglaConvert }} </a>
+
+            </td>
+            <td>
+                {% if volume.approved %}
+                    <i class="fa fa-check font-green"> </i>
+                {% else %}
+                    {{ 'Approval needed'|trans }}
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('archive_volume_khatian_list', {'id': volume.id}) }}" class="btn blue btn-sm" title="{{ 'All Khatians'|trans }}" ><i class="fa fa-list"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(volumes) }}
+</div>

@@ -1,0 +1,31 @@
+mouza_map_request_create:
+    path:     /service/mouza-map
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:create }
+
+mouza_map_request_edit:
+    path:     /service/mouza-map/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:edit }
+    requirements:
+        id: \d+
+
+mouza_map_request_view:
+    path:     /service/mouza-map/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:view }
+    requirements:
+        id: \d+
+
+mouza_map_request_list:
+    path:     /service/mouza-map/list
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:list}
+
+mouza_map_request_print:
+    path:     /service/mouza-map/{id}/print
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:print }
+
+mouza_map_request_update_delivery_status:
+    path:     /service/mouza-map/{id}/update-delivery-status
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:updateDeliveryStatus }
+
+mouza_map_request_token_print:
+    path:     /service/mouza-map/{id}/token
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:requestTokenPrint}

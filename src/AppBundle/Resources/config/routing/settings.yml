@@ -1,0 +1,100 @@
+app_district_list:
+    path:     /settings/district/list
+    defaults: { _controller: AppBundle:Settings:districtList }
+
+app_division_list:
+    path:     /settings/division/list
+    defaults: { _controller: AppBundle:Settings:divisionList }
+
+app_create_district:
+    path:     /settings/district/new
+    defaults: { _controller: AppBundle:Settings:updateDistrict }
+
+app_create_division:
+    path:     /settings/division/new
+    defaults: { _controller: AppBundle:Settings:updateDivision }
+
+app_update_division:
+    path:     /settings/division/{id}/edit
+    defaults: { _controller: AppBundle:Settings:updateDivision}
+
+app_update_district:
+    path:     /settings/district/{id}/edit
+    defaults: { _controller: AppBundle:Settings:updateDistrict}
+
+app_union_list:
+    path:     /settings/union/list
+    defaults: { _controller: AppBundle:Settings:unionList }
+    options:
+        expose: true
+
+app_upozila_list:
+    path:     /settings/upozila/list
+    defaults: { _controller: AppBundle:Settings:upozilaList }
+    options:
+        expose: true
+
+app_create_upozila:
+    path:     /settings/upozila/new
+    defaults: { _controller: AppBundle:Settings:updateUpozila }
+
+app_create_union:
+    path:     /settings/union/new
+    defaults: { _controller: AppBundle:Settings:updateUnion }
+
+app_update_union:
+    path:     /settings/union/{id}/edit
+    defaults: { _controller: AppBundle:Settings:updateUnion }
+
+app_update_upozila:
+    path:     /settings/upozila/{id}/edit
+    defaults: { _controller: AppBundle:Settings:updateUpozila }
+
+bulk_import_data:
+    path:     /bulkImportData
+    defaults: { _controller: AppBundle:Settings:bulkImportData }
+
+dc_office_setting_update:
+    path:     /settings/office
+    defaults: { _controller: AppBundle:Settings:dcOfficeSetting }
+
+district_upozilas:
+    path:     /district/{id}/upozilas
+    defaults: { _controller: AppBundle:Settings:districtUpozilas }
+    options:
+        expose: true
+
+upozilas_unions:
+    path:     /upozilas/{id}/unions
+    defaults: { _controller: AppBundle:Settings:upozilasUnions }
+    options:
+        expose: true
+
+settings_combo_upozila:
+    path:     /settings/combo/upozila/{districtId}/
+    defaults: { _controller: AppBundle:Settings:comboUpozila }
+    options:
+        expose: true
+
+settings_combo_union:
+    path:     /settings/combo/union/{upozilaId}/
+    defaults: { _controller: AppBundle:Settings:comboUnion }
+    options:
+        expose: true
+
+create_all_dc_admins:
+    path:     /dc-admins/create
+    defaults: { _controller: AppBundle:Settings:createAllDCAdmins }
+
+create_all_dc_offices:
+    path:     /dc-offices/create
+    defaults: { _controller: AppBundle:Settings:createAllDCOffices }
+
+assign_users_to_dc_offices:
+    path:     /dc-offices/assign-user
+    defaults: { _controller: AppBundle:Settings:assignDCAdminsToOffices }
+
+
+
+
+

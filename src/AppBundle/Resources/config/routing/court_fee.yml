@@ -1,0 +1,17 @@
+create_courtfee:
+    path:     /courtfee/new
+    defaults: { _controller: AppBundle:Settings:createCourtFee }
+
+courtfee_list:
+    path:     /courtfee/list/{appType}
+    defaults:
+        _controller: AppBundle:Settings:courtFeeList
+        appType: 'PORCHA'
+
+update_courtfee:
+    path:     /courtfee/update/{id}
+    defaults: { _controller: AppBundle:Settings:createCourtFee }
+
+delete_courtfee:
+    path:     /courtfee/delete/{id}
+    defaults: { _controller: AppBundle:Settings:deleteCourtFee }

@@ -1,0 +1,22 @@
+{% extends "metronic.html.twig" %}
+
+{% block pageTitle %}<h1>{{ 'Dashboard'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-md-7 col-sm-12">
+            {{ 'Welcome general dashboard'|trans }}
+            {{ dump(user) }}
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

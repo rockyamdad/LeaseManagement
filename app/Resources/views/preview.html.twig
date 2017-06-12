@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% block title %}{{ 'DRR'|trans }}{% endblock %}</title>
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <style type="text/css">
+            u {
+                border-bottom: 1px dotted #000;
+                text-decoration: none;
+            }
+        </style>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/khatian-view.css') }}"/>
+        {% endblock %}
+
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        {% block include_javascripts %}
+            {% javascripts
+            'assets/plugins/jquery.min.js'
+            'assets/plugins/jquery-migrate.min.js'
+            'assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js'
+            'assets/plugins/bootstrap/js/bootstrap.min.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock include_javascripts %}
+
+        <!-- START IN PAGE JAVASCRIPTS -->
+        {% block closure %}
+            <script>
+                jQuery(document).ready(function() {
+                    $('.alert-success').delay(2500).fadeOut();
+
+                    {% block document_ready %}
+                    {% endblock %}
+                });
+            </script>
+        {% endblock %}
+        <!-- END IN PAGE JAVASCRIPTS -->
+    </body>
+</html>

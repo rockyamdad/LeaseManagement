@@ -1,0 +1,73 @@
+{% extends "::portal_base.html.twig" %}
+
+{% block body %}
+    <div class="page-container">
+        <div class="container">
+            <h2 class="caption-color">লগইন করুন</h2>
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    {{ form_start(form,{'attr':{'class':'form-horizontal','id':'loginform', 'novalidate':'novalidate','autocomplete':'off'}}) }}
+
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">মোবাইল নম্বর <span class="require">*</span></label>
+                            <div class="col-lg-8">
+
+                                    {{ form_widget(form.phoneNumber,{'attr':{'class':'form-control',}}) }}
+                                    <span id="valid-msg" class="hide error">✓ নম্বর টি সঠিক</span>
+                                    <span id="error-msg" class="hide error">নম্বর টি সঠিক নয় </span>
+                                <span class="help-block validation-style">{{ form_errors(form.phoneNumber)}}</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-lg-4 control-label">পাসওয়ার্ড <span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                {{ form_widget(form.password,{'attr':{'class':'form-control',}}) }}
+                                <span class="help-block validation-style">{{ form_errors(form.password)}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-offset-4 padding-left-0">
+                                <a href="{{ path('portal_forget_password') }}"> পাসওয়ার্ড ভুলে গেছেন?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                                {{ form_widget(form.save,{'attr':{'class':'btn btn-primary button-save-color',}}) }}
+                            </div>
+                        </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+                <div class="col-md-4 ">
+                    <!-- BEGIN Portlet PORTLET-->
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>গুরুত্বপূর্ণ তথ্য
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                <p>নিবন্ধন করার মাধ্যমে আপনি আপনার সকল আবেদনের অবস্থা যাচাই, আবেদনের ইতিহাস দেখা, বাক্তিগত তথ্য দেখা ও পরিবর্তন করতে পারবেন।</p>
+                                <p> আপনি এখানে নিবন্ধিত না হলে নিম্নের বাটন এ ক্লিক করে নিবন্ধন করুন।</p>
+                                <a class="btn btn-primary button-save-color" href="{{ path('portal_registration') }}">নিবন্ধন করুন</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Portlet PORTLET-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascriptBlock %}
+    {{ parent() }}
+    {% javascripts
+    '@LeaseBundle/Resources/public/js/loginValidation.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}

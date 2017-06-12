@@ -1,0 +1,22 @@
+role,flag,username,email,password,fullNameEn,fullNamaBn
+ডিসি অ্যাডমিন,76,Pabna76,pabna76@cc.com,123456,DC Admin,ডিসি অ্যাডমিন
+মন্ত্রণালয অ্যাডমিন়,,MinAdmin,MinAdmin@cc.com,123,Md Mustafiz
+মন্ত্রণালয পর্যবেক্ষক,,MinObsv,MinObsv@cc.com,123,Md Hamid
+ডিসি অ্যাডমিন,94,Thakurgaon94,thakurgaon94@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,73,Nilphamari73,nilphamari73@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,38,Joypurhat38,joypurhat38@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,10,Bogra10,bogra10@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,50,Kushtia50,kushtia50@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,15,Chittagong15,chittagong15@cc.com,123,Md Habib Bahar
+ডিসি অ্যাডমিন,88,Sirajganj88,sirajganj88@cc.com,123,Md Nasim Reja
+ডিসি অ্যাডমিন,26,Dhaka26,dhaka26@cc.com,123,Md Nasim Reja
+ডিসি অফিসার,88,SDcOfficer1,SDcOfficer1@cc.com,123,Md Peul Reja
+ডিসি অফিসার,88,SDcOfficer2,SDcOfficer2@cc.com,123,Habib Sekh
+এন্ট্রিকারী,73,noperator1,noperator1@cc.com,123,Md Mujibul Haq
+এন্ট্রিকারী,73,noperator2,noperator2@cc.com,123,Md Samsul Alam
+এন্ট্রিকারী,73,noperator3,noperator3@cc.com,123,Md Zakir Hasan
+এন্ট্রিকারী,73,noperator4,noperator4@cc.com,123,Md Huda
+যাচায়কারী,73,nverifier1,nverifier1@cc.com,123,Kamal Uddin
+যাচায়কারী,73,nverifier2,nverifier2@cc.com,123,Md Sagor Seik
+তুলনাকারী,73,ncomparer1,ncomparer1@cc.com,123,Md Belal Pasa
+

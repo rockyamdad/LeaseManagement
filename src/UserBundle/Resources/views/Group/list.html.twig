@@ -1,0 +1,40 @@
+{% extends "RbsUserBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Groups'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Groups'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Roles'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'List of Roles'|trans }}</span>
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('group_create') }}" class="btn btn-circle red-sunglo">
+                            <i class="fa fa-plus"></i> {{ 'Create New Role'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class='table-data'>
+                        {% include "RbsUserBundle:Group:list_content.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

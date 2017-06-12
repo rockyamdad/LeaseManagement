@@ -1,0 +1,53 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ knp_pagination_sortable(users, 'Full Name'|trans, 'p.fullNameBn') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Role'|trans, 'g.name') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Username'|trans, 'u.username') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Email'|trans, 'u.email') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Office'|trans, 'o.name') }}</th>
+        <th width="10px">{{ knp_pagination_sortable(users, 'Status'|trans, 'u.enabled') }}</th>
+        <th width="150px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if users is not empty %}
+        {% for user in users %}
+            <tr>
+                <td>{%  if user.isNessUser == true %} <span class="badge badge-success" title="{{ 'Ness User'|trans }}">N</span>{% endif %}{% if user.profile is not null %} {{ user.profile.fullNameBn }} {% endif %}</td>
+                <td>{{ user.groups[0].name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.office.name|default('') }}</td>
+                <td><span class="badge badge-roundless badge-{{ user.enabled ? 'success' :  'danger' }}">{{ user.enabled ? 'Enable'|trans : 'Disable'|trans }}</span></td>
+                <td>
+                    {% if user.isNessUser == false %}
+                    <a title="{{ "Edit"|trans }}" class="btn blue btn-sm" href="{{ path('user_update', {id: user.id}) }}"><i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    <a title="{{ user.enabled ? 'Disable'|trans : 'Enable'|trans }}" class="btn blue btn-sm" href="{{ path('user_enabled', {id: user.id}) }}"><i class="fa fa-{{ user.enabled ? 'ban' : 'check-square-o' }}"></i></a>
+                    <a class=" btn blue btn-sm" href="{{ path('user_profile', {id: user.id}) }}" title="{{ "User Profile"|trans }}">
+                        <i class="fa fa-user"></i></a>
+                    {% if app.user.type == 'MINISTRY' and user.type in ['DC', 'UDC', 'AC_LAND'] %}
+                        <a class=" btn blue btn-sm" href="{{ path('assign_user_to_office', {id: user.id}) }}" data-target="#ajax" data-toggle="modal" title="{{ "Office Assign"|trans }}">
+                            <i class="fa fa-building"></i></a>
+                    {% endif %}
+                    {% if user.isNessUser %}
+                        <a class=" btn blue btn-sm" href="{{ path('assign_role_to_ness_user', {id: user.id}) }}" data-target="#ajaxAssignRoleNessUser" data-toggle="modal" title="{{ "Assign Role"|trans }}">
+                            <i class="fa fa-users"></i></a>
+                    {% else %}
+                    <a class=" btn blue btn-sm" href="{{ path('user_password_generated', {id: user.id}) }}" onclick="return confirm('{{ 'Are you sure ?'|trans }}')" title="{{ "Password Change"|trans }}">
+                        <i class="fa fa-key"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(users) }}
+</div>

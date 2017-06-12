@@ -1,0 +1,86 @@
+<style>
+    .readable {
+        background-color: #F1F1F1!important;
+    }
+    .non-readable {
+
+        font-weight: bold!important;
+    }
+</style>
+<div class="visible-print">
+{% if app.user.office %}
+    <div class="text-center">
+        <h4>{{ app.user.office.name }}, {{ app.user.office.district.name }}</h4>
+        <h4>{{ 'Application Receive Register'|trans }}</h4>
+        <h4>{{ app.user.office.getOfficeTypeName|trans }}</h4>
+
+    </div>
+{% endif %}
+{% if app.request.get('ff[pcr.createdAt]', '', true) %}
+    <div class="text-center">
+        <h4>{{ "Date"|trans }} : {{ app.request.get('ff[pcr.createdAt]', '', true)|toBanglaDate }}</h4>
+
+    </div>
+{% endif %}
+</div>
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header" border="1" style="margin-bottom: 0" width="100%">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'SL. NO'|trans }}</th>
+        {% if officeType == 'DC' %}
+        <th>{{ knp_pagination_sortable(copyRequests, 'AC Land Office'|trans, 'pcr.toOffice') }}</th>
+        {% endif %}
+        <th>{{ knp_pagination_sortable(copyRequests, 'Applicant Name'|trans, 'pcr.office') }}</th>
+        <th>{{ knp_pagination_sortable(copyRequests, 'Requested Subject'|trans, 'pcr.subject') }}</th>
+        <th>{{ 'Applicatin Date'|trans }}</th>
+        <th>{{ 'Status'|trans }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if copyRequests is not empty %}
+        {% for index, copyRequest in copyRequests %}
+            {#{{ dump(copyRequest) }}#}
+            <tr class = "{% if (copyRequest.requestSeen == true) and
+            (copyRequest.repliedSeen == false) %} readable
+                        {% elseif (copyRequest.requestSeen == true) and (copyRequest.repliedSeen == true)  %} readable
+                        {% else %}
+                        non-readable
+                        {% endif %}">
+       <td><span{% if copyRequest.repliedSeen == true %} class="fa fa-star" title="{{ 'Reply And View'|trans }}"{% endif %}></span> {{ index + 1 }}</td>
+       {% if officeType == 'DC' %}
+       <td>{{ copyRequest.office.name }}</td>
+       {% endif %}
+       <td>{% if copyRequest.createdBy.profile is defined %}{{ copyRequest.createdBy.profile.fullNameBn }}{% endif %}</td>
+       <td>{{ copyRequest.subject }}</td>
+       <td>{{ copyRequest.createdAt|date('Y-m-d') }}</td>
+       <td>{{ copyRequest.status|trans }}</td>
+       <td>
+           {% if copyRequest.status == 'REPLIED_NEEDED' %}
+           <div class="width90">
+               <a class="btn blue btn-sm compact-btn"
+                  href="{{ path('porcha_copy_reply', {id: copyRequest.id}) }}"><i class="fa fa-file"></i></a>
+           </div>
+           {% endif %}
+           {% if copyRequest.status == 'REPLIED' %}
+           <div class="width90">
+               <a class="btn blue btn-sm compact-btn"
+                  href="{{ path('porcha_copy_view', {id: copyRequest.id}) }}"><i class="fa fa-file"></i></a>
+           </div>
+           {% endif %}
+       </td>
+   </tr>
+
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="17">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(copyRequests) }}
+</div>

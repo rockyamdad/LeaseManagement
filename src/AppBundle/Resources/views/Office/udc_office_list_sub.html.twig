@@ -1,0 +1,67 @@
+<div class="">
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th><input type="checkbox" id="chk-all" /></th>
+            <th>{{ knp_pagination_sortable(offices, 'Division'|trans, 'dv.name') }}</th>
+            <th>{{ knp_pagination_sortable(offices, 'District'|trans, 'd.name') }}</th>
+            <th>{{ knp_pagination_sortable(offices, 'Office Name'|trans, 'o.name') }}</th>
+            {% if type|upper == 'AC_LAND' %}
+                <th>{{ knp_pagination_sortable(offices, 'Upozila'|trans, 'u.name') }}</th>
+            {% endif %}
+            <th>{{ knp_pagination_sortable(offices, 'Contact Person'|trans, 'o.contactPerson') }}</th>
+            <th>{{ 'Contact Info'|trans }}</th>
+            {% if type|upper != 'UDC' %}
+            <th>{{ 'Record Room In Charge Info'|trans }}</th>
+            {% endif %}
+            <th width="120">{{ knp_pagination_sortable(offices, 'Status'|trans, 'o.active') }}</th>
+            <th width="80"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if offices is not empty %}
+            {% for office in offices %}
+                <tr>
+                    <td><input type="checkbox" class="chk" name="chk[{{ office.id }}]" value="1" /></td>
+                    <td>{{ (office.district.division) ? office.district.division.name : '' }}</td>
+                    <td>{{ (office.district) ? office.district.name : '' }}</td>
+                    <td>{{ office.name }}</td>
+                    {% if type|upper == 'AC_LAND' %}
+                        <td>{{ (office.upozila) ? office.upozila.name : '-' }}</td>
+                    {% endif %}
+                    <td>{{ office.contactPerson }}</td>
+                    <td>{{ office.contactInfo }}</td>
+                    {% if type|upper != 'UDC' %}
+                    <td>{{ office.recordRoomInChargeInfo }}</td>
+                    {% endif %}
+                    <td>
+                        {% if office.active %}
+                            <span class="badge badge-roundless badge-success">{{ 'Active'|trans }}</span>
+                        {% else %}
+                            <span class="badge badge-roundless badge-danger">{{ 'Inactive'|trans }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if type|upper != 'UDC' %}
+                        <a href="{{ (office.type == 'AC_LAND') ? path('update_ac_land_office', {id: office.id}) : path('update_dc_office', {id: office.id}) }}"
+                           class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                        {% endif %}
+                        {% if office.active %}
+                            <a href="{{ path('enable_office', {id: office.id}) }}" class="btn blue btn-sm" title="নিষ্ক্রিয়" onclick="return confirm('{{ 'Are you sure ?'|trans }}')"><i class="fa fa-ban"></i></a>
+                        {% else %}
+                            <a href="{{ path('enable_office', {id: office.id}) }}" class="btn blue btn-sm" title="সক্রিয়" onclick="return confirm('{{ 'Are you sure ?'|trans }}')"><i class="fa fa-check-square-o"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="10">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(offices) }}
+</div>

@@ -1,0 +1,218 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Request Khatian Form'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Request Khatian Form'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Request Khatian Form'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+
+    {{ form_start(form) }}
+    <div class="col-sm-12" id="porcha-request-form" style="margin: auto; float: none">
+            {% include 'flash.html.twig' %}
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Request Khatian Form"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Details of Request Khatian"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body khatian-list">
+                <table class="table" id="khatian-fields-list"
+                       data-prototype="
+                    {% filter escape %}
+                     {{ include('PorchaProcessingBundle:Service/PorchaRequest:_porcha_prototype.html.twig', { 'form': form.detail_entities.vars.prototype }) }}
+                    {% endfilter %}">
+                    <thead>
+                    <tr>
+                        <td>{{ "Survey"|trans }}<span class="required"> * </span></td>
+                        <td>{{ "District"|trans }}<span class="required"> * </span></td>
+                        <td>{{ "Upozila"|trans }}<span class="required"> * </span></td>
+                        <td>{{ "Mouza"|trans }}<span class="required"> * </span></td>
+                        <td width="100">{{ "Jlno"|trans }}</td>
+                        <td width="100">{{ "Khatian No"|trans }}<span class="required"> * </span></td>
+                    </tr>
+                    </thead>
+                    <tbody id="khatian-list">
+                        {% for entity in form.detail_entities %}
+                        <tr>
+                        {{ include('PorchaProcessingBundle:Service/PorchaRequest:_porcha_prototype.html.twig', { 'form': entity }) }}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Applicant Info"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            {{ form_label(form.name) }}
+                            <div class="col-sm-4 applicant-address">{{ form_widget(form.name) }}</div>
+                            {{ form_label(form.contactNumber) }}
+                            <div class="col-sm-4">{{ form_widget(form.contactNumber) }}</div>
+                        </div>
+
+                        <div class="row">
+                            {{ form_label(form.nid) }}
+                            <div class="col-sm-4">{{ form_widget(form.nid) }}</div>
+                            {{ form_label(form.email) }}
+                            <div class="col-sm-4">{{ form_widget(form.email) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portlet-title porcha-address">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Applicant Address"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row applicant-address porcha-address">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-2">{{ form_label(form.district) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.district) }}</div>
+                            <div class="col-sm-2">{{ form_label(form.upozila) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.upozila) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">{{ form_label(form.postalCode) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.postalCode) }}</div>
+                            <div class="col-sm-2">{{ form_label(form.area) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.area) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">{{ form_label(form.roadNo) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.roadNo) }}</div>
+                            <div class="col-sm-2">{{ form_label(form.houseNo) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.houseNo) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">{{ form_label(form.ongoingCare) }}</div>
+                            <div class="col-sm-4">{{ form_widget(form.ongoingCare) }}</div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_label(form.address) }}
+                        {{ form_widget(form.address) }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Payment and delivery Detail"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="row">
+                            <label class="col-sm-6 control-label required" aria-required="true">ডেলিভারি প্রয়োজন</label>
+                            <div class="col-sm-6 radio-btn-container">
+                                {{ form_widget(form.urgency) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-6 control-label required" aria-required="true">ডেলিভারি মাধ্যম</label>
+                            <div class="col-sm-6 radio-btn-container">
+                                {{ form_widget(form.deliveryMethod) }}
+                            </div>
+                        </div>
+
+                        {% if form.estimateDeliveryAt is defined %}
+                            <div class="row">
+                                <label class="col-sm-6 control-label required" aria-required="true">{{ 'Delivery Date'|trans }}</label>
+                                <div class="col-sm-6 radio-btn-container">
+                                    {{ form_widget(form.estimateDeliveryAt) }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="col-sm-6">
+
+                        <table class="table table-bordered price-table" style="margin: auto; width: 50%; display: none">
+                            <tr class="FEE">
+                                <td class="text-right">{{ 'Court Fee'|trans }}</td>
+                                <td class="price">0/=</td>
+                            </tr>
+                            <tr class="DELIVERY">
+                                <td class="text-right">{{ 'Delivery Fee'|trans }} <span class="other-dictrict hide">({{ 'Other District'|trans }})</span></td>
+                                <td class="price">0/=</td>
+                            </tr>
+                            {{ include('PorchaProcessingBundle:Service/PorchaRequest:_additional_fee_block.html.twig') }}
+                            <tr>
+                                <td class="text-right bold">{{ "Total"|trans }}</td>
+                                <td class="total">0/=</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                </div>
+            </div>
+
+            <input type="submit" value="{{ "Save"|trans }}" class="btn green" name="save">
+            {% if mode == 'new' %}<input type="submit" value="{{ "Save and Create New"|trans }}" class="btn green" name="save-and-new">{% endif %}
+        </div>
+    </div>
+    <div class="display-none">{{ form_rest(form) }}</div>
+    {{ form_end(form) }}
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    <script type="text/javascript">
+        var khatianCount = {{ form.detail_entities|length }};
+        var mode = '{{ mode }}';
+        var officeDistrict = '{{ app.user.office.district.id|default() }}';
+        var officeSetting = {{ officeSetting|json_encode|raw }}
+
+    </script>
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/porcha-application.js') }}"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/porcha-application-list.js') }}"></script>
+{% endblock include_javascripts %}
+
+{% block document_ready %}
+    $('.district_selector').trigger('change');
+{% endblock %}

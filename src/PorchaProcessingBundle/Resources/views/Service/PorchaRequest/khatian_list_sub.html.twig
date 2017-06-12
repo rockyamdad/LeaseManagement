@@ -1,0 +1,190 @@
+<div style="overflow-x: auto" >
+<table class="table table-bordered table-striped table-condensed flip-content table-list" style="margin-bottom: 0">
+    <thead>
+    <tr class="uppercase">
+        {% if hide_checkbox is not defined  %}
+            <th><input type="checkbox" id="chk-all" /></th>
+        {% endif %}
+        <th width="20">{{ "Sl No."|trans }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Applicant Mobile'|trans, 'sr.contactNumber') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Copy Type'|trans, 'p.survey.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Upozila'|trans, 'p.upozila.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Mouza'|trans, 'p.mouza.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'J. L'|trans, 'p.jlNo') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Khatian No'|trans, 'p.khatianNo') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Volume No'|trans, '') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Applicatin Date'|trans, '') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Delivery Date'|trans, 'sr.deliveredAt') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Delivery Type'|trans, '') }}</th>
+
+        {% if tab == 'SENT_KHATIANS' %}
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        {% if tab == 'RE_ASSIGNED_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        {% if tab == 'VERIFY_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+        {% endif %}
+        {% if tab == 'COMPARE_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+        {% endif %}
+        {% if tab == 'APPROVE_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        <th>{{ 'Status'|trans }}</th>
+        <th style="width: 200px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if requests is not empty %}
+
+        {% for index, request in requests %}
+        <tr>
+            {% if hide_checkbox is not defined  %}
+                <td><input type="checkbox" class="chk" name="chk[{{ request.khatianLog.id }}]" value="1" /></td>
+            {% endif %}
+            <td>{{ numberBanglaConvert((requests.getCurrentPageNumber - 1) * requests.getItemNumberPerPage + index + 1) }}</td>
+            <td><span{% if request.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ request.serviceRequest.id }}</span></td>
+            <td>{{ request.serviceRequest.name }}</td>
+            <td>{{ request.serviceRequest.contactNumber }}</td>
+            {#<td>{{ request.khatianLog.khatianVersion.khatian.volume.survey.name|trans }}</td>#}
+            <td>{{ request.survey.name }}</td>
+            <td>{{ request.upozila.name }}</td>
+            <td>{{ request.mouza.name }}</td>
+            <td>{{ request.jlNo }}</td>
+            <td>{{ request.khatianNo }}</td>
+            <td>{{ request.khatianLog.khatianVersion.khatian.volume.volumeNo }}</td>
+            <td>{{ request.serviceRequest.createdAt|date('d-m-Y') }}</td>
+            <td>{{ request.serviceRequest.estimateDeliveryAt|date('d-m-Y') }}</td>
+            <td>{{ request.serviceRequest.urgency|default()|trans }}</td>
+
+            {% if tab == 'SENT_KHATIANS' %}
+                <td>{{ request.khatianLog.khatianStatusView }}</td>
+                <td>
+                    {% if (request.khatianLog.verifier) %}
+                        {{ request.khatianLog.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.comparer) %}
+                        {{ request.khatianLog.comparer.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'RE_ASSIGNED_KHATIANS' %}
+                <td>
+                    {% if (request.khatianLog.entryOperator) %}
+                        {{ ((current_user == request.khatianLog.entryOperator) ? 'Self'|trans : request.khatianLog.entryOperator.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.verifier) %}
+                        {{ ((current_user == request.khatianLog.verifier) ? 'Self'|trans : request.khatianLog.verifier.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.comparer) %}
+                        {{ ((current_user == request.khatianLog.comparer) ? 'Self'|trans : request.khatianLog.comparer.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'VERIFY_NEW_KHATIANS' %}
+                <td>
+                    {% if (request.khatianLog.entryOperator) %}
+                        {{ request.khatianLog.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'COMPARE_NEW_KHATIANS' %}
+                <td>
+                    {% if (request.khatianLog.entryOperator) %}
+                        {{ request.khatianLog.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.verifier) %}
+                        {{ request.khatianLog.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'APPROVE_NEW_KHATIANS' %}
+                <td>
+                    {% if (request.khatianLog.entryOperator) %}
+                        {{ request.khatianLog.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.verifier) %}
+                        {{ request.khatianLog.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (request.khatianLog.comparer) %}
+                        {{ request.khatianLog.comparer.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(request.khatianLog.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            <td>{{ request.khatianLog.getKhatianStatusView }}</td>
+            <td style="text-align: left">
+                <div class="btn-group">
+                    {{ menu.render(request.khatianLog)|raw }}
+                </div>
+            </td>
+
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="20">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(requests) }}
+</div>

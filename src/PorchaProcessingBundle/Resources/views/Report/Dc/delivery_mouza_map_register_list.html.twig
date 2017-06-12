@@ -1,0 +1,112 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Service Request'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Service Request'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Mouza map Delivery Register Report'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="dc-delivery-khatian-register-report-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+
+            <div class="portlet light">
+                <div class="portlet-body">
+
+                    <form  id="form-search" class="form-inline no-print" role="form" method="post" action="">
+                        <div class="form-body">
+
+                            <div class="block-group">
+                                <div class="form-group">
+                                        {% if districts is defined %}
+                                            <select class="form-control select2 mo-district input-medium" name="ff[pr.district]" id="district" placeholder = "{{ 'District'|trans }}">
+
+                                                {% for district in districts %}
+                                                    <option value="{{ district.id }}">{{ district.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endif %}
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="text" id="upozila" name="ff[pr.upozila]" class="form-control input-medium mo-upozila" placeholder="{{ 'Upozila'|trans }}" />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" id="mouza" name="ff[pr.mouza]" class="form-control input-medium mo-mouza" placeholder="{{ 'Mouza'|trans }}" />
+                                    </div>
+                                </div><br/><br/>
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <select class="form-control select2 input-medium mo-survey-type" id="surveyType" name="ff[s.type]" placeholder="{{ 'Copy Type'|trans }}" >
+                                            <option value=""></option>
+                                            {% for survey in surveys %}
+                                                <option value="{{ survey.type }}">{{ survey.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input value="" name="rff1[sr.createdAt]" class="form-control date-picker" data-date-format="yyyy-mm-dd" placeholder="{{ "Request Start Date"|trans }}">
+                                </div>
+                                <div class="form-group">
+                                    <input value="" name="rff2[sr.createdAt]" class="form-control date-picker" data-date-format="yyyy-mm-dd" placeholder="{{ "Request End Date"|trans }}">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="button" id="btn-search" value="{{ 'Search'|trans }}" data-url="{{ path('report_dc_mouza_map_delivery_register') }}" class="btn green">
+                                        <input type="button" id="btn-report-print" value="{{ 'Print'|trans }}" class="btn green">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr/>
+
+                    <div class='table-data'>
+                        {% include 'PorchaProcessingBundle:Report/Dc:delivery_mouza_map_register_list_sub.html.twig' %}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+
+    <div class="modal fade" id="request-detail" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('assets/layout3/img/loading-spinner-grey.gif') }}" alt="" class="loading">
+                    <span> &nbsp;&nbsp;Loading... </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type = "text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/dc-report.js') }}" type = "text/javascript"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+<link rel="stylesheet" href="{{ asset('assets/css/khatian-print.css') }}"/>
+{% endblock %}
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init({multipleMouza: false});
+{% endblock %}

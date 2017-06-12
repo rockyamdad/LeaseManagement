@@ -1,0 +1,33 @@
+archive_browse_list:
+    path:     /archive/browse-list
+    defaults: { _controller: PorchaProcessingBundle:Archive:browseList }
+
+archive_search_list:
+    path:     /archive/search-list
+    defaults: { _controller: PorchaProcessingBundle:Archive:searchList }
+
+archive_volume_khatian_list:
+    path:     /archive/volume/{id}/khatian-list
+    defaults: { _controller: PorchaProcessingBundle:Archive:khatianList }
+
+archive_porcha_request_list:
+    path:     /archive/porcha-request
+    defaults: { _controller: PorchaProcessingBundle:Archive:porchaRequestArchiveList }
+
+archive_search_khatian:
+    path:     /archive/search-khatian
+    defaults: { _controller: PorchaProcessingBundle:Archive:khatianSearch }
+    options:
+        expose: true
+
+archived_khatian:
+    path:     /archive/khatian/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Archive:archivedKhatianView }
+    methods: [GET]
+    requirements:
+        id:  \d+
+
+archived_khatian_version:
+    path:     /archive/khatian/{khatianVersion}/version
+    defaults: { _controller: PorchaProcessingBundle:Archive:archivedKhatianVersionView }
+    methods: [GET]

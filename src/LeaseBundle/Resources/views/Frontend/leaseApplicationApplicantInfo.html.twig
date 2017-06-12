@@ -1,0 +1,91 @@
+<td>
+    <fieldset>
+        <legend class="caption-color">আপনার ব্যক্তিগত তথ্যসমূহ
+        </legend>
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">জাতীয় পরিচয় পত্র <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {{ form_widget(form.nid,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.nid)}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">জন্ম তারিখ <span class="require">*</span></label>
+            <div class="col-lg-8">
+                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" >
+                    {#<input type="text" class="form-control" style="width:383px;" readonly>#}
+                    {{ form_widget(form.dob,{'attr':{'class':'date2 form-control','readonly':'on'}}) }}
+                    <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                </div>
+                <span class="help-block validation-style">{{ form_errors(form.dob)}}</span>
+            </div>
+
+
+        </div>
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">নাম <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {#<input type="text" class="form-control" id="firstname">#}
+                {{ form_widget(form.name,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.name)}}</span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">পিতার নাম <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {{ form_widget(form.fatherName,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.fatherName)}}</span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">মাতার নাম <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {{ form_widget(form.motherName,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.motherName)}}</span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">স্বামী বা স্ত্রী নাম</label>
+            <div class="col-lg-8">
+                {{ form_widget(form.spouseName,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.spouseName)}}</span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">লিঙ্গ <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {{ form_widget(form.gender,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.gender)}}</span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">ইমেইল </label>
+            <div class="col-lg-8">
+                {{ form_widget(form.email,{'attr':{'class':'form-control',}}) }}
+                <span class="help-block validation-style">{{ form_errors(form.email)}}</span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label  class="col-lg-4 control-label">ঠিকানা <span class="require">*</span></label>
+            <div class="col-lg-8">
+                {{ form_widget(form.address,{'attr':{'class':'form-control',}}) }}
+
+                <span class="help-block validation-style">{{ form_errors(form.address)}}</span>
+            </div>
+
+        </div>
+
+    </fieldset>
+</td>

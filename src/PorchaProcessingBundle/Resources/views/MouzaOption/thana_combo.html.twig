@@ -1,0 +1,5 @@
+{% if thanas is not empty %}
+    {% for thana in thanas %}
+        <option value="{{ thana.id }}">{{ thana.name }}</option>
+    {% endfor %}
+{% endif %}

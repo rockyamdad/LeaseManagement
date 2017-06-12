@@ -1,0 +1,62 @@
+volume_list:
+    path:     /volume/list
+    defaults: { _controller: PorchaProcessingBundle:Volume:volumeList }
+    options:
+        expose: true
+
+volume_create:
+    path:     /volume/new
+    defaults: { _controller: PorchaProcessingBundle:Volume:updateVolume }
+
+volume_update:
+    path:     /volume/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:Volume:updateVolume }
+
+volume_delete:
+    path:     /volume/{id}/delete
+    defaults: { _controller: PorchaProcessingBundle:Volume:deleteVolume }
+    methods: [GET]
+
+volume_khatian_list:
+    path:     /volume/{id}/khatian-list/{type}
+    defaults:
+        _controller: PorchaProcessingBundle:Volume:khatianList
+        type: 'batch'
+
+volume_no_check:
+    path:     /volume/volume-no-check
+    defaults: { _controller: PorchaProcessingBundle:Volume:checkVolumeNoExists }
+    options:
+        expose: true
+
+volume_khatian_range_check:
+    path:     /volume/khatian-range-check
+    defaults: { _controller: PorchaProcessingBundle:Volume:checkKhatianRange }
+    options:
+        expose: true
+
+volume_no_verify:
+    path:     /volume/volume-no-verify
+    defaults: { _controller: PorchaProcessingBundle:Volume:volumeNoVerify }
+    options:
+        expose: true
+
+volume_khatian_approved:
+    path:     /volume/{id}/approved
+    defaults: { _controller: PorchaProcessingBundle:Volume:approvedVolume }
+
+volume_archive:
+    path:     /volume/{id}/archive
+    defaults: { _controller: PorchaProcessingBundle:Volume:archiveVolume }
+    methods: [POST]
+
+volume_index:
+    path:     /volume/{id}/index
+    defaults: { _controller: PorchaProcessingBundle:Volume:volumeIndex }
+    methods: [GET,POST]
+
+volume_no_entry_khatians:
+    path:     /volume/{id}/khatians/no-entry
+    defaults: { _controller: PorchaProcessingBundle:Volume:noEntryKhatians }
+    options:
+        expose: true

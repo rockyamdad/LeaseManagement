@@ -1,0 +1,38 @@
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th width="20">{{ "Sl No."|trans }}</th>
+        {#<th width="100">{{ 'Volume No'|trans }}</th>#}
+        <th width="100">{{ knp_pagination_sortable(VolumeWiseEntries, 'Volume No'|trans, 'v.canonicalvolumeNo') }}</th>
+        <th width="100">{{ 'Khatian No'|trans }}</th>
+        <th width="100">{{ 'Entry Operator'|trans }}</th>
+        <th width="200">{{  'VERIFICATION'|trans }}</th>
+        <th width="200">{{ 'Comparer'|trans }}</th>
+        <th width="200">{{ 'Approver'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if VolumeWiseEntries is not empty %}
+        {% for index , VolumeWiseEntry in VolumeWiseEntries %}
+            <tr>
+                <td>{{ index + 1 }}</td>
+                <td>{{ VolumeWiseEntry.khatianVersion.khatian.Volume.VolumeNo|default }}</td>
+                <td>{{ VolumeWiseEntry.khatianVersion.khatian.khatianNo }}</td>
+                <td>{{ VolumeWiseEntry.entryOperator|default('N/A') }}</td>
+                <td>{{ VolumeWiseEntry.verifier }}</td>
+                <td>{{ VolumeWiseEntry.comparer }}</td>
+                <td>{{ VolumeWiseEntry.approver }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(VolumeWiseEntries) }}
+</div>

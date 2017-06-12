@@ -1,0 +1,100 @@
+lease_portal:
+    path:     /
+    defaults: { _controller: LeaseBundle:Default:index }
+
+portal_logout:
+    path:     /logout
+    defaults: { _controller: LeaseBundle:Default:logout }
+
+portal_login:
+    path:     /login
+    defaults: { _controller: LeaseBundle:Default:login }
+
+portal_registration:
+    path:     /registation
+    defaults: { _controller: LeaseBundle:Default:registration }
+
+portal_profile:
+     path:    /profile/{phoneNumber}
+     defaults: { _controller: LeaseBundle:Default:profile }
+
+portal_profile_edit:
+     path:    /profile_edit/{phoneNumber}
+     defaults: { _controller: LeaseBundle:Default:profileEdit }
+
+portal_forget_password:
+     path:    /forget_password
+     defaults: { _controller: LeaseBundle:Default:forgetPassword }
+
+portal_forget_password_verification:
+     path:    /forget_password_verification/{phoneNumber}
+     defaults: { _controller: LeaseBundle:Default:forgetPasswordVerification }
+
+portal_password_change:
+     path:    /password_change/{phoneNumber}
+     defaults: { _controller: LeaseBundle:Default:passwordChange }
+
+water_body_lease_list_for_apply:
+    path:     /water-body-lease-list
+    defaults: { _controller: LeaseBundle:Default:waterLeaseForApply }
+
+market_body_lease_list_for_apply:
+    path:     /market-body-lease-list
+    defaults: { _controller: LeaseBundle:Default:marketLeaseForApply }
+
+gadget_lease_list_for_apply:
+    path:     /gadget-lease-list
+    defaults: { _controller: LeaseBundle:Default:gadgetLeaseForApply }
+
+citizen_lease_apply:
+    path:     /lease/application/{id}/{type}
+    defaults: { _controller: LeaseBundle:Default:leaseApply }
+
+citizen_lease_application_status_check:
+    path:     /application/status_check
+    defaults: { _controller: LeaseBundle:Default:leaseApplicationStatusCheck }
+
+citizen_lease_renew_check:
+    path:     /citizen_lease_renew/check
+    defaults: { _controller: LeaseBundle:Default:citizenLeaseRenewCheck }
+
+citizen_lease_renew_application:
+    path:     /citizen_lease_renew/application/{application}
+    defaults: { _controller: LeaseBundle:Default:citizenLeaseRenewApplication }
+
+lease_details:
+    path:     /lease/{lease}
+    defaults: { _controller: LeaseBundle:Default:leaseDetails }
+
+gadget_details:
+    path:     /gadget/{gadget}
+    defaults: { _controller: LeaseBundle:Default:gadgetDetails }
+
+lease_search:
+    path:     /lease-search
+    defaults: { _controller: LeaseBundle:Default:leaseSearch }
+
+portal_porcha_search:
+    path:     /porcha-search
+    defaults: { _controller: LeaseBundle:Default:portalPorchaSearch }
+
+portal_khatian_show:
+    path:     /khatian/{id}
+    defaults: { _controller: LeaseBundle:Default:khatianShow }
+    methods: [GET]
+
+portal_contact_us:
+    path:     /contactUs
+    defaults: { _controller: LeaseBundle:Default:contactUs }
+
+portal_phoneNumber_verification_code_send:
+    path:     /verification/code_send
+    defaults: { _controller: LeaseBundle:Default:phoneNumberVerificationCodeSend }
+    options:
+        expose: true
+
+portal_phoneNumber_verification_code_confirmation:
+    path:     /code_confirmation
+    defaults: { _controller: LeaseBundle:Default:phoneNumberVerificationCodeConfirmation }
+    options:
+        expose: true

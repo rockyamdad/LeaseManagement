@@ -1,0 +1,120 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ 'Create Staff'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Create Staff'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('users_list_all') }}">{{ 'Users'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+
+        <div class="col-md-8 col-sm-12">
+
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Create new staff'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" role="form" method="post" action="{{ form_action }}" novalidate="novalidate">
+                        <div class="form-body">
+
+                            {% if form_errors(form) is not empty %}
+                            <div class="alert alert-danger">
+                                <h3>Please fix the following errors</h3>
+                                {{ form_errors(form) }}
+                            </div>
+                            {% endif %}
+
+                            <div class="form-group {% if form_errors(form.firstName) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">{{ 'First Name'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.firstName) }}
+                                    <span class="help-block">{{ form_errors(form.firstName) }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if form_errors(form.lastName) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">{{ 'Last Name'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.lastName) }}
+                                    <span class="help-block">{{ form_errors(form.lastName) }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if form_errors(form.username) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">{{ 'Username'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.username) }}
+                                    <span class="help-block">{{ form_errors(form.username) }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if form_errors(form.plainPassword.first) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">{{ 'Password'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.plainPassword.first) }}
+                                    <span class="help-block">{{ form_errors(form.plainPassword.first) }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if form_errors(form.plainPassword.second) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">{{ 'Confirm Password'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.plainPassword.second) }}
+                                    <span class="help-block">{{ form_errors(form.plainPassword.second) }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'User Type'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <label><input type="radio" class="icheck" name="user_type" value="dc_admin">{{ 'DC Admin'|trans }} </label><br>
+                                        <label><input type="radio" class="icheck" name="user_type" value="front_desk_staff" checked>{{ 'Front Desk Staff'|trans }} </label><br>
+                                        <label><input type="radio" class="icheck" name="user_type" value="verifier">{{ 'Verifier'|trans }} </label><br>
+                                        <label><input type="radio" class="icheck" name="user_type" value="comparator">{{ 'Comparer'|trans }} </label><br>
+                                        <label><input type="radio" class="icheck" name="user_type" value="udc_operator">{{ 'UDC Operator'|trans }} </label><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn green">{{ 'Create User' }}</button>
+                                    <a class="btn default" href="{{ path('users_list_all') }}">{{ 'Cancel'|trans }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+

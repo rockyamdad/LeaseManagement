@@ -1,0 +1,48 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'No.'|trans }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Upozila'|trans ~ '/' ~ 'Thana'|trans, 'v.upozila') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Mouza'|trans, 'k.mouza') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'J. L. No'|trans, 'k.jlnumber') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Khatian No'|trans, 'k.khatianNo') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Survey'|trans, 'v.survey') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Volume No'|trans, 'v.name') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Status'|trans, 'kl.khatianStatus') }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if khatianLogs is not empty %}
+        {% set sl = 1 %}
+        {% for log in khatianLogs %}
+            <tr>
+                <td>{{ numberBanglaConvert(sl) }}</td>
+                <td>{{ log.khatianVersion.khatian.volume.upozila.name }}</td>
+                <td>{{ log.khatianVersion.khatian.mouza.name }}</td>
+                <td>{{ log.khatianVersion.khatian.jlnumber.name }}</td>
+                <td>{{ log.khatianVersion.khatian.khatianNo }}</td>
+                <td>{{ log.khatianVersion.khatian.volume.survey.name }}</td>
+                <td>{{ log.khatianVersion.khatian.volume.volumeNo }}</td>
+                <td>{{ log.khatianStatusView|trans }}</td>
+                <td><a href="{{ path('khatian_pages', {id: log.id}) }}">{{ 'View'|trans }}</a></td>
+                {% set sl = sl + 1 %}
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+{% if (khatianLogs.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ khatianLogs.getTotalItemCount }}
+    </div>
+{% endif %}
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(khatianLogs) }}
+</div>

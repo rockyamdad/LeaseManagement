@@ -1,0 +1,13 @@
+<td>{{ form_widget(form.survey) }}</td>
+<td>{{ form_widget(form.district) }}</td>
+<td>{{ form_widget(form.upozila) }}</td>
+<td>{{ form_widget(form.mouza) }}</td>
+<td>{{ form_widget(form.jlNo) }}</td>
+{% if form.khatianNo is defined %}
+<td>{{ form_widget(form.khatianNo) }}</td>
+{% endif %}
+
+{% if form.dagNo is defined %}
+    <td>{{ form_widget(form.sheetNo) }}</td>
+    <td>{{ form_widget(form.dagNo) }}</td>
+{% endif %}

@@ -1,0 +1,90 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    {% if applications is not empty %}
+        {% if applications[0].lease is defined %}
+        <tr class="uppercase">
+            <th>{{  'SL. NO'|trans  }}</th>
+            {% if applications[0].lease.type == 'Market'  %}
+                <th>{{  'Market Body'|trans }}</th>
+            {% else %}
+                <th>{{  'Lease Type'|trans }}</th>
+            {% endif %}
+            <th>{{  'Applicant Name'|trans}}</th>
+            <th>{{  'Application Tracking Id'|trans}}</th>
+            <th>{{  'Status'|trans}}</th>
+            <th width="220"></th>
+        </tr>
+        {% endif %}
+    {% endif %}
+    </thead>
+    <tbody>
+    {% if applications is not empty %}
+        {% for index,application in applications %}
+            <tr>
+                <td>{{ ((applications.getCurrentPageNumber - 1) * applications.getItemNumberPerPage + index + 1)|numberBanglaConvert }}</td>
+                {% if application.lease.type == 'Market'  %}
+                    <td>{{ application.lease.marketDetail.market.marketName }}</td>
+                {% else %}
+                    <td>{{ application.lease.Bntype }}</td>
+                {% endif %}
+                <td>
+                    {{ application.applicant.name }}
+                </td>
+                <td>
+                    {% if application.applicationTrackingId %}
+                       {{  application.applicationTrackingId }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (application.status == 'PENDING') %}
+                        <span class="label label-primary">{{ 'Pending'|trans }}</span>
+                    {% elseif(application.status == 'WAITING_FOR_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% elseif(application.status == 'APPROVED') %}
+                        <span class="label label-success">{{ 'Approved'|trans }}</span>
+                    {% elseif(application.status == 'CORRECTION') %}
+                        <span class="label label-success">{{ 'Correction'|trans }}</span>
+                    {% else%}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if is_granted('ROLE_APPLICATION_VIEW') %}
+                        <a href="{{ path('lease_application_view', {'id': application.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                    <a href="{{ path('lease_view', {'id': application.lease.id}) }}" class="btn btn-lg"  title="{{ 'Lease'|trans }} {{ 'View'|trans }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="{{ path('lease_application_print_view', {'id': application.id}) }}" class="btn btn-lg"  title="{{ 'Application'|trans }} {{ 'View'|trans }}">
+                        <i class="fa fa-print"></i>
+                    </a>
+                    {% if (application.status == 'APPROVED' and application.lease.checkRegisterForMarket == 0 and application.lease.type == 'Market') and (is_granted('ROLE_ASSIGN_LEASE_CREATE'))  %}
+                        <a href="{{ path('lease_assign_create', {'id': application.id}) }}" class="btn green btn-sm"  title="{{ 'Lease assign'|trans }}">
+                            {{ 'Lease assign Market'|trans }}
+                        </a>
+                    {% endif %}
+
+                    {% if (application.status == 'APPROVED'  and application.lease.checkRegisterForWater == 0 and  application.lease.type == 'WaterBody')  and (is_granted('ROLE_ASSIGN_LEASE_CREATE'))  %}
+                        <a href="{{ path('lease_assign_create', {'id': application.id}) }}" class="btn green btn-sm"  title="{{ 'Lease assign'|trans }}">
+                            {{ 'Lease assign'|trans }}
+                        </a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(applications) }}
+</div>

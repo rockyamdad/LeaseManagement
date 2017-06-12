@@ -1,0 +1,1010 @@
+ELRS: ই এল আর এস
+DRR: ডি আর আর
+Digital Record Room: ডিজিটাল রেকর্ড রুম
+Welcome: ধন্যবাদ
+Survey: সার্ভে
+District: জেলা
+Districts: জেলাসমূহ
+List of Districts: জেলার তালিকা
+List of Division: বিভাগ তালিকা
+Upozila: উপজেলা
+Upozilas: উপজেলাসমূহ
+List of Upozilas: উপজেলার তালিকা
+Thana: থানা
+Thanas: থানাসমূহ
+List of Thanas: থানার তালিকা
+Mouza: মৌজা
+Mouzas: মৌজাসমূহ
+List of Mouza: মৌজা তালিকা
+Jlno: জে .এল. নং
+J. L. No: জে .এল. নং
+J. L: জে .এল
+No.: নং
+No: না
+List of J. L. No: জে .এল. নং তালিকা
+Pargona: পরগনা
+
+'Original Owner Name': মূল মালিকের নাম
+'Case File Number': কেস ফাইল নম্বর
+'Govt Aquired Date': সরকার অর্জিত তারিখ
+'Property Amount': সম্পত্তি পরিমাণ
+'Property Type': সম্পত্তির প্রকার
+'Khatian Information': খতিয়ান তথ্য
+'Gadget Information': গ্যাজেট তথ্য
+'Lease Information': লিজের তথ্য
+
+Office: অফিস
+Office.list: অফিস লিস্টলিস্ট
+Office.name: অফিসের নাম
+Office.type: অফিসের প্রকার
+
+'Lease': লিজ
+'Lease view': লিজ বিবরণ
+'Lease Of List': লিজ তালিকা
+'Market List': মার্কেট তালিকা
+'Market Create': মার্কেট তৈরী
+'Lease Create': তৈরী
+'Previous Lease Create': পুরানো  লিজ তৈরী
+'Lease Start Date': শুরু তারিখ
+'Lease End Date': শেষ তারিখ
+'Shotangso': শতাংশ
+'Remarks': মন্তব্য
+'attach dagNo': দাগ নং যুক্ত
+'Khatian dag No': খতিয়ান দাগ নং
+'Total Amount': সর্বমোট পরিমাণ
+'Proposed Amount': প্রস্তাবিত পরিমাণ
+'List of Lease': লিজ তালিকা
+'Fiscal Year': অর্থ বছর
+'Amount': পরিমান
+'Shop No': দোকান নং
+
+'Resulation Copy': রেসুলেশন কপি
+'National Id': জাতীয় পরিচয় পত্র
+'Nibondhon Copy': নিবন্ধন কপি
+'Audit Copy': অডিট কপি
+'Trade License': ট্রেড লাইসেন্স
+
+'Lease Type': লিজ প্রকার
+'Lease Update': লিজ আপডেট
+'Gadget Update': গ্যাজেট আপডেট
+'Khatian Information Add': খতিয়ান তথ্য যোগ করুন
+'Applicant Information Add': আবেদনকারীর তথ্য যোগ করুন
+'Waiting Lease List': অনুমোদনের অপেক্ষায় পুরানো লিজ তালিকা
+'Waiting for approval lease list': পুনঃনিবন্ধন  অনুমোদনের অপেক্ষায় লিজ তালিকা
+'Direct Application': সরাসরি আবেদন তৈরী
+'Application':  আবেদন
+'Application Detail':  আবেদন বিবরণ
+'Current List of Lease':  পুরানো লিজ তালিকা
+'Water Body':  জল মহল
+'Market Body':  হাট বাজার
+'Private Document':  প্রাইভেট ডকুমেন্ট
+'Public Document':  পাবলিক  ডকুমেন্ট
+
+List of Gadget: গ্যাজেটের তালিকা
+Leasee Name: লিজির নাম
+Keranigonj Record Room: উপজেলা পর্যায়ে ভূমি ইজারা ও ব্যবস্থাপনা
+
+Lease assign: কিস্তি গ্রহণ
+Lease assign Market: লিজ প্রদান
+List of Assign Lease: প্রদানিত লিজের তালিকা
+Demand Fee: দাবির টাকা
+chalanNo: চালান নং
+nothiNo: নথি নং
+bank: ব্যাংক
+branch: ব্রাঞ্চ
+chalanDate: চালান তারিখ
+chalanAmount: চালান পরিমান
+paymentDate: পরিশোধের তারিখ
+paymentAmount: পরিশোধিত অর্থ
+paymentChalanNo: পরিশোধিত চালান নং
+Lease Assign Status: প্রদানের অবস্থা
+Send_for_approval: প্রদানের অবস্থা
+Application View: আবেদন দেখুন
+Register View: রেজিস্টার দেখুন
+Correction: সংশোধন প্রয়োজন
+Gadget: গ্যাজেট
+Gadget List: গ্যাজেট তালিকা
+Gadget View: গ্যাজেট বিবরণ
+Gadget Deatils Info: গ্যাজেটের বিস্তারিত  বিবরণ
+Renew: পুনঃনিবন্ধন
+Gadget Khatian Info: খতিয়ানের বিবরণ
+Gadget Renew: গ্যাজেট পুনঃনিবন্ধন
+Add To Portal: পোর্টালে যোগ করুন
+Running List: চলতি গ্যাজেট তালিকা
+Lease Running List: অনুমোদিত  লিজ তালিকা
+Wating For Terminate Lease List: লিজ বাতিলের অপেক্ষায় তালিকা
+List of Gadget  Application: গ্যাজেট আবেদন তালিকা
+apply for lease: আবেদন করুন
+Running Lease Create: পুরানো লিজ তৈরী
+Market: মার্কেট
+
+'Lease Application': লিজ আবেদন
+'Order Sheet': অর্ডার শিট
+'Order Sheet view': অর্ডার শিট দেখুন
+'List of Lease Application': আবেদন তালিকা
+'Applicant Name': আবেদনকারীর নাম
+'Application Tracking Id': আবেদন ট্র্যাকিং আইডি
+'Applicant View': আবেদন বিবরণ
+'Waiting for approval': অনুমোদনের  অপেক্ষায়
+'Pending': অপেক্ষমান
+'Khatian view': খতিয়ান দেখুন
+'Father Name': পিতার নাম
+'Mother Name': মাতার  নাম
+'Spouse Name': স্বামী বা স্ত্রী এর নাম
+'Send to approval': অনুমোদনের জন্য পাঠান
+'Lease Status Change': লিজের স্ট্যাটাস পরিবর্তন
+'SA Khatian No': এসএ খতিয়ান নং
+'RS Khatian No': আরএস খতিয়ান নং
+'SA Khatian Dag No': এসএ খতিয়ান দাগ নং
+'RS Khatian Dag No': আরএস খতিয়ান দাগ নং
+
+Print: প্রিন্ট করুন
+Back: পিছনে
+Save: সংরক্ষণ করুন
+View: দেখুন
+Edit: সম্পাদনা
+Delete: মুছে ফেলুন
+Deleted: মুছে ফেলুন
+Create: তৈরি
+Submit: সংরক্ষণ করুন
+Cancel: বাদ দিন
+Close: বন্ধ করুন
+Add: নতুন
+New: নতুন
+Update: আপডেট
+new.office.create: নতুন অফিস তৈরি
+Offices: অফিসসমূহ
+Search: অনুসন্ধান
+Template: টেমপ্লেট
+Volume: ভলিউম
+Volumes: ভলিউমসমূহ
+Khatian: খতিয়ান
+Login: লগইন
+Logout: লগআউট
+List: তালিকা
+Dashboard: ড্যাশবোর্ড
+Home: হোম
+'Office User': অফিস ইউজার
+
+'Survey Name': সার্ভে নাম
+'Template Name': টেমপ্লেট নাম
+'Approved': অনুমোদিত
+'Name': নাম
+'All Templates': সব টেমপ্লেট
+'List of Templates': টেমপ্লেট তালিকা
+'Create New': নতুন তৈরি
+'Volume No': ভলিউম নং
+'No of Khatians': খতিয়ান সংখ্যা
+'Khatian Entry': খতিয়ান তৈরি
+'All Khatians': সব খতিয়ান
+'New Khatian': নতুন খতিয়ান
+'View Khatian': খতিয়ান দেখুন
+'Edit Khatian': খতিয়ান সম্পাদনা
+'Khatian No': খতিয়ান নং
+'List of Khatians': খতিয়ান তালিকা
+'Khatians': খতিয়ানসমূহ
+'List of Volumes': ভলিউম তালিকা
+
+'Welcome to DC Office': ডিসি অফিসে স্বাগতম
+'Welcome general dashboard': স্বাগতম সাধারণ ড্যাশবোর্ড
+'Welcome to the Ministry of dashboard': মন্ত্রণালয় ড্যাশবোর্ডে স্বাগতম
+'AC Land Office': এসি ল্যান্ড অফিস
+'Welcome to AC Land Office': এসি ল্যান্ড অফিসে স্বাগতম
+
+'Create DC Office': ডিসি অফিস তৈরি
+'DC Office': ডিসি অফিস
+'UNO Office': ইউ এন ও  অফিস
+'Khatian Templates': খতিয়ান টেমপ্লেট
+'Khatian Entry Template': খতিয়ান এণ্ট্রি টেমপ্লেট
+'Survey Name': জরিপ নাম
+'Template Name': টেমপ্লেট নাম
+'Preview Template': প্রিভিউ  টেমপ্লেট
+'Yes': হাঁ
+'No': না
+'Select': নির্বাচন করুণ
+'Unset from my Office': অফিস থেকে বাদ
+'Set for my Office': অফিস এর জন্য নির্ধারণ
+'Nothing to preview': প্রিভিউতে  কোনো   কিছুই নেই
+'Nothing to view': ভিউতে  কোনো   কিছুই নেই
+'No record found': কোন  রেকর্ড পাওয়া যায়নি
+'Additional Pages': অতিরিক্ত পেজ
+'Additional Template': অতিরিক্ত টেমপ্লেট
+'Last Khatian No': সর্বশেষ খতিয়ান নম্বর
+'Sub Khatian Nos': সাব খতিয়ান সংখ্যাসমূহ
+'Missing Khatian Nos': ছুট খতিয়ান নম্বরসমূহ
+'Khatian List': খতিয়ান তালিকা
+
+'Draft Khatians': খসড়া  খতিয়ানসমূহ
+'Sent Khatians': পাঠানো  খতিয়ানসমূহ
+'Correction Required': সংশোধন  প্রয়োজন
+'Correction Message': সংশোধনী  বার্তা
+'Write Correction Message': সংশোধনী  বার্তা লিখুন
+'Verify New Khatians': যাচাইয়ের  অপেক্ষায় নতুন খতিয়ানসমূহ
+'Re-Verify Khatians': পুনঃ যাচাইয়ের অপেক্ষায় খতিয়ানসমূহ
+'Re-Verify': পুনঃ যাচাই
+'Re-Verification': পুনঃ যাচাই
+'Compare New Khatians': তুলনার অপেক্ষায় নতুন খতিয়ানসমূহ
+'Re-Compare Khatians': পুনঃ তুলনার অপেক্ষায় খতিয়ানসমূহ
+'Re-Compare': পুনঃ তুলনা
+'Re-Comparison': পুনঃ তুলনা
+'Approve New Khatians': অনুমোদনের  অপেক্ষায় নতুন খতিয়ানসমূহ
+'Re-Approve Khatians': পুনঃ অনুমোদনের  অপেক্ষায় খতিয়ানসমূহ
+'Re-Approve': পুনঃ  অনুমোদন
+'Approved Khatians': অনুমোদিত  খতিয়ানসমূহ
+'Approver': অনুমোদনকারী
+'Import': ইম্পোর্ট
+'Import CSV file': ইম্পোর্ট  সি. এস. ভি ফাইল
+'Pages': পাতাসমূহ
+'Khatian Pages': খতিয়ান পাতাসমূহ
+'Message': বার্তা
+'Entry Complete': এণ্ট্রি সম্পূর্ণ
+'Forward': পরবর্তী ধাপে প্রেরণ
+'Khatian Forwarded': খতিয়ান পরবর্তী ধাপে প্রেরণ হয়েছে
+'Master Fields': মাস্টার ফিল্ডস
+'Master Field list': মাস্টার ফিল্ড তালিকা
+'PAGE1': প্রথম পাতা
+'PAGE1_ADDITIONAL': ইজা পাতা
+'PAGE1_ADDITIONAL >>': ইজা পাতা >>
+'PAGE2': দ্বিতীয় পাতা
+'PAGE2_ADDITIONAL': ইজা পাতা
+'PAGE2_ADDITIONAL >>': ইজা পাতা >>
+'Save As Draft': খসড়া সংরক্ষণ
+
+'Sign In': লগইন করুন
+'User': ব্যবহারকারী
+'Users': ব্যবহারকারী
+'User Details': ব্যবহারকারীর বিবরণ
+'Profile': প্রোফাইল
+'My Profile': আমার প্রোফাইল
+'My ': আমার
+'Username': ব্যবহারকারীর নাম
+'Email': ইমেইল
+'Username': ব্যবহারকারীর নাম
+'Password': পাসওয়ার্ড
+'Confirm Password': পাসওয়ার্ড নিশ্চিত করুন
+'Full Name': সম্পূর্ণ নাম
+'First Name': নামের প্রথম অংশ
+'Last Name': নামের শেষ অংশ
+'Photo': ফটো
+'Address': ঠিকানা
+'Cellphone': মুঠোফোন
+'Designation': পদবী
+'Groups': গ্রুপ
+'Role': রোল
+'Roles': রোলসমূহ
+'List of Roles': রোল  তালিকা
+'Create New Role': নতুন রোল  তৈরি
+'Enable': আবেদন যোগ্য
+'Disable': নিষ্ক্রিয়
+'Suspend': স্থগিত
+'Assigned': বরাদ্ধ কৃত
+'List of User': ব্যবহারকারীর তালিকা
+'Create New User': নতুন ব্যবহারকারী তৈরি
+'Create User': ব্যবহারকারী তৈরি
+'User update': ব্যবহারকারী আপডেট
+'User Profile Information': ব্যবহারকারী প্রোফাইল তথ্য
+'User Login Information': ব্যবহারকারী লগ-ইন তথ্য
+'User Email Information': ব্যবহারকারী ইমেইল তথ্য
+'User password change': ব্যবহারকারী পাসওয়ার্ড পরিবর্তন
+'Password Change': পাসওয়ার্ড পরিবর্তন
+'User Password Reset': ব্যবহারকারী পাসওয়ার্ডের পুনঃস্থাপন
+'Enter username and password': ব্যবহারকারীর নাম ও পাসওয়ার্ড লিখুন
+'Remember': মনে রাখুন
+'Forgot Password': পাসওয়ার্ড ভুলে গেছেন
+'User Type': ব্যবহারকারীর ধরন
+'Error': ভুল
+'Success': সাফল্য
+'Logged in as ': 'লগইন করেছে '
+'All Rights Reserved': সর্বস্বত্ব সংরক্ষিত
+'Browse': ব্রাউজ করুন
+'No matches found': কোনো মিল খুঁজে পাওয়া যায়নি
+
+'Create Staff': স্টাফ তৈরি
+'Update Staff': স্টাফ আপডেট
+'Create new staff': নতুন স্টাফ তৈরি
+
+'Please fix the following errors': নিম্নলিখিত ত্রুটি ঠিক করুন
+'Back to List': তালিকাতে ফিরুন
+'2015': ২০১৫
+
+'Office Name': অফিসের নাম
+'Create Office': অফিস তৈরি
+'Update Office': অফিস আপডেট
+'Create New Office': নতুন অফিস তৈরি
+'Office Type': অফিসের ধরন
+
+'Admin': এডমিন
+'DC Admin': ডিসি এডমিন
+'DC Offices': ডিসি অফিসসমূহ
+'DC Portal': ডিসি পোর্টাল
+'Name of DC': ডিসি অফিসের নাম
+'Front Desk Staff': ফ্রন্ট ডেস্কের স্টাফ
+'Entry Operator': এন্ট্রিকারী
+'Verifier': যাচাইকারী
+'Comparer': তুলনাকারী
+'UDC Operator': ইউ ডি সি অপারেটর
+'Self': নিজ
+'N/A': পাওয়া যাইনি
+'Archive': আর্কাইভ
+'Mouza Option': মৌজা  অপশন
+'User Information': বাবহারকারির তথ্য
+'Khatian Statistics': খতিয়ান তথ্য
+'DRAFT': খসড়া
+'READY_FOR_VERIFICATION': যাচাইয়ের  অপেক্ষায়
+'READY_FOR_COMPARISON': তুলনার অপেক্ষায়
+'READY_FOR_APPROVAL': অনুমোদনের  অপেক্ষায়
+'APPROVED': অনুমোদিত
+'CORRECTION_REQUIRED': সংশোধন  প্রয়োজন
+'ARCHIVED': আর্কাইভ
+'Template First Page': টেমপ্লেট প্রথম পাতা
+'Additional Page': ইজা পাতা
+'Template Second Page': টেমপ্লেট দ্বিতীয় পাতা
+'First Page': প্রথম পাতা
+'Second Page': দ্বিতীয় পাতা
+'1st page': ১ম পাতা
+'2nd page': ২য় পাতা
+'Approved Khatian Count': অনুমোদিত  খতিয়ান সংখ্যা
+'Create Additional Page': ইজা পাতা তৈরি
+'Page1 Additional Page': ১ম পাতার ইজা পাতা
+'Page2 Additional Page': ২য় পাতার ইজা পাতা
+'Title of additional fee 1': অন্যান্য ফি(১) এর শিরোনাম
+'Title of additional fee 2': অন্যান্য ফি(২) এর শিরোনাম
+'Title of additional fee 3': অন্যান্য ফি(৩) এর শিরোনাম
+'Second Page': দ্বিতীয় পাতা
+'Forward & New Entry': পরবর্তী ধাপে প্রেরণ ও নতুন এন্ট্রি
+'District Controller Office': জেলা প্রশাসকের কার্যালয়
+'Logged in as': হিসাবে লগইন করেছেন
+'Preview': পূর্বরূপ দেখুন
+'Khatian List (Ready for Verification)': খতিয়ান তালিকা (যাচাইয়ের  অপেক্ষায়)
+'Khatian List (Ready for Compararison': খতিয়ান তালিকা (তুলনার অপেক্ষায়)
+'Khatian List (Ready for Approval)': খতিয়ান তালিকা (অনুমোদনের  অপেক্ষায়)
+'Volume added': ভলিউম তৈরি হয়েছে
+'Volume updated': ভলিউম আপডেট হয়েছে
+'All Rights Reserved': 'All Rights Reserved'
+'Error': ভুল
+'Khatian Saved': খতিয়ান সংরক্ষিত হয়েছে
+'Khatian sent for verification': খতিয়ান যাচাইয়ের জন্য প্রেরিত হয়েছে
+'Page deleted': পাতাটি মুছা হয়েছে
+'Delete Page': পাতাটি মুছে ফেলুন 
+'Page not deleted': পাতাটি মুছা হইনি
+'Not allowed': অনুমতি নেই
+'Khatian deleted': খতিয়ান মুছা হয়েছে
+'Khatian not deleted': খতিয়ান মুছা হইনি
+'Khatian page created': খতিয়ান পাতা তৈরি হয়েছে
+'Khatian page already created': খতিয়ান পাতাটি  ইতিমধ্যে তৈরি হয়েছে
+'Khatian sent back to entry operator': খতিয়ান এন্ত্রিকারীর কাছে পাঠানো  হয়েছে
+'Khatian has moved to draft': খতিয়ান খসড়াতে প্রেরিত হয়েছে
+'Khatian can not move now': খতিয়ানটি সরানো  সম্ভব না
+'J. L. No added': জে .এল. নং যুক্ত হয়েছে
+'J. L. No Updated': জে .এল. নং আপডেট হয়েছে
+'Data imported': ''
+'Mouza added': মৌজা  যুক্ত হয়েছে
+'Mouza updated': মৌজা  আপডেট হয়েছে
+'Mouza Deleted': ''
+'District added': ''
+'Division added': ''
+'Upozila added': উপজেলা  যুক্ত হয়েছে
+'Upozila updated': উপজেলা  আপডেট হয়েছে
+'Thana added': থানা যুক্ত হয়েছে
+'Thana updated': থানা আপডেট  হয়েছে
+'All Templates': ''
+'My Office Templates': ''
+'Template set for your Office': টেমপ্লেট অফিসের জন্য নির্ধারিত হয়েছে
+'Template unset for your Office': টেমপ্লেট অফিস থেকে বাদ দেওয়া হয়েছে
+'Template not set for your Office': টেমপ্লেট অফিসের জন্য নির্ধারিত হয়নি
+'User Created Successfully!': ব্যবহারকারী তৈরি হয়েছে
+'User Updated Successfully!': ব্যবহারকারী সম্পাদিত হয়েছে
+'Password Successfully Change': পাসওয়ার্ড পরিবর্তিত হয়েছে
+'User Successfully Enable': ব্যবহারকারী সক্রিয় হয়েছে
+'User Successfully Disable': ব্যবহারকারী নিষ্ক্রিয় হয়েছে
+'User Successfully Delete': ব্যবহারকারী মুছে ফেলা হয়েছে
+'Password changed successfully!': পাসওয়ার্ড পরিবর্তিত হয়েছে
+
+'Old password incorrect! Password not changed.': ''
+'Group Created Successfully!': ''
+'Group Update Successfully!': ''
+'Group Deleted Successfully!': ''
+'Invalid credentials.': ব্যবহারকারীর নাম/পাসওয়ার্ড
+'New template created': নতুন টেমপ্লেট তৈরি হয়েছে
+'Template updated': টেমপ্লেট আপডেট  হয়েছে
+'deleted': মুছে ফেলুন
+'Full name en': পুরো  নাম ইংরেজিতে
+'Full name bn': পুরো  নাম
+'Nid': জাতীয় পরিচয়পত্র নং
+'Gender': লিঙ্গ
+'Male': পুরুষ
+'Female': নারী
+form.username: ইউজারনেম
+'User Image': ব্যবহারকারীর ছবি
+'User Signature': ব্যবহারকারীর স্বাক্ষর
+'CS': সি এস
+'SA': এস এ
+'RS': আর এস
+'Geocode': জি ও কোড
+'or': অথবা
+'Archived Volume List': আর্কাইভের ভলিউম তালিকা
+'non delivery remark': অপ্রদান এর কারন
+'This Khatian is non deliveral': এই খতিয়ানটি প্রদানযোগ্য নয়
+'ENTRY': এন্ট্রি
+'VERIFICATION': যাছাইকারী
+'COMPARISON' : তুলনা
+'ARCHIVE': আর্কাইভ
+'Today': আজ
+'Yesterday': গতকাল
+'Total till today': আজ পর্যন্ত মোট
+'Khatian Count': খতিয়ান সংখ্যা
+'Access denied': প্রবেশাধিকার সংরক্ষিত
+'Access denied at this page considering your role group': আপনার বাবহারকারি গ্রুপ বিবেচনায় রেখে এই পাতাটিতে প্রবেশ করান সম্ভব হচ্ছে না ।
+'Not Found': পাওয়া যাচ্ছে না
+'This page is not found': এই পাতাটি পাওয়া যাচ্ছে না ।
+'Unexpected Error': অনাকাঙ্ক্ষিত ত্রুটি
+'Sorry for Unexpected Error': অনাকাঙ্ক্ষিত ত্রুটির জন্য দুঃখিত । অনুগ্রহপূর্বক সিস্টেম এডমিনের সাথে যোগাযোগ   করুন ।
+'Volume can not be deleted': ভলিউমটি মুছে ফেলা সম্ভব নয়
+'Volume deleted': ভলিউমটি মুছে ফেলা   হয়েছে
+'This volume No already exists': এই ভলিউম নং উপস্থিত
+'Khatian No exists': খতিয়ান নং উপস্থিত
+'Are you sure ?': আপনি কি নিশ্চিত ?
+'Template Type': টেমপ্লেট প্রকৃতি
+'Khatian Archived': খতিয়ানটি আর্কাইভকৃত হয়েছে
+'Archived Khatian Search': আর্কাইভকৃত খাতিয়ান অনুসন্ধান
+'Not Approved': অনুমোদিত নয়
+'Upozila or Thana Name': উপজেলা বা থানা নাম
+'Volume archived': ভলিউমটি আর্কাইভকৃত হয়েছে
+'Volume not archived': ভলিউমটি আর্কাইভকৃত হয়নি
+'Archive volume': আর্কাইভ ভলিউম
+'Create new volume': নতুন ভলিউম তৈরি
+'NON_DELIVERABLE': প্রদানযোগ্য নয়
+'ENTRY_RESTRICTED': প্রবেশাধিকার সীমিত
+'Khatian Search': খাতিয়ান অনুসন্ধান
+'Is deliverable': প্রদানযোগ্য কি না?
+'Deliverable': প্রদানযোগ্য?
+'Previous': পূর্ববর্তী
+'Next': পরবর্তী
+'Deliverable': প্রদানযোগ্য?
+'Mouzas under upozila': উপজেলার অভ্যন্তরীণ মৌজা  সমূহ
+'Mouzas under thana': থানার অভ্যন্তরীণ মৌজা  সমূহ
+'Mouza Map Reference Link': মৌজা  ম্যাপ রেফারেন্স লিংক
+'Update This Page': এই পাতা সংরক্ষণ
+'Delete This Page': এই পাতা মুছে ফেলুন
+'Khatian page saved': খতিয়ান পাতা সংরক্ষিত হয়েছে
+'Active': সক্রিয়
+'Inactive': নিষ্ক্রিয়
+'TYPE_DC': ডিসি অফিস
+'TYPE_AC_LAND': এসি ল্যান্ড অফিস
+'TYPE_MINISTRY': মন্ত্রণালয় অফিস
+'TYPE_UDC': ইউ আই এস সি অফিস
+'Type': প্রকার
+'Status': অবস্থা
+'Khatian Status': খতিয়ানের  অবস্থা
+'APP Status':   অবস্থা
+'Office List': অফিসের তালিকা
+'INFORMATION_SLIP_REQUEST_PROCESSING': ইনফর্মেশন স্লিপ আবেদন বাবস্থাপনা
+'CASE_COPY_REQUEST_PROCESSING': কেস কপি আবেদন বাবস্থাপনা
+'MOUZA_MAP_REQUEST_PROCESSING': মৌজা  ম্যাপ আবেদন বাবস্থাপনা
+'OTHER_REQUEST_PROCESSING': অন্যান্য আবেদন বাবস্থাপনা
+'Modules': মডিউল সমূহ
+'Assign admin to DC Office': ডিসি অফিসে এডমিন সংযুক্তি
+'Assign admin to AC Land Office': এসি ল্যান্ড অফিসে এডমিন সংযুক্তি
+'Template Reference': টেমপ্লেট রেফারেন্স
+'Settings': সেটিংস
+'Holiday': ছুটির দিন
+'Holiday Mangement': ছুটি ব্যবস্থাপনা
+'Holiday List': ছুটি তালিকা
+'List of Holidays': ছুটির তালিকা
+'Type of Holiday': ছুটির ধরন
+'Name of Holiday': ছুটির নাম
+'Create new holiday': নতুন ছুটি তৈরি
+'Holiday has been Created': ছুটি তৈরি হয়েছে
+'Date of Holiday': ছুটির তারিখ
+'Name of Day': বারের নাম
+'Year Select': বছর বাছাই করুন
+'Month Select': মাস বাছাই করুন
+'Week Leave': সাপ্তাহিক ছুটি
+'Govt Leave': সরকারী ছুটি
+'Working Day': কার্য দিবস
+'CEO Leave': নির্বাহী আদেশে ছুটি
+'Total Leave': সর্বমোট ছুটি
+'Total Day': সর্বমোট দিবস
+'Holiday start date': ছুটি শুরুর তারিখ
+'Holiday end date': ছুটি শেষের তারিখ
+'Annual Leave': বাৎসরিক ছুটি
+'SL. NO': ক্রমিক নং
+'Office Select': অফিস নির্বাচন করুণ
+'This holiday has already in the past': ইতিমধ্যে এই ছুটির তারিখ গত হয়েছে
+'This holiday has been deleted': এই ছুটি মুছে ফেলা হয়েছে
+'You are not allowed to remove this holiday': এই ছুটি মুছে ফেলার অনুমতি আপনার নাই
+'You are not allowed to create this holiday': এই ছুটি তৈরির অনুমতি আপনার নাই
+'Year': সাল
+'Month': মাস
+'All Month': সব মাস
+'January': জানুয়ারী
+'February': ফেব্রুয়ারী
+'March': মার্চ
+'April': এপ্রিল
+'May': মে
+'June': জুন
+'July': জুলাই
+'August': অগাস্ট
+'September': সেপ্টেম্বর
+'October': অক্টোবর
+'November': নভেম্বর
+'December': ডিসেম্বর
+'Friday': শুক্রবার
+'Saturday': শনিবার
+'Sunday': রবিবার
+'Monday': সোমবার
+'Tuesday': মঙ্গলবার
+'Wednesday': বুধবার
+'Thursday': বৃহস্পতিবার
+'Office removed from user.': অফিস ব্যবহারকারী থেকে সরানো হয়েছে.
+'User has been assigned as admin.': ব্যবহারকারী প্রশাসক হিসাবে নিয়োগ করা হয়েছে
+'User Profile': ব্যবহারকারী প্রোফাইল
+'Office Assign': অফিস বরাদ্দ
+'Brn': জন্ম নিবন্ধন নম্বর
+'Fathers full name bn': পিতার নাম
+'Fathers full name en': পিতার নাম ইংরেজিতে
+'Mothers full name bn': মাতার নাম
+'Mothers full name en': মাতার নাম ইংরেজিতে
+'Telephone': টেলিফোন
+'Religion': ধর্ম
+'Education level': শিক্ষাগত যোগ্যতা
+'Current address': বর্তমান ঠিকানা
+'Permanent address': স্থায়ী ঠিকানা
+'Joining date': চাকুরীতে যোগদানের তারিখ
+'Joining date of current office': বর্তমান কর্মস্থলে যোগদানের তারিখ
+'Blood group': রক্তের গ্রুপ
+'Disability': অসামর্থ্যতা
+'Dob': জন্ম তারিখ
+'Other': অন্যান্য
+'Send correction request': খতিয়ান সংশোধন  আবেদন
+'Record Copy request': রেকর্ড কপি আবেদন
+'Office postal address': অফিসের পোস্টাল ঠিকানা
+'Total Union Count': মোট  ইউনিয়নের সংখ্যা
+'Total Mouza Count': মোট  মৌজার  সংখ্যা
+'Total Record Count': মোট তথ্য সংখ্যা
+'Total Khatian Count': মোট খতিয়ান সংখ্যা
+'Outside of Postal Fee': জেলার বাইরে ডাক ফি
+'application': আবেদন
+'Application receive media': আবেদন গ্রহণ মাধ্যম
+'Inside of Postal Fee': জেলার অভ্যন্তরে ডাক ফি
+'Limit the application of the applicant (the same day)': আবেদনকারীর আবেদনের লিমিট (একই দিনে)
+'UDC delivery day (additional)': ইউ ডি সি ডেলিভারি দিন (অতি:)
+'UDC delivery fee': ইউ ডি সি ডেলিভারি ফি
+'UDC application receive fee': ইউ ডি সি আবেদন গ্রহণ ফি
+'Office setting': অফিস সেটিং
+'Office Information': অফিস সংক্রান্ত তথ্য
+'Application Information': আবেদন সংক্রান্ত তথ্য
+'UDC Information': ইউ ডি সি সংক্রান্ত তথ্য
+'Record Room Information': রেকর্ডরুম কার্যক্রম সংক্রান্ত তথ্য
+'Application verification management': আবেদন যাচাই ব্যবস্থপনা
+'Application comparison management': আবেদন তুলনা ব্যবস্থপনা
+'Application Approval management': আবেদন অনুমোদন  ব্যবস্থাপ
+'Batch verification management': ব্যাচ যাচাই ব্যবস্থপনা
+'Batch comparison management': ব্যাচ তুলনা ব্যবস্থপনা
+'Batch Approval management': ব্যাচ অনুমোদন  ব্যবস্থাপনা
+'Delivery Approval management': ডেলিভারী অনুমোদন ব্যবস্থাপনা
+
+'Setting Updated': সেটিং সংরক্ষিত হয়েছে
+'Own office setting': নিজ অফিস সেটিং
+'Copy Type': নকলের ধরণ
+'Application ID': আবেদন আইডি
+'Send for verification': যাচাইয়ের জন্য প্রেরণ
+'Khatian found': খতিয়ানটি পাওয়া গিয়েছে
+'Khatian not found': খতিয়ানটি পাওয়া যাইনি
+'Create New Khatian': নতুন খতিয়ান তৈরি
+'Requested Khatian': আবেদনকৃত খতিয়ান
+'Batch Khatian': আবেদনবিহীন খতিয়ান'
+Approval needed': অনুমোদন  প্রয়োজন
+'Khatian Entry Statistics': খতিয়ান এণ্ট্রি পরিসংখ্যান
+'Entry Statistics': খতিয়ান এণ্ট্রি পরিসংখ্যান
+'Verification Statistics': যাচাইকরন পরিসংখ্যান
+'Comparison Statistics':  তুলনাকরন পরিসংখ্যান
+'User Manual':  ব্যবহারকারীর নির্দেশিকা ( ডকুমেণ্ট )
+'Update This Page': এই পাতা সংরক্ষণ
+'Delete This Page': এই পাতা মুছে ফেলুন
+'Khatian page saved': খতিয়ান পাতা সংরক্ষিত হয়েছে
+'BS': বি এস
+'DIARA': দিয়ারা
+'Select Templates': টেমপ্লেট নির্বাচন করুন
+'Total Record Found': মোট  রেকর্ড পাওয়া গিয়েছে :
+'Approval needed': অনুমোদন  প্রয়োজন
+'Approval': অনুমোদন
+'Current Upozila': বর্তমান উপজেলা
+'Record Room In Charge Info': রেকর্ডরুম ইন-চার্জ তথ্য
+'Contact Info': যোগাযোগ   তথ্য
+'Contact Person': যোগাযোগ  কারী
+'Division': বিভাগ
+'Created By': প্রস্তুতকারী
+'Created At': প্রস্তুতের তারিখ
+'Approved By': অনুমোদনকারী
+'Approved At': অনুমোদনের  তারিখ
+'Applicant Address': আবেদনকারীর ঠিকানা
+'Porcha Request ': খতিয়ান আবেদন
+'Details of Request Khatian': আবেদনকৃত পর্চার/খতিয়ানের বিস্তারিত তথ্য
+'Add Khatian Info': খতিয়ান তথ্য যোগ
+'Payment and delivery Detail': ডেলিভারী ও পেমেন্ট এর বিস্তারিত তথ্য
+'Urgency': ডেলিভারি প্রয়োজন
+'General': সাধারণ
+'Urgent': জরুরী
+'URGENT': জরুরী
+'Delivery method': ডেলিভারি মাধ্যম
+'Direct': সরাসরি
+'Postal': ডাকযোগ
+'Court Fee': কোর্ট ফি
+'Amount': পরিমাণ
+'Additional Fee': অতিরিক্ত ফি
+'Applicable': প্রয়োগ
+'Delivery Fee': ডেলিভারি করার টাকা
+'Applicant Info': আবেদনকারীর তথ্য
+'Contact number': যোগাযোগের নম্বর
+'Applicant Address': আবেদনকারীর ঠিকানা
+'Postal code': ডাকঘর/পোস্টকোড
+'Area': গ্রাম/মহল্লা/এলাকা
+'Road no': রোড নং/নাম
+'House no': বাসা নং/নাম
+'Ongoing care': প্রযত্নে
+'Request Khatian Form': পর্চা/খতিয়ান আবেদন গ্রহণ ফরম
+'Porcha Correction Form': পর্চা/খতিয়ান আবেদন সংশোধন ফরম
+'Porcha Copy Request Form': পর্চা/খতিয়ান আবেদন কপি ফরম
+'Request Mouza Form': মৌজা আবেদন গ্রহণ ফরম
+'Total': সর্বমোট
+'Service Request': সেবা অনুরোধ
+'List of Service Request': আবেদনের তালিকা
+'Service Request Id': আবেদন আইডি
+'Applicant Name': আবেদনকারীর নাম
+'Request From': আবেদন প্রাপ্তির ধরন
+'Web': ওয়েব
+'WEB': ওয়েব
+'UDC': ইউ ডি সি
+'DIRECT': সরাসরি
+'Serivce Type': সেবার ধরণ
+'Porcha Request': পর্চা/খতিয়ান অনুরোধ
+'Information Slip': তথ্য স্লিপ
+'PORCHA': পর্চা/খতিয়ান
+'Sl No.': ক্রম
+'Request ID': আবেদন আইডি
+'Applicant Mobile': আবেদনকারীর মোবাইল
+'Date': তারিখ
+'Details': বিস্তারিত
+'POSTAL': ডাকযোগ
+'Create Porcha Request': নতুন পর্চা আবেদন
+'Create Mouza Request': নতুন মৌজা  ম্যাপ আবেদন
+'Create Case Copy Request': নতুন কেস কপি আবেদন
+'PORCHA_REQUEST': পর্চা আবেদন
+'INFORMATION_SLIP': ইনফরমেশন স্লিপ
+'Delivery Type': ডেলিভারীর ধরণ
+'Application type': আবেদনের ধরণ
+'Token Provider <br>and Signature': রশিদ প্রদানকারীর নাম ও স্বাক্ষর
+'Delivery Date': ডেলিভারীর তারিখ
+'Request Date': আবেদনের তারিখ
+'Request Start Date': আবেদনের  শুরু তারিখ
+'Request End Date': আবেদনের শেষ তারিখ
+'Delivery Confirmation': প্রেরণ নিশ্চিতকরণ
+'Received For Delivered Successfully': আবেদন গ্রহন করা হয়েছে
+'Delivered Successfully': ডেলিভারি সম্পূর্ণ হয়েছে
+'PENDING': অপেক্ষমান
+'RECEIVED': গৃহীত
+'received': গৃহীত
+'PROCESSING': প্রক্রিয়াধীন
+'Processing': প্রক্রিয়াধীন
+'DELIVERED': প্রেরিত
+'Delivered': প্রেরিত
+'Application ID does not exist':
+'Recipient': গ্রহণকারী
+'Case copy': কেস কপি
+'CASE_COPY': কেস কপি
+'Mouza Map': মৌজা ম্যাপ
+'MOUZA_MAP': মৌজা ম্যাপ
+'READY_FOR_DELIVERY': প্রদানের অপেক্ষায়
+'Ready For Delivery': প্রদানের অপেক্ষায়
+'Status Updated Successfully': স্টেটাস সফলভাবে আপডেট হয়েছে
+'Application ID does not exist': আবেদন আইডি পাওয়া যাইনি
+'Already given': ইতিমধ্যে দেওয়া হয়েছে
+'Recipient': গ্রহণকারী
+'List of Porcha Request': পর্চা আবেদনের তালিকা
+'List of Mouza Request': মৌজা  ম্যাপ আবেদনের তালিকা
+'Applicatin Date': আবেদনের তারিখ
+'Update Service Request Status':  স্টেটাস আপডেট
+'Till Today': অদ্যবদি
+'On This Date': এই তারিখে
+
+#Delivery day
+'Delivery day': ডেলিভারি দিন
+'Normal Delivery Day': সাধরণের জন্য দিন
+'Emergency Delivery Day': জরুরী জন্য দিন
+'Has Entry': এন্ট্রি আছে
+'Not Entry': এন্ট্রি নাই
+'Non Deliverable': প্রদানযোগ্য নয়
+'Create new Delivery day': ডেলিভারি দিন তৈরি
+'List of Delivery day': ডেলিভারি দিনের তালিকা
+'Delivery day list': ডেলিভারি দিনের তালিকা
+'Normal Has Entry': সাধরণ এন্ট্রি আছে
+'Normal Not Entry': সাধরণ এন্ট্রি নাই
+'Normal Non Deliverable': সাধরণ প্রদানযোগ্য নয়
+'Emergency Has Entry': জরুরী এন্ট্রি আছে
+'Emergency Not Entry': জরুরী এন্ট্রি নাই
+'Emergency Non Deliverable': জরুরী প্রদানযোগ্য নয়
+'This delivery day has been created': ডেলিভারি দিন তৈরি হয়েছে
+'This delivery day has been deleted': এই ডেলিভারি দিন মুছে ফেলা হয়েছে
+'This delivery day has been updated': এই ডেলিভারি দিন আপডেট হয়েছে
+'You are not allowed to created this delivery day': এই ডেলিভারি দিন তৈরি করার অনুমতি আপনার নাই
+'On This Date': এই তারিখে
+'Filter Application & Entry List': আবেদন বাছাই ও এন্ট্রি তালিকা
+'E-Khatian Management': ই-খরিয়ান বাসস্থাপনা
+'VERY URGENT': অতীব জরুরী
+'URGENT': জরুরী
+'NORMAL': সাধারণ
+'Verified & Approved': যাচাইকৃত ও অনুমোদিত
+'Batched': ব্যাচভিত্তিক
+'Applied': আবেদনভিত্তিক
+'Send for Delivery': ডেলিভারীর জন্য প্রেরন
+'Khatian sent for delivery': খরিয়ানটি ডেলিভারীর জন্য প্রেরিত হয়েছে
+'Ready to send': প্রদানের অপেক্ষায়
+'Time Duration': অবস্থানকাল
+'Court Fee Register': কোর্ট ফি রেজিস্টার
+'Request No': আবেদনের সংখ্যা
+'Entry Found': এন্ট্রি আছে
+'Entry Not Found': এন্ট্রি নাই
+'Top Sheet': টপ শিট
+'Counter Name': কাউন্টার নাম
+'Request Status': আবেদনের  অবস্থা
+'Has Entry': এন্ট্রি আছে
+'Court Fee List': কোর্ট ফি তালিকা
+'List of Court Fee': কোর্ট ফি এর তালিকা
+'Create new Court Fee': নতুন কোর্ট ফি তৈরি
+'Additional Fee List': অতিরিক্ত ফি তালিকা
+'Fee Type': ফির ধরন
+'Fee Amount': ফির পরিমাণ
+'List of Additional Fee': অতিরিক্ত ফি এর তালিকা
+'Create new Additional Fee': নতুন অতিরিক্ত ফি তৈরি
+'Additional Fee has been created': অতিরিক্ত ফি তৈরি হয়েছে
+'Additional Fee has been updated': অতিরিক্ত ফি আপডেট হয়েছে
+'This court fee has been deleted': এই কোর্ট ফি মুছে ফেলা হয়েছে
+'You are not allowed to remove this delivery day': এই ডেলিভারি দিন মুছে ফেলার অনুমতি আপনার নাই
+'You are not allowed to remove this court fee': এই কোর্ট ফি মুছে ফেলার অনুমতি আপনার নাই
+'You are not allowed to created this court fee': এই কোর্ট ফি তৈরি করার অনুমতি আপনার নাই
+'You are not allowed to created this additional fee': এই অতিরিক্ত ফি তৈরি করার অনুমতি আপনার নাই
+'Request Status': আবেদনের  অবস্থা
+'Locked': লগড
+'Confirm': নিশ্চিত
+'Udc Information': ইউ ডি সি - এর তথ্য
+'UnionCharman and Secretery': ইউনিয়ন সচিব- এর তথ্য
+'Approved Information': অনুমোদন সংক্রান্ত তথ্য
+'Union': ইউনিয়ন
+'Udc mobile no': ইউ ডি সি মোবাইল নাম্বার
+'Udc name':  ইউ ডি সি নাম
+'Udc address' : ঠিকানা
+'Udc email': ইমেইল
+'Us name': নাম
+'Us name List': সচিব- এরনাম
+
+'Us mobile no': মোবাইল নাম্বার
+'us name':  সেবা কেন্দ্রের নাম
+'Us address' : ঠিকানা
+'Us email': ইমেইল
+'Us name': নাম
+'Entrepreneur': উদ্যোক্তা
+'Name': নাম
+'FName': পিতার নাম
+'Qualification': শিক্ষাগত যোগ্যতা
+'Mobile No': মোবাইল নাম্বার
+'Email': ইমেইল
+'Gender': লিঙ্গ
+'Address': ঠিকানা
+'add Entrepreneur': করুন উদ্যোক্তা
+'type': ধরন
+'WAITING FOR APPROVAL': অনুমোদনের অপেক্ষ
+'CANCELED': বাতিল
+'List of Udc': ইউ ডি সি  তালিকা
+'Waiting': অপেক্ষমাণ
+'Volume list of khatian': খতিয়ান সংশ্লিষ্ট ভলিউম তালিকা
+'Save and Create New': সংরক্ষণ এবং নতুন তৈরি করুন
+'Please select a day': দিন নির্বাচন করুণ।
+'Please select start date and end date': ছুটি আরম্ভের তারিখ ও শেষ তারিখ নির্বাচন করুন
+'Search': অনুসন্ধান
+'Dager Number': দাগের নম্বর
+'Sabek Dager Number': সাবেক দাগের নম্বর
+'Khatian Number': খতিয়ান নম্বর
+'Land Quantity': জমির পরিমাণ
+'e:': এঃ
+'s:': শঃ
+'Comment': মন্তব্য
+'Add Record': তথ্য যোগ
+'Index': সূচী
+'Volume index saved': ভলিউম সূচী সংরক্ষিত হয়েছে
+'Services':  সেবাসমূহ
+'Register': রেজিস্টার
+'DC':  ডি সি
+'Print view Template': প্রিন্ট ভিউ টেমপ্লেট
+'Entry view Template': এন্ট্রি ভিউ টেমপ্লেট
+'entry': এন্ট্রিকৃত
+'verify': বাচাইকৃত
+'compare': তুলনাকৃত
+'approve': অনুমোদিত
+'status': অবস্থা
+'Porcha': পর্চা
+'New Request': নতুন আবেদন
+'Request List': আবেদন তালিকা
+'Application based': আবেদনভিত্তিক
+'Batch based': ব্যাচভিত্তিক
+'UDC Office': ইউ ডি সি
+'Application Receive Register': আবেদন গ্রহণ রেজিস্টার
+'No of Application': আবেদনের সংখ্যা
+'Requested Information Slip Description': আবেদনকৃত ইনফরমেশন স্লিপের বিবরণ
+'Requested Case Description': আবেদনকৃত কেস কপির বিবরণ
+'Porcah Application': পর্চা আবেদন
+'Porcha Request Submitted Successfully': পর্চা আবেদন গৃহীত হয়েছে
+'Case copy Request Form': কেস কপি আবেদন ফর্ম
+'Other District': অন্য জেলা
+'Already Delivered.': ইতিমধ্যে ডেলিভারি সম্পূর্ণ হয়েছে
+'Information Slip Request Submitted Successfully': তথ্য স্লিপ আবেদন সংরক্ষন হয়েছে
+'Information Slip Request Updated Successfully': তথ্য স্লিপ আবেদন সংরক্ষন হয়েছে
+'Case Copy Request Submitted Successfully': কেস কপি আবেদন সংরক্ষন হয়েছে
+'Case Copy Request Updated Successfully': কেস কপি আবেদন সংরক্ষন হয়েছে
+'Mouza Map Request Submitted Successfully': মৌজা ম্যাপ আবেদন সংরক্ষন হয়েছে
+'Correction Request Submitted Successfully': পর্চা সংশোধন   আবেদন সংরক্ষন হয়েছে
+'Mouza Map Request Updated Successfully': মৌজা ম্যাপ আবেদন সংরক্ষন হয়েছে
+'Porcha Request Updated Successfully': পর্চা আবেদন সংরক্ষন হয়েছে
+'List of Information Slip': তথ্য স্লিপ আবেদনের তালিকা
+'Create Information Slip Request': নতুন তথ্য স্লিপ আবেদন
+'List of Case Copy':  কেস কপি আবেদনের তালিকা
+'Application Status': আবেদনের অবস্থা
+'Description': বিবরণ
+'Change this page template': এই পাতার টেমপ্লেট পরিবর্তন
+'Template not changed': টেমপ্লেট পরিবর্তন হয়নি
+'Template changed': টেমপ্লেট পরিবর্তন হয়েছে
+'Details of Request Mouza Map': আবেদনকৃত মৌজা ম্যাপের বিস্তারিত তথ্য
+'Information Slip Request Form':  তথ্য স্লিপ আবেদন ফর্ম
+'Start Processing': প্রক্রিয়া শুরু করুন
+'Processing Complete': প্রক্রিয়া সম্পন্ন
+'Mouza map is now ready for processing': মৌজা ম্যাপ আবেদন  প্রক্রিয়াকরণের শুরু হয়েছে
+'Mouza map is now ready for delivery': মৌজা ম্যাপ আবেদন প্রেরনের জন্যর প্রস্তুত
+'Mouza map delivered': মৌজা ম্যাপ আবেদন প্রদান সম্পন্ন হয়েছে
+'Information slip is now ready for processing': তথ্য স্লিপ আবেদন  প্রক্রিয়াকরণের শুরু হয়েছে
+'Information slip is now ready for delivery': তথ্য স্লিপ আবেদন প্রেরনের জন্যর প্রস্তুত
+'Information slip delivered': তথ্য স্লিপ আবেদন প্রদান সম্পন্ন হয়েছে
+'Case copy is now ready for processing': কেস কপি  আবেদন  প্রক্রিয়াকরণের শুরু হয়েছে
+'Case copy is now ready for delivery': কেস কপি  আবেদন প্রেরনের জন্যর প্রস্তুত
+'Case copy delivered':  কেস কপি  আবেদন প্রদান সম্পন্ন হয়েছে
+'Khatian is locked': খতিয়ানটি অন্য বাবহারকারি দেখছেন
+'uopristho_sotter_dokholkar': উপরিস্থ স্বত্বের দখলকার
+'otro_sotter_dokholkar': অত্র স্বত্বের দখলকার
+'dag_nombor': দাগ নম্বর
+'New Application': নতুন আবেদনের জন্য
+'Delivery Date Change': বিতরণের তারিখ পরিবর্তনের জন্য
+'SMS Setting': এসএমএস সেটিং
+'SMS Setting List': এসএমএস সেটিং এর তালিকা
+'List of SMS Setting': এসএমএস সেটিং এর তালিকা
+'Create new SMS Setting': নতুন এসএমএস সেটিং তৈরি
+'UDC Office List':  ইউ ডি সি অফিস তালিকা
+'UDC Login':  ইউ ডি সি লগইন
+'List of Union': ইউনিয়নের তালিকা
+'Deliverability': প্রদানযোগ্যতা
+'Viewable': দেখার অনুমতি আছে
+'Non Viewable': দেখার অনুমতি নাই
+'Selected Khatians': নির্বাচিত খতিয়ানসমূহ
+'selected applications': নির্বাচিত আবেদনসমূহ
+'Restricted': সংরক্ষিত
+'You dont have permission to view this Khatian': খতিয়ানটি দেখার অনুমতি নাই
+'maliker nam': মালিকের নাম
+'Tk': ৳
+'move to draft': খসড়াতে প্রেরণ
+'move to verification': যাচাইয়ের জন্য প্রেরণ
+'move to comparison': তুলনার জন্য প্রেরণ
+'move to approval':  অনুমোদনের জন্য প্রেরণ
+'move to correction':  সংশোধনের জন্য প্রেরণ
+'move to archive':  আর্কাইভে প্রেরণ
+'move to delivery': প্রদানের জন্য প্রস্তুত
+'do': সম্পাদন করুন
+'work done': কাজটি সম্পন্ন হয়েছে
+'nothing done': কোন কাজ সম্পন্ন হয়নি
+'token incorrect': টোকেন ঠিক নেই
+'total application count': সর্বমোট আবেদন সংখ্যা
+'The number of requests sent for approval': অনুমোদনের অপেক্ষায়
+'Invalid NESS designation.': পদবী মিলছে না, অনুগ্রহ করে একটু পরে আবার চেষ্টা করুন
+'Sheet No': শিট নম্বর
+'Lawyer name': বিজ্ঞ আইজীবির নাম
+'Case no': মামলার নম্বর
+'Court name': সংশ্লিষ্ঠ আদালতের নাম
+'Plaintiff defendant': বাদি বিবাদী
+'Case copy Detail Information': কেস কপির বিস্তারিত তথ্য
+'Invalid NESS designation.': 'পদবী মিলছে না, অনুগ্রহ করে একটু পরে আবার চেষ্টা করুন'
+'first': প্রথম
+'last': শেষ
+'Sheet No': 'শিট নম্বর'
+'Active Office': অফিস সক্রিয় করুন
+'Inactive Office': অফিস নিষ্ক্রিয় করুন
+'check the khatian range': খতিয়ান ব্যাপ্তি পরীক্ষা করে দেখুন
+'in this volume': ভলিউমে
+'last khatian must be greater than first': শেষ খতিয়ান নং প্রথম নং এর চেয়ে বড় হতে হবে
+'Ness User': নেস  ইউজার (NESS)
+'Update Role Successfully': রোল সফলভাবে আপডেট করা হয়েছে
+'Office Counter': অফিস কাউন্টার
+'version': ভার্সন
+'versions': ভার্সনসমূহ
+'Check': অবস্থা
+'Application Type': আবেদনের ধরন
+'MOUZA_MAP': মৌজা  ম্যাপ
+'khatian template not found': খতিয়ান টেমপ্লেট খুঁজে পাওয়া যাইনি
+'establishment':  গঠন
+'team': টিম
+'work distribution': কর্মবণ্টন
+'please include template': অনুগ্রহপূর্বক টেমপ্লেট নির্ধারণ করুন
+'.': ।
+'delivery slip': গ্রহণ রশিদ
+'delivery': প্রদান করুন
+'No Entry Khatian Count': এন্ট্রিবিহীন খতিয়ান সংখ্যা
+'No Entry': এন্ট্রিবিহীন
+'total khatian': মোট খতিয়ান
+'khatians': খতিয়ানসমূহ
+'per page record count': প্রতি পাতায় তথ্য সংখ্যা
+'page change': পাতা পরিবর্তন
+'page change': পাতা পরিবর্তন
+'Address Print': ডাকের  ঠিকানাসমুহ প্রিন্ট করুন
+'volume approval needed': ভলিউম অনুমোদন প্রয়োজন
+'Report': রিপোর্ট
+'Application Received Registered': আবেদন গ্রহণ রেজিস্টার
+'Application Delivered Registered': আবেদন ডেলিভারি  রেজিস্টার
+'Application status Comperer': আবেদনের অবস্থা যাচাই
+'Service Request Archive': পর্চা/খতিয়ান
+'court fee has been created': কোর্ট ফি তৈরি হয়েছে
+'You are not allowed to created this court fee': কোর্ট ফি তৈরি সম্ভব নয়
+'Application Request Count Exceed': আপনার আবেদনের লিমিট অতিক্রান্ত হয়েছে |
+'Udc User List': ইউজার তালিকা
+'Udc User': ব্যবহারকারীর আইডি
+'Active User': ইউজার সক্রিয় করুন
+'Inactive User': ইউজার নিষ্ক্রিয় করুন
+'attach mouza': মৌজা যুক্ত করুন
+'range': ব্যাপ্তি
+'volume already approved. you are not allowed to change an approved volume': ভলিউমটি ইতিমধ্যে  অনুমোদিত।  অনুমোদিত ভলিউম পরিবর্তন সম্ভব নয়।
+'mouza already approved. you are not allowed to change an approved mouza': মৌজাটি ইতিমধ্যে  অনুমোদিত।  অনুমোদিত মৌজা পরিবর্তন সম্ভব নয়।
+'Ness Organization ID': নেস (NESS) অরগানইজেসন আইডি
+'All Status': সকল স্টেটাস
+'All Roles': সকল রোলসমূহ
+'All Users': সকল ব্যবহারকারী
+'Internal Users': অভ্যন্তরীণ ব্যবহারকারী
+'password sent to users mobile': পরিবর্তিত পাসওয়ার্ড বাবহারকারির মোবাইলে প্রেরিত হয়েছে
+'service not enabled': সার্ভিসটি বন্ধ আছে
+'ministry of land': ভূমি মন্ত্রণালয়
+'bangla font download': বাংলা ফন্ট ডাউনলোড
+'Assign Role': রোল নির্ধারণ করুন
+'Service Request View': আবেদন বিস্তারিত
+'you can not update an archived khatian': আর্কাইভকৃত খতিয়ান সম্পাদনা সম্ভব নয়
+'sent for recorrection': পুনঃ সংশোধনে পাঠানো হয়েছে
+'group': গ্রুপ
+'created': তৈরি হয়েছে
+'updated': সম্পাদিত হয়েছে
+'deleted': মুছে ফেলা হয়েছে
+'You are not allowed to set template': টেম্পলেট যুক্ত করার অনুমতি নাই
+'you are not allowed to update': সম্পাদনা সম্ভব নয়
+'archived date': আর্কাইভর তারিখ
+'from': হইতে
+'to': পর্যন্ত
+'Volume Wise Entry Report': ভলিউম ভিত্তিক এন্ট্রি প্রতিবেদন রিপোর্ট
+'Volume Delivery Register Report': ভলিউম ডেলিভারি রেজিস্টার রিপোর্ট
+'Mouza map Delivery Register Report': মৌজা  ম্যাপ ডেলিভারি রেজিস্টার রিপোর্ট
+'Court Fee Register Report': কোর্ট ফি  রেজিস্টার রিপোর্ট
+'Probably Delivery Date': সম্ভাব্য ডেলিভারি তারিখ
+'Application Date': আবেদনের তারিখ
+'Porcha Correction': পর্চা সংশোধন
+'Porcha Correction List': পর্চা/খতিয়ান সংশোধন তালিকা
+'Porcha Copy List': পর্চা/খতিয়ান কপি তালিকা
+'Correction Info': সংশোধন   তথ্য
+'AC_LAND': এসি ল্যান্ড
+'Porcha Copy Request': পর্চা/খতিয়ান কপি
+'Requested Volume/Khatian': আবেদনকৃত ভলিউম/খতিয়ান
+'Requested Reason': আবেদনের কারণ
+'Requested Subject': আবেদনের বিষয়
+'REPLIED_NEEDED': উত্তর প্রয়োজন
+'REPLIED': উত্তর হয়েছে
+'Reply And View':  উত্তর দেয়া হয়েছে
+'Requested Response':  উত্তর
+'Inbox':  ইনবক্স
+'Outbox':  আউটবক্স
+'Document':  ডকুমেন্ট
+'Verification Code':  যাচাইকরণ কোড
+'From':  হইতে
+
+
+'PETY': পেটি
+'pety': পেটি

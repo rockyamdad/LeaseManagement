@@ -1,0 +1,109 @@
+api_send_surveys:
+    path:     /api/surveys
+    defaults: { _controller: PorchaProcessingBundle:Api:sendSurveys }
+    methods: [GET]
+api_send_udcList:
+    path:     /api/udcList
+    defaults: { _controller: PorchaProcessingBundle:Api:sendUdcList }
+    methods: [GET]
+
+api_send_divisions:
+    path:     /api/divisions
+    defaults: { _controller: PorchaProcessingBundle:Api:sendDivisions }
+    methods: [GET]
+
+api_send_all_dstricts:
+    path:     /api/allDistricts
+    defaults: { _controller: PorchaProcessingBundle:Api:sendAllDistricts }
+    methods: [GET]
+
+api_send_districts:
+    path:     /api/districts/{division}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendDistricts }
+    methods: [GET]
+
+api_send_all_porcha_list_by_user:
+    path:     /api/allPorchaListByUser/{user}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendAllPorchaListByUser }
+    methods: [GET]
+
+api_send_all_mouza_map_by_user:
+    path:     /api/allMouzaMapByUser/{user}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendAllMouzaMapByUser }
+    methods: [GET]
+
+api_send_all_case_copy_by_user:
+    path:     /api/allCaseCopyByUser/{user}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendAllCaseCopyByUser }
+    methods: [GET]
+
+api_send_all_information_slip_by_user:
+    path:     /api/allInformationSlipByUser/{user}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendAllInformationSlipByUser }
+    methods: [GET]
+
+api_send_upozilas:
+    path:     /api/upozilas/{district}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendUpozilas }
+    methods: [GET]
+
+api_send_mouzas:
+    path:     /api/mouzas/{upozila}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendMouzas }
+    methods: [GET]
+
+api_send_volumes:
+    path:     /api/volumes/{mouza}/{type}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendVolumes }
+    methods: [GET]
+
+api_send_jlmumbers:
+    path:     /api/jlnumbers
+    defaults: { _controller: PorchaProcessingBundle:Api:sendJlnumbers }
+    methods: [GET]
+
+api_send_court_fees:
+    path:     /api/court-fees/{districtId}/{type}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendCourtFees }
+    methods: [GET]
+
+api_send_Kahtian_status_by_application_id:
+    path:     /api/KhatianStatusByApplicationId/{applicationId}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendKhatianStatusByApplicationId }
+    methods: [GET]
+
+api_send_Kahtian_id_by_application_id:
+    path:     /api/KhatianIdByApplicationId/{applicationId}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendKhatianIdByApplicationId }
+    methods: [GET]
+
+api_send_court_fees_case_copy:
+    path:     /api/court_fees_case_copy/{districtId}/{type}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendCourtFeesCaseCopy }
+    methods: [GET]
+
+api_send_court_fees_mouza_application:
+    path:     /api/court_fees_mouza_application/{districtId}/{type}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendCourtFeesMouzaApplication }
+    methods: [GET]
+
+api_send_court_fees_information_application:
+    path:     /api/court_fees_information_application/{districtId}/{type}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendCourtFeesInformationApplication }
+    methods: [GET]
+
+api_send_delivery_fees:
+    path:     /api/delivery-fees/{districtId}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendDeliveryFees }
+    methods: [GET]
+
+api_view_khatian:
+    path:     /api/khatian-view/{id}
+    defaults: { _controller: PorchaProcessingBundle:Api:sendKhatianView }
+    methods: [GET]
+
+api_stats:
+    path:     /api/stats
+    defaults: { _controller: PorchaProcessingBundle:Api:sendStatisticsMonthly }
+    methods: [GET]
+

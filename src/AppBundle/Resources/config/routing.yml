@@ -1,0 +1,41 @@
+dashboard:
+    path:     /
+    defaults: { _controller: AppBundle:Dashboard:index }
+
+dashboard_statistics_data:
+    path:     /entry-statistics
+    defaults: { _controller: AppBundle:Dashboard:dashboardData }
+
+udc_dashboard_statistics_data:
+    path:     /udc-statistics
+    defaults: { _controller: AppBundle:Dashboard:udcDashboardData }
+
+app_bundle_routing_dc_office:
+    resource: "@AppBundle/Resources/config/routing/dc_office.yml"
+
+app_bundle_court_fee:
+    resource: "@AppBundle/Resources/config/routing/court_fee.yml"
+
+app_bundle_additional_fee:
+    resource: "@AppBundle/Resources/config/routing/additional_fee.yml"
+
+app_bundle_delivery_day:
+    resource: "@AppBundle/Resources/config/routing/delivery_day.yml"
+
+app_bundle_settings:
+    resource: "@AppBundle/Resources/config/routing/settings.yml"
+
+app_bundle_routing_office:
+    resource: "@AppBundle/Resources/config/routing/office.yml"
+
+app_bundle_routing_holiday:
+    resource: "@AppBundle/Resources/config/routing/holiday.yml"
+
+app_bundle_routing_date_source:
+    resource: "@AppBundle/Resources/config/routing/data_source.yml"
+
+app_bundle_routing_udc:
+    resource: "@AppBundle/Resources/config/routing/udc.yml"
+
+app_bundle_sms_setting:
+    resource: "@AppBundle/Resources/config/routing/sms_setting.yml"

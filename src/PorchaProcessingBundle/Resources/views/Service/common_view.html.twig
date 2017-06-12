@@ -1,0 +1,186 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Service Request View'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Service Request View'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <style>.control-value{ padding-top: 7px;} </style>
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Service Request View'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+
+    <div class="col-sm-12 form-horizontal" id="porcha-request-form" style="margin: auto; float: none">
+
+        <div class="portlet light">
+
+            {#<div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Case copy Request Form"|trans }}</span>
+                </div>
+            </div>#}
+
+            {% if serviceRequest.type == 'PORCHA_REQUEST' %}
+                {{ include('PorchaProcessingBundle:Service/PorchaRequest:_inner_view.html.twig', {row: detailEntity}) }}
+            {% endif %}
+
+            {% if serviceRequest.type == 'MOUZA_MAP' %}
+                {{ include('PorchaProcessingBundle:Service/MouzaMap:_inner_view.html.twig', {row: detailEntity}) }}
+            {% endif %}
+
+            {% if serviceRequest.type == 'CASE_COPY' %}
+                {{ include('PorchaProcessingBundle:Service/CaseCopy:_inner_view.html.twig', {row: detailEntity}) }}
+            {% endif %}
+
+            {% if serviceRequest.type == 'INFORMATION_SLIP' %}
+                {{ include('PorchaProcessingBundle:Service/InformationSlip:_inner_view.html.twig', {row: serviceRequest}) }}
+            {% endif %}
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Applicant Info"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'Applicant Name'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.name }}</div>
+                            <div class="col-sm-2 control-label">{{ 'Contact number'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.contactNumber }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'Nid'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.nid }}</div>
+                            <div class="col-sm-2 control-label">{{ 'Email'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.email }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Applicant Address"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row applicant-address">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'District'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.district ? serviceRequest.district.name : '' }}</div>
+                            <div class="col-sm-2 control-label">{{ 'Upozila'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.upozila ? serviceRequest.upozila.name : '' }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'Postal code'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.postalCode }}</div>
+                            <div class="col-sm-2 control-label">{{ 'Area'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.area }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'Road no'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.roadNo }}</div>
+                            <div class="col-sm-2 control-label">{{ 'House no'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.houseNo }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 control-label">{{ 'Ongoing care'|trans }} : </div>
+                            <div class="col-sm-4 control-value">{{ serviceRequest.ongoingCare }}</div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        {{ 'Address'|trans }} : <br>
+                        {{ serviceRequest.address|nl2br }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Payment and delivery Detail"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="row">
+                            <label class="col-sm-6 control-label" aria-required="true">ডেলিভারি প্রয়োজন : </label>
+                            <div class="col-sm-6 radio-btn-container control-value">
+                                {{ serviceRequest.urgency|trans }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-6 control-label" aria-required="true">ডেলিভারি মাধ্যম : </label>
+                            <div class="col-sm-6 radio-btn-container control-value">
+                                {{ serviceRequest.deliveryMethod|trans }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-6 control-label" aria-required="true">{{ 'Delivery Date'|trans }} : </label>
+                            <div class="col-sm-6 radio-btn-container control-value">
+                                {{ serviceRequest.estimateDeliveryAt|toBanglaDate }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+
+                        <table class="table table-bordered price-table" style="margin: auto; width: 50%;">
+                            <tr class="FEE">
+                                <td class="text-right">{{ 'Court Fee'|trans }}</td>
+                                <td class="price">{{ serviceRequest.courtFee|numberBanglaConvert }}/=</td>
+                            </tr>
+                            <tr class="DELIVERY">
+                                <td class="text-right">{{ 'Delivery Fee'|trans }} <span class="other-dictrict hide">({{ 'Other District'|trans }})</span></td>
+                                <td class="price">{{ serviceRequest.deliveryFee|numberBanglaConvert }}/=</td>
+                            </tr>
+                            {% for fee in additionalFees %}
+                                <tr>
+                                    <td class="text-right">{{ fee.name }}</td>
+                                    <td class="price">{{ fee.amount|numberBanglaConvert }}/=</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td class="text-right bold">{{ "Total"|trans }}</td>
+                                <td class="total">{{ serviceRequest.totalFee|numberBanglaConvert }}/=</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

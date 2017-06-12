@@ -1,0 +1,316 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ 'Mouza'|trans }} {{ mode == 'edit' ? 'Edit'|trans : 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Update'|trans }} {{ 'District'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('mouza_list') }}">{{ 'Mouza'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ mode == 'edit' ? 'Edit'|trans : 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="mouza-update-page">
+
+        <div class="col-md-9 col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Mouza'|trans }} {{ mode == 'edit' ? 'Edit'|trans : 'Create'|trans }} </span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    {{ form_start(form, {attr:{id: 'mouza-update-form'}}) }}
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'Mouza'|trans }} {{ 'Name'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.name) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'Current Upozila'|trans }}</label>
+                            <div class="col-md-3">
+                                {{ form_widget(form.upozila) }}
+                                <span class="help-block">{{ form_errors(form.upozila) }}</span>
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.csJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'CS'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.csJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'CS'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.csDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'CS'|trans }} {{ 'Thana'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.csThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'CS'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.csMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'CS'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.csDivision) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.saJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'SA'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.saJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'SA'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.saDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'SA'|trans }} {{ 'Thana'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.saThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'SA'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.saMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'SA'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.saDivision) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.rsJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'RS'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.rsJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'RS'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.rsDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'RS'|trans }} {{ 'Upozila'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.rsThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">{{ 'RS'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.rsMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'RS'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.rsDivision) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.bsJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'BS'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.bsJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'BS'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.bsDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'BS'|trans }} {{ 'Upozila'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.bsThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'BS'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.bsMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'BS'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.bsDivision) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.petyJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'PETY'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.petyJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'PETY'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.petyDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'PETY'|trans }} {{ 'Upozila'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.petyThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'PETY'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.petyMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'PETY'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.petyDivision) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {{ form_widget(form.diaraJLNumberId) }}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'DIARA'|trans }} {{ 'J. L. No'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.diaraJLNumber) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'DIARA'|trans }} {{ 'District'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.diaraDistrict) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'DIARA'|trans }} {{ 'Upozila'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.diaraThana) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'DIARA'|trans }} {{ 'Mouza'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.diaraMouzaName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'DIARA'|trans }} {{ 'Division'|trans }}</label>
+                            <div class="col-md-9">
+                                {{ form_widget(form.diaraDivision) }}
+                            </div>
+                        </div>
+
+                        {% if form.approved is defined %}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-9">
+                                <div class="radio-list">
+                                    <label>
+                                        {{ form_widget(form.approved) }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a class="btn default" href="{{ path('mouza_list') }}">{{ 'Cancel'|trans }}</a>
+                                {{ form_widget(form.save) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        {#<div class="col-md-4 col-sm-12">#}
+            {#<div class="portlet light">#}
+
+                {#<div class="portlet-title">#}
+                    {#<div class="caption caption-md">#}
+                        {#<i class="icon-bar-chart theme-font hide"></i>#}
+                        {#<span class="caption-subject theme-font bold uppercase">{{ 'Import'|trans }}</span>#}
+                    {#</div>#}
+                {#</div>#}
+
+                {#<div class="portlet-body">#}
+                    {#{% if form_errors(importForm.file) != '' %}#}
+                        {#<div class="alert alert-danger">#}
+                            {#{{ form_errors(importForm.file) }}#}
+                        {#</div>#}
+                    {#{% endif %}#}
+
+                    {#<form action="{{ path('mouza_list') }}" method="post" enctype="multipart/form-data">#}
+                        {#<div class="form-group">#}
+                            {#<label for="exampleInputFile1">{{ 'Import CSV file'|trans }}</label>#}
+                            {#{{ form_widget(importForm.file) }}#}
+                        {#</div>#}
+                        {#{{ form_row(importForm._token) }}#}
+                        {#<div class="form-actions">#}
+                            {#<div class="row">#}
+                                {#<div class="col-md-9">#}
+                                    {#<button type="submit" class="btn green">{{ 'Submit'|trans }}</button>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-options.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+{% endblock %}

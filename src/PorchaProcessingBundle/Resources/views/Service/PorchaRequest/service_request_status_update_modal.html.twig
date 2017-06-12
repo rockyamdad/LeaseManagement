@@ -1,0 +1,19 @@
+<form method="post" action="{{ path('porcha_request_status_delivered', {id: serviceRequest.id}) }}" id="service-status-update">
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portlet light">
+
+                {{ '' }}
+                {{ form_row(form.status) }}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    {{ form_row(form.confirm, {attr:{class: 'green'}}) }}
+    {{ form_rest(form) }}
+</div>
+</form>

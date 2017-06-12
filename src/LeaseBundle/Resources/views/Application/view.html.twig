@@ -1,0 +1,236 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Applicant View'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1 xmlns="http://www.w3.org/1999/html">{{ 'Applicant View'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Applicant View'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Applicant View'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <div class="row">
+                    {% if(application.applicant) %}
+                    <div class="col-md-12">
+                        <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}: </h4>
+                        <div class="form-horizontal">
+                            <div class="form-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Father Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.fatherName }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Mother Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.motherName }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Spouse Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.spouseName }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Gender'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.bnGender }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Nid'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.nid }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Dob'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.dob|date("m/d/Y") }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Email'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.email }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Address'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.applicant.address }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Cellphone'|trans }} :</label>
+                                        <div class="col-md-8">
+                                            <p class="margin-top-10">{{ application.phoneNo }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        {% endif %}
+                    {% if applicationDocx %}
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'application'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-offset-2">
+
+                                    {#<label class="col-md-2 control-label">{{ 'Document'|trans }} :</label>#}
+                                    {% for applicationDoc in applicationDocx %}
+                                        {% if applicationDoc.type == 'Nid' %}
+                                            <div class="col-md-9">
+                                                  <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'National Id'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Photo' %}
+                                            <div class="col-md-9">
+                                                  <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Photo'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Resulation' %}
+                                            <div class="col-md-9">
+                                                 <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Resulation Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Audit' %}
+                                            <div class="col-md-9">
+                                                 <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Audit Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Nibondhon' %}
+                                            <div class="col-md-9">
+                                                  <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Nibondhon Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Trade' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Trade License'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <h4 class="caption-subject font-purple-sharp bold uppercase">{{ 'Applicant View'|trans }}: </h4>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{ 'Details'|trans }} :</label>
+                                    <div class="col-md-9">
+                                        <textarea class="margin-top-10 form-control" rows="10" readonly>{{ application.applicationDetails }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{ 'Created At'|trans }} :</label>
+                                    <div class="col-md-9">
+                                        <p class="margin-top-10">{{ application.createdDateTime|date("m/d/Y") }}</p>
+                                    </div>
+                                </div>
+                                {% if(comment and application.status != 'APPROVED') %}
+                                <div style="margin-left: 41px;" class="form-group">
+                                    <div class="col-md-6 ">
+                                        <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                        <div style="margin-left: 41px;" class="note note-info">
+                                            <p>
+                                                {{ comment.message }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                            <br>
+                            <h4 class="caption-subject font-purple-sharp bold uppercase">{{ 'Comment'|trans }}: </h4>
+                            {% if (application.status == 'PENDING' or application.status == 'CORRECTION') and (is_granted('ROLE_APPLICATION_VIEW')) and (userType == 'এসি-ল্যান্ড') %}
+                                <form class="form-horizontal" action="{{ path('application_status_change', {'applicationId': application.id,'status':'WAITING_FOR_APPROVAL'}) }}"  role="form" method="post" novalidate="novalidate">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                            <div class="col-md-9">
+                                                <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                            </div>
+                                        </div>
+                            {% elseif (application.status == 'WAITING_FOR_APPROVAL') and (is_granted('ROLE_APPLICATION_VIEW')) and (userType == 'ইউ এন ও অ্যাডমিন')  %}
+                                <form class="form-horizontal" action="{{ path('application_status_change', {'applicationId': application.id,'status':'APPROVED'}) }}"  role="form" method="post" novalidate="novalidate">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                            <div class="col-md-9">
+                                                <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                            </div>
+                                        </div>
+                            {% endif %}
+
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <a class="btn purple btn-sm col-md-offset-2" href="javascript: window.history.go(-1)">{{ 'Back'|trans }}</a>
+                                                {% if (application.status == 'PENDING' or application.status == 'CORRECTION') and (is_granted('ROLE_APPLICATION_VIEW')) and (userType == 'এসি-ল্যান্ড') %}
+                                                    <button type="submit" class="btn blue">{{ 'Send to approval'|trans }}</button>
+                                                {% elseif (application.status == 'WAITING_FOR_APPROVAL') and (is_granted('ROLE_APPLICATION_VIEW')) and (userType == 'ইউ এন ও অ্যাডমিন')  %}
+                                                    <button type="submit" class="btn green" name="correction" value="co"> {{ 'Correction'|trans }}</button>
+                                                    <button type="submit" class="btn blue" name="approval" value="ap"> {{ 'Approval'|trans }}</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+

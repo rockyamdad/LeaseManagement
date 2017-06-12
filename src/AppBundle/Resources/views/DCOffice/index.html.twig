@@ -1,0 +1,87 @@
+{% extends "metronic.html.twig" %}
+{% import 'macros.html.twig' as macro %}
+
+{% set filter = app.request.get('role') ? app.request.get('role') : false %}
+
+{% block title %}{{ filter ? (filter ~ 's')|capitalize : 'Users'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'DC Offices'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        {% if filter %}
+        <li>
+            <a href="{{ path('dc_office_list_all') }}">{{ 'DC Offices'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ filter|title }}
+        </li>
+        {% else %}
+        <li class="active"> {{ 'DC Offices'|trans }}</li>
+        {% endif %}
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">List of {{ filter ? filter ~ 's' : 'DC offices'|trans }}</span>
+
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="javascript:;" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user"></i> {{ 'Filter'|trans }} <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{{ path('users_list_by_role', {'role': 'officer'}) }}"> <i class="fa fa-user font-blue-hoki"></i> {{ 'Officers'|trans }} </a></li>
+                                <li><a href="{{ path('users_list_by_role', {'role': 'director'}) }}"> <i class="fa fa-user font-blue-madison"></i> {{ 'Directors'|trans }} </a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('users_list_all') }}"> <i class="fa fa-ban"></i> {{ 'Remove filter'|trans }} </a></li>
+                            </ul>
+                        </div>
+                        <a href="{{ path('dc_office_create') }}" class="btn btn-circle red-sunglo">
+                            <i class="fa fa-plus"></i> {{ 'Create DC Office'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase text-center">
+                                    <th>{{ sylius_resource_sort('name', 'Office Name'|trans) }}</th>
+                                    <th>{{ sylius_resource_sort('address', 'Address'|trans) }}</th>
+                                    <th>{{ sylius_resource_sort('dc.name', 'Name of DC'|trans) }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dc_office in dc_offices %}
+                                <tr>
+                                    <td>{{ dc_office.name }}</td>
+                                    <td>{{ dc_office.address }}</td>
+                                    <td>{{ dc_office.dc.name }}</td>
+                                    <td><a href="{{ path('dc_office_update', {id: dc_office.id}) }}">{{ 'Edit'|trans }}</a> </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div class="text-center margin-top-20 margin-bottom-20">
+                            {#{{ macro.pagination(users, {}) }}#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

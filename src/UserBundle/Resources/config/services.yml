@@ -1,0 +1,30 @@
+parameters:
+    rbs.user.permission.security_provider.class: UserBundle\Permission\Provider\SecurityPermissionProvider
+    rbs.user.permission_builder.class: UserBundle\Permission\PermissionBuilder
+
+services:
+    rbs_user.registration.form.type:
+        class: UserBundle\Form\Type\UserForm
+        tags:
+            - { name: form.type, alias: rbs_user_bundle_user }
+        arguments: ['%fos_user.model.user.class%', @security.authorization_checker]
+
+    udc_user.registration.form.type:
+            class: UserBundle\Form\Type\UdcUserForm
+            tags:
+                - { name: form.type, alias: udc_user_bundle_user }
+            arguments: ['%fos_user.model.user.class%', @security.authorization_checker]
+
+    rbs.user.permission.security_provider:
+        class: %rbs.user.permission.security_provider.class%
+        tags:
+            - { name: rbs.user.permission_provider, alias: user }
+
+    rbs.user.permission_builder:
+        class: %rbs.user.permission_builder.class%
+
+    fos_user.group.form.type:
+        class: UserBundle\Form\Type\GroupForm
+        tags:
+            - { name: form.type, alias: fos_user_group }
+        arguments: ['%fos_user.model.group.class%', '@rbs.user.permission_builder']

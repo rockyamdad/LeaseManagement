@@ -1,0 +1,44 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(districts, 'Division'|trans, 'd.name') }}</th>
+            <th>{{ knp_pagination_sortable(districts, 'District'|trans, 'd.name') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if districts is not empty %}
+            {% for district in districts %}
+                <tr>
+                    <td>{{ (district.division) ? district.division.name : '' }}</td>
+                    <td>{{ district.name }}</td>
+                    <td>
+                        {% if district.approved %}
+                            <i class="fa fa-check font-green"> </i>
+                        {% else %}
+                            {{ 'Approval needed'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_update_district', {id: district.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="5">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% if (districts.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ districts.getTotalItemCount }}
+    </div>
+{% endif %}
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(districts) }}
+</div>

@@ -1,0 +1,17 @@
+create_deliveryday:
+    path:     /deliveryday/new
+    defaults: { _controller: AppBundle:Settings:createDeliveryday }
+
+update_delivery:
+    path:     /deliveryday/update/{id}
+    defaults: { _controller: AppBundle:Settings:createDeliveryday }
+
+deliveryday_list:
+    path:     /deliveryday/list/{appType}
+    defaults:
+        _controller: AppBundle:Settings:deliverydayList
+        appType: 'PORCHA'
+
+delete_delivery:
+    path:     /deliveryday/delete/{id}
+    defaults: { _controller: AppBundle:Settings:deleteDeliveryday }

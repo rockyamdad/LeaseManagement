@@ -1,0 +1,106 @@
+<div class="visible-print">
+{% if app.user.office %}
+    <div class="text-center">
+        <h4>{{ app.user.office.name }}, {{ app.user.office.district.name }}</h4>
+        <h4>{{ 'Application Receive Register'|trans }}</h4>
+        <h4>{{ app.user.office.getOfficeTypeName|trans }}</h4>
+
+    </div>
+{% endif %}
+{{ 'No of Application'|trans }} : {{ serviceRequest.getTotalItemCount|numberBanglaConvert }}
+{% if app.request.get('ff[sr.createdAt]', '', true) %}
+    <div class="text-center">
+        <h4>{{ "Date"|trans }} : {{ app.request.get('ff[sr.createdAt]', '', true)|toBanglaDate }}</h4>
+
+    </div>
+{% endif %}
+</div>
+<div class="row list-separated hidden-print">
+   {# <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {{ "Till Today"|trans }}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.WEB|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>#}
+    {#<div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {% if "now"|date('Y-m-d') == app.request.query.get("ff[sr.createdAt]", null, true) %}
+                {{ "Today"|trans }}
+            {% else %}
+                {{ "On This Date"|trans }}
+            {% endif %}
+            <div class="font-grey-mint font-sm">
+                {{ app.request.query.get("ff[sr.createdAt]", "now"|date('Y-m-d'), true)|toBanglaDate }}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.WEB|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>#}
+</div>
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header" border="1" style="margin-bottom: 0" width="100%">
+    <thead>
+    <tr class="uppercase">
+        <th width="20%">{{ "Sl No."|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Request From'|trans, 'sr.requestFrom') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Copy Type'|trans, 's.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Upozila'|trans, 'u.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Mouza'|trans, 'm.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'J. L'|trans, 'p.jlNo') }}</th>
+        <th width="50%">{{ 'Applicatin Date'|trans }}</th>
+        <th width="50%">{{ 'Delivery Date'|trans }}</th>
+        <th width="50%">{{ 'Status'|trans }}</th>
+        {#<th  width="65%"></th>#}
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for index, pr in serviceRequest %}
+            <tr id="row-{{ pr.id }}">
+                <td>{{ numberBanglaConvert((serviceRequest.getCurrentPageNumber - 1) * serviceRequest.getItemNumberPerPage + index + 1) }}</td>
+                <td><span{% if pr.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ pr.serviceRequest.id|numberBanglaConvert }}</span></td>
+                <td>{{ pr.serviceRequest.requestFrom|trans }}</td>
+                <td>{{ pr.survey.name|default|trans }}</td>
+                <td>{{ pr.upozila.name|default }}</td>
+                <td>{{ pr.mouza.name|default }}</td>
+                <td>{{ pr.jlNo|default }}</td>
+                <td>{{ pr.serviceRequest.createdAt|date('d/m/Y')|numberBanglaConvert }}</td>
+                <td>{{ pr.serviceRequest.estimateDeliveryAt ? pr.serviceRequest.estimateDeliveryAt|date('d/m/Y')|numberBanglaConvert : '' }}</td>
+                <td><span class="label {{ pr.serviceRequest.statusLabelColor }}">{{ pr.serviceRequest.status|trans }}</span></td>
+
+            </tr>
+
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="17">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

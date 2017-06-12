@@ -1,0 +1,135 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">{{ "Offices"|trans }}</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portlet light">
+                {% include requestDetailTemplate %}
+
+                <div class="portlet-title">
+                    <div class="caption caption-md title-text-center">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ "Payment and delivery Detail"|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <div class="row">
+                                <label class="col-sm-6 control-label required" aria-required="true">ডেলিভারি প্রয়োজন</label>
+                                <div class="col-sm-6 radio-btn-container">
+                                    {{ serviceRequest.urgency|trans }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm-6 control-label required" aria-required="true">ডেলিভারি মাধ্যম</label>
+                                <div class="col-sm-6 radio-btn-container">
+                                    {{ serviceRequest.deliveryMethod|trans }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <table class="table table-bordered price-table" style="margin: auto; width: 50%; display: none">
+                                <tr><td class="text-right">{{ 'Court Fee'|trans }} ({{ 'General'|trans }})</td><td class="price" rel="">/=</td></tr>
+                                <tr><td class="text-right">{{ 'Court Fee'|trans }} ({{ 'Urgent'|trans }})</td><td class="price" rel="">/=</td></tr>
+                                <tr><td class="text-right">{{ 'Delivery Fee'|trans }}</td><td class="price" rel="">/=</td></tr>
+                                <tr><td class="text-right bold">{{ "Total"|trans }}</td><td class="total">19/=</td></tr>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                    </div>
+                </div>
+
+                <div class="portlet-title">
+                    <div class="caption caption-md title-text-center">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ "Applicant Info"|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-2">{{ "Applicant Name"|trans }}</div>
+                                <div class="col-sm-4 applicant-address">{{ serviceRequest.name }}</div>
+                                <div class="col-sm-2">{{ "Applicant Mobile"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.contactNumber }}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-2">{{ "Nid"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.nid }}</div>
+                                <div class="col-sm-2">{{ "Email"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.email }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if serviceRequest.deliveryMethod == 'POSTAL' %}
+                    <h4 class="block">{{ "Applicant Address"|trans }}</h4>
+
+                    <div class="row applicant-address">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-2">{{ "District"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.district }}</div>
+                                <div class="col-sm-2">{{ "Upozila"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.upozila }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">{{ "Postal code"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.postalCode }}</div>
+                                <div class="col-sm-2">{{ "Area"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.area }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">{{ "Road no"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.roadNo }}</div>
+                                <div class="col-sm-2">{{ "House no"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.houseNo }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">{{ "Ongoing care"|trans }}</div>
+                                <div class="col-sm-4">{{ serviceRequest.ongoingCare }}</div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-4"></div>
+                            </div>
+                            <div class="row">
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            {{ "Address"|trans }}
+                            {{ serviceRequest.address|nl2br }}
+                        </div>
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn default" data-dismiss="modal">{{ "Close"|trans }}</button>
+    {% if serviceRequest.status == 'PENDING' %}
+    <a class="btn blue btn-sm" href="{{ path('porcha_request_edit', {id: serviceRequest.id}) }}" title="{{ 'Edit'|trans }}">{{ 'Edit'|trans }}</a>
+    <button type="button" id="receive-confirmation" class="btn blue" data-url="{{ path('porcha_request_receive_for_delivery', {id: serviceRequest.id}) }}" data-success-msg="{{ 'Received For Delivered Successfully'|trans }}" data-error-msg="{{ 'Unexpected Error'|trans }}">{{ "Receive For Delivery"|trans }}</button>
+    {% elseif serviceRequest.status == 'PROCESSING' %}
+    <button type="button" id="delivery-confirmation" class="btn green" data-url="{{ path('porcha_request_delivered', {id: serviceRequest.id}) }}" data-success-msg="{{ 'Delivered Successfully'|trans }}" data-error-msg="{{ 'Unexpected Error'|trans }}">{{ "Delivery Confirmation"|trans }}</button>
+    {% endif %}
+</div>

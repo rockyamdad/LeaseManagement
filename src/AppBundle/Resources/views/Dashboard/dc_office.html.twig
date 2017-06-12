@@ -1,0 +1,91 @@
+{% extends "metronic.html.twig" %}
+
+{% block pageTitle %}<h1>{{ 'Dashboard'|trans }}</h1>{% endblock %}
+
+{% block body %}
+
+    {% include 'flash.html.twig' %}
+
+    <div class="row"><div class="col-md-8">{% include 'flash.html.twig' %}</div></div>
+
+    {#<div class="row">#}
+
+        {#<div class="col-md-12 col-sm-12">#}
+            {#{% if is_granted('ROLE_SERVICE_REQUEST_MANAGE') %}#}
+            {#<div class="row">#}
+                {#<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
+                    {#<a class="more" href="{{ path('porcha_request_list') }}">#}
+                    {#<div class="dashboard-stat blue-madison">#}
+                        {#<div class="visual">#}
+                            {#<i class="fa fa-comments"></i>#}
+                        {#</div>#}
+                        {#<div class="details">#}
+                            {#<div class="number">#}
+                                {#{{ "List of Porcha Request"|trans }}#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
+                    {#<a class="more" href="{{ path('porcha_request_create') }}">#}
+                    {#<div class="dashboard-stat purple-plum">#}
+                        {#<div class="visual">#}
+                            {#<i class="fa fa-comments"></i>#}
+                        {#</div>#}
+                        {#<div class="details">#}
+                            {#<div class="number">#}
+                                {#{{ "Create Porcha Request"|trans }}#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#</a>#}
+                {#</div>#}
+            {#</div>#}
+            {#{% endif %}#}
+
+            {#<div class="portlet blue-hoki box no-border" id="statistics-data" style="margin-top: 20px">#}
+
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<div class="row">#}
+        {#<div class="col-md-9 col-sm-12">#}
+            {#<div class="portlet blue-hoki box no-border">#}
+                {#<div class="portlet-body">#}
+                    {#<div id="statistics-chart"></div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="col-md-3 col-sm-12">#}
+            {#<div class="portlet blue-hoki box">#}
+                {#<div class="portlet-title">#}
+                    {#<div class="caption">#}
+                        {#{{ 'ড্যাশবোর্ড ক্যালেন্ডার ' }}#}
+                    {#</div>#}
+                {#</div>#}
+                {#<div class="portlet-body">#}
+                    {#<div class="date-picker" data-date-format="mm/dd/yyyy">#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <img src="{{ asset('assets/admin/pages/img/dashboard.jpg') }}" class="background-image">
+        </div>
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/plugins/jquery.blockui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/Highcharts-4.1.10/js/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/dashboard.js') }}"></script>
+{% endblock %}

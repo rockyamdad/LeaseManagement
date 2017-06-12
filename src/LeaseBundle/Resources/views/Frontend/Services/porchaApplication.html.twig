@@ -1,0 +1,294 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+<div class="page-container">
+    <div class="container">
+        <h2 class="caption-color">খতিয়ান/পর্চা আবেদন </h2>
+        <div class="row">
+            <div class="col-md-7 col-sm-7">
+                <form class="form-horizontal"  id="application" method="post">
+                    <div class="form-group custom-radio-design">
+                    </div>
+                    <fieldset>
+                        <legend class="caption-color">আবেদনকারীর তথ্য</legend>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">জাতীয় পরিচয় পত্রনম্বর</label>
+                            <div class="col-lg-8">
+                                {% if nationalID is defined and nationalID %}
+                                    <input type="text" name="nid" id="nid" class="form-control" placeholder="{{ nationalID }}" readonly value="{{ nationalID }}" >
+                                {% else %}
+                                    <input type="text" name="nid" id="nid" class="form-control" >
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" class="col-lg-4 control-label">জন্ম তারিখ</label>
+                            <div class="col-lg-8 date">
+                                {% if birthDate is defined and birthDate %}
+                                    <div class="input-group" style="width: 100%;">
+                                        <input type="text" name="dob" id="dob" class="form-control" placeholder="{{ birthDate }}" value="{{ birthDate }}"  readonly>
+                                    </div>
+                                {% else %}
+                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                    <input type="text" name="dob" id="dob" class="form-control" readonly>
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">মোবাইল নম্বর <span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                {% if app.session.get('phoneNumber') is defined and app.session.get('phoneNumber') %}
+                                    <input type="text" name="mobile" id="mobile" placeholder="{{ app.session.get('phoneNumber') }}" readonly value="{{ app.session.get('phoneNumber') }}" class="form-control" >
+                                {% else %}
+                                    <input type="text" name="mobile"  id="mobile" class="form-control" >
+                                    <span id="valid-msg" class="hide error">✓ নম্বর টি  সঠিক </span>
+                                    <span id="error-msg" class="hide error">নম্বর টি সঠিক নয় </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">নাম <span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                {% if fullname is defined and fullname %}
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="{{ fullname }}" readonly value="{{ fullname }}">
+                                {% else %}
+                                    <input type="text" class="form-control" name="name" id="name">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-lg-4 control-label">ইমেইল </label>
+                            <div class="col-lg-8">
+                                {% if email is defined and email %}
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="{{ email }}" readonly value="{{ email }}">
+                                {% else %}
+                                    <input type="text" class="form-control" name="email" id="email">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="caption-color">আবেদনকৃত পর্চার/খতিয়ানের বিস্তারিত তথ্য</legend>
+                        <div class="form-group">
+                            <label for="firstname" class="col-lg-4 control-label">   সার্ভে<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <select name="survey" class="select2me form-control survey" data-placeholder="সার্ভে নির্বাচন করুন">
+                                    <option></option>
+                                    {% for  survey in surveys %}
+                                        <option value="{{ survey.id }}">{{ survey.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">বিভাগ<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <select name="division" id="division" class="select2me form-control po-division" data-placeholder="বিভাগ নির্বাচন করুন">
+                                    <option></option>
+                                    {% for  division in divisions %}
+                                        <option value="{{ division.id }}">{{ division.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">জেলা<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <input type="text" id="district" name="district" class="form-control po-district" placeholder="জেলা নির্বাচন করুন" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">উপজেলা<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <input type="hidden" id="upozila" name="upozila" class="form-control po-upozila" placeholder="উপজেলা নির্বাচন করুন" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">মৌজা<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <input type="hidden" id="mouza" name="mouza" class="form-control po-mouza" placeholder="মৌজা নির্বাচন করুন" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-lg-4 control-label">খতিয়ান/পর্চা নং<span class="require">*</span></label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="khatianNo" placeholder="পর্চা নং ">
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="caption-color">আবেদনকারীর ঠিকানা</legend>
+                        <div class="row applicant-address">
+                            <div class="col-md-12 col-sm-12">
+                                <!-- BEGIN PORTLET-->
+                                <div class="portlet light tasks-widget">
+
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <label class="col-sm-2 control-label" >বিভাগ</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select name="citizenDivision" id="citizenDivision" class="select2me form-control citizen-division">
+                                                    {% for  division in divisions %}
+                                                        <option value="{{ division.id }}">{{ division.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                          </div><br>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <label  class="col-sm-2 control-label" >জেলা</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" id="citizenDistrict"  name="citizenDistrict" class="form-control citizen-district" placeholder="জেলা নির্বাচন করুন" />
+
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label class="col-sm-2 control-label" >উপজেলা</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="hidden"  name="citizenUpozila" class="form-control citizen-upozila" placeholder="উপজেলা নির্বাচন করুন" />
+
+                                            </div>
+
+                                        </div><br>
+                                        <div class="row">
+
+                                            <div class="col-sm-2"><label class="col-sm-2 control-label" >ডাকঘর/পোস্টকোড</label></div>
+                                            <div class="col-sm-4"><input type="text"  name="postalCode" maxlength="255" class="form-control" /></div>
+                                            <div class="col-sm-2"><label class="col-sm-2 control-label">গ্রামা/এলাকা</label></div>
+                                            <div class="col-sm-4"><input type="text" name="area" maxlength="255" class="form-control" /></div>
+                                            <!--/span-->
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-2"><label class="col-sm-2 control-label">রোড নং</label></div>
+                                            <div class="col-sm-4"><input type="text" name="roadNo" maxlength="255" class="form-control" /></div>
+                                            <div class="col-sm-2"><label class="col-sm-2 control-label" >বাসা নং</label></div>
+                                            <div class="col-sm-4"><input type="text"  name="houseNo" maxlength="255" class="form-control" /></div>
+
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="caption-color">ডেলিভারী ও পেমেন্ট এর বিস্তারিত তথ্য</legend>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+
+                                <div class="form-group custom-radio-design">
+
+                                    <label>ডেলিভারি প্রয়োজন</label>
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="deliveryUrgency" id="deliveryUrgencyNormal" class="deliveryUrgency" value="NORMAL" checked> সাধারণ  </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="deliveryUrgency" id="deliveryUrgencyUrgent" class="deliveryUrgency" value="URGENT"> জরুরী</label>
+                                    </div>
+                                </div>
+                                <div class="form-group custom-radio-design">
+
+                                    <label>ডেলিভারি মাধ্যমন</label>
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="deliveryWay" class="deliveryWay"  value="DIRECT" checked> সরাসরি </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="deliveryWay" class="deliveryWay"  value="POSTAL"> ডাকযোগ</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden"  name="court-fee" class="form-control court-fee" />
+                                <input type="hidden"  name="delivery-fee" class="form-control delivery-fee" />
+                                <table class="table table-bordered price-table" style="margin: auto; width: 50%;">
+                                    <tbody>
+                                    <tr class="FEE">
+                                        <td class="text-right">কোর্ট ফি</td>
+                                        <td class="courtPrice"></td>
+                                    </tr>
+                                    <tr class="DELIVERY">
+                                        <td class="text-right">ডেলিভারি করার টাকা <span class="other-dictrict hide">(Other District)</span></td>
+                                        <td class="deliveryPrice"></td>
+                                    </tr>
+                               {#     <tr class="DELIVERY">
+                                        <td class="text-right">অনলাইন সেবা ফি <span class="other-dictrict hide">(Other District)</span></td>
+                                        <td class="price">০/=</td>
+                                    </tr>#}
+                                    <tr>
+                                        <td class="text-right bold">সর্বমোট</td>
+                                        <td class="total"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                            <button type="submit" class="btn btn-primary button-save-color">দাখিল করুন </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <!-- BEGIN Portlet PORTLET-->
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>গুরুত্বপূর্ণ তথ্য
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="scroller" style="min-height:100px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                            <p>আপনার কাঙ্ক্ষিত খতিয়ান এর জন্য এখানে আবেদন করুন। আবেদন সফলভাবে সম্পন্ন করার  জন্য লাল  তারকা চিহ্নিত তথ্যগুলো অবশই প্রদেয়।</p>
+                               <p> আবেদনকৃত খতিয়ান আপনি সরাসরি সংশ্লিষ্ট ডিসি অফিস থেকে সংগ্রহ করতে পারবেন অথবা ডাকযোগে প্রেরনের জন্য অনুরোধ করতে পারবেন।</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Portlet PORTLET-->
+            </div>
+
+            {# <div class="col-md-4 col-sm-4 pull-right">
+                 <div class="form-info">
+                     <p style="font-size: 25px;color: crimson;">গুরুত্বপূর্ণ তথ্য </p>
+                     <p>আপনার কাঙ্ক্ষিত খতিয়ান এর জন্য এখানে আবেদন করুন। আবেদন সফলভাবে সম্পন্ন জন্য লাল  তারকা চিহ্নিত তথ্যগুলো অবশই প্রদেয়।
+                         আবেদনকৃত খতিয়ান আপনি সরাসরি সংশ্লিষ্ট ডিসি অফিস থেকে সংগ্রহ করতে পারবেন অথবা ডাকযোগে প্রেরনের জন্য অনুরোধ করতে পারবেন।</p>
+
+                 </div>
+             </div>#}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascriptBlock %}
+    {{ parent() }}
+    {% javascripts
+    '@AppBundle/Resources/public/js/porcha-option.js'
+    '@AppBundle/Resources/public/js/application.js'
+    'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    'assets/admin/pages/scripts/components-pickers.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}
+{% block documentReady %}
+    {{ parent() }}
+    PorchaOption.init();
+    ComponentsPickers.init();
+{% endblock %}

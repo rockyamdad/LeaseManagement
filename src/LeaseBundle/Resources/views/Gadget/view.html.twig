@@ -1,0 +1,362 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Gadget View'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1 xmlns="http://www.w3.org/1999/html">{{ 'Gadget View'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('gadget_list') }}">{{ 'List of Gadget'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Gadget View'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Gadget View'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-11 col-md-offset-1">
+                            <form class="form-horizontal">
+                                <div class="col-md-5">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">{{ 'Case File Number'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.caseFileNo }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">{{ 'Original Owner Name'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.orginalOwnerName }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">{{ 'Father Name'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.fatherName }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">{{ 'Status'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">
+                                                    {% if (gadget.status == 'Pending') %}
+                                                        {{ 'Pending'|trans }}
+                                                    {% elseif(gadget.status == 'WAITING_FOR_APPROVAL') %}
+                                                        {{ 'Waiting for approval'|trans }}
+                                                    {% elseif(gadget.status == 'APPROVED') %}
+                                                        {{ 'Approved'|trans }}
+                                                    {% else%}
+                                                        {{ 'CANCELED'|trans }}
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">{{ 'Date'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.govtAquiredDate|date("m/d/Y") }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="col-md-12">
+                                <form class="form-horizontal">
+                                    <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Gadget'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                                    <div class="form-group">
+
+                                        <div class="col-md-6">
+                                            <label class="col-md-3 control-label">{{ 'Private Document'|trans }} :</label>
+                                            <div class="col-md-9">
+                                                {% for document in LeasePrivateDocuments %}
+                                                    <p class="margin-top-10">
+
+                                                        {{ loop.index|numberBanglaConvert }} <a
+                                                                href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a>
+                                                    </p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="col-md-3 control-label">{{ 'Public Document'|trans }} :</label>
+                                            <div class="col-md-9">
+                                                {% for document in LeasePublicDocuments %}
+                                                    <p class="margin-top-10">
+                                                        {{ loop.index|numberBanglaConvert }} <a
+                                                                href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a>
+                                                    </p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-8">
+                                <form class="form-horizontal">
+                                    <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Gadget Khatian Info'|trans }}:</h4>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <table class="table table-bordered table-striped table-condensed flip-content"
+                                                       style="margin-bottom: 0;margin-left: 141px;">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{ 'SA Khatian No'|trans }}</th>
+                                                        <th>{{ 'SA Khatian Dag No'|trans }}</th>
+                                                        <th>{{ 'RS Khatian No'|trans }}</th>
+                                                        <th>{{ 'RS Khatian Dag No'|trans }}</th>
+                                                        <th>{{ 'Total Amount'|trans }}</th>
+                                                        <th>{{ 'Proposed Amount'|trans }}</th>
+                                                        <th>{{ 'Property Type'|trans }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="dag-list">
+
+                                                    {% for gadgetDetails in gadget.gadgetDetails %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if gadgetDetails.saKhatianNo.khatianNo is defined %}
+                                                                {{ gadgetDetails.saKhatianNo.khatianNo|numberBanglaConvert }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.saDagNo|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {% if gadgetDetails.rsKhatianNo.khatianNo is defined %}
+                                                                {{ gadgetDetails.rsKhatianNo.khatianNo|numberBanglaConvert }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.rsDagNo|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.totalAmount|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.proposedAmount|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.propertyType }}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                    {% if  applicant  %}
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal">
+                                    <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}: </h4>
+                                    <div class="form-body">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Name'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.name }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Father Name'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.fatherName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Mother Name'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.motherName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Spouse Name'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.spouseName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Gender'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.bnGender }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Nid'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.nid }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Dob'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.dob|date("m/d/Y") }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Email'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Address'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.address }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">{{ 'Cellphone'|trans }} :</label>
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.application.phoneNo }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if(comment and gadget.status != 'APPROVED') %}
+                                            <div style="margin-left: 82px;" class="col-md-6">
+                                                <label class="col-md-2 control-label">{{ 'Comment'|trans }} </label>
+                                                <div style="margin-left: 12px;" class="note note-info">
+                                                    <p>
+                                                        {{ comment.message }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    </form>
+                                </div>
+                            {% if applicationDocx %}
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'application'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                                        <div class="form-group">
+
+                                            <div class="col-md-9 col-md-offset-1">
+
+                                                {#<label class="col-md-2 control-label">{{ 'Document'|trans }} :</label>#}
+                                                {% for applicationDoc in applicationDocx %}
+                                                    {% if applicationDoc.type == 'Nid' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'National Id'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if applicationDoc.type == 'Photo' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Photo'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if applicationDoc.type == 'Resulation' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Resulation Copy'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if applicationDoc.type == 'Audit' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Audit Copy'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if applicationDoc.type == 'Nibondhon' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Nibondhon Copy'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if applicationDoc.type == 'Trade' %}
+                                                        <div class="col-md-9">
+                                                            <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Trade License'|trans }}</a>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="row">
+
+                        {% if((gadget.status == 'WAITING_FOR_APPROVAL') or (gadget.status == 'PENDING') or (gadget.status == 'CORRECTION')) %}
+                             <form class="form-horizontal" action="{{ path('gadget_status_change', {'id': gadget.id, 'status': 'WAITING_FOR_APPROVAL'}) }}"  role="form" method="post" novalidate="novalidate">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                        <div class="col-md-9">
+                                            <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                        </div>
+                                    </div>
+
+                        {% endif %}
+
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple btn-sm col-md-offset-2" href="javascript: window.history.go(-1)">{{ 'Back'|trans }}</a>
+                                        {% if (gadget.status == 'PENDING' or gadget.status == 'CORRECTION') and (userType == 'এসি-ল্যান্ড') %}
+                                        <button type="submit" class="btn blue">{{ 'Send to approval'|trans }}</button>
+                                        {% elseif (gadget.status == 'WAITING_FOR_APPROVAL') and (is_granted('ROLE_GADGET_APPROVED'))%}
+                                            <button type="submit" class="btn green" name="correction" value="co"> {{ 'Correction'|trans }}</button>
+                                            <button type="submit" class="btn blue" name="approval" value="ap"> {{ 'Approval'|trans }}</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+

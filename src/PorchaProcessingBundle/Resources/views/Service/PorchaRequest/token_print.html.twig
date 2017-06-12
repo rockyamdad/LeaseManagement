@@ -1,0 +1,40 @@
+{% extends "preview.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+
+    <style>
+        body{
+            font-size: 12px;
+        }
+
+        table td, table th {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            padding: 2px;
+        }
+        table td:last-child, table th:last-child  {
+            border-right: 1px solid black;
+        }
+
+        table tr:last-child td  {
+            border-bottom: 1px solid black;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <table class="table" cellspacing="0" cellpadding="0">
+        <tr><td colspan="2" style="text-align: center"><strong>জেলা ই-সেবা কেন্দ্র হতে খতিয়ানের আবেদনের গ্রহণ রশিদ</strong></td></tr>
+        <tr><td style="width: 100px">{{ "Applicant Name"|trans }}</td><td>{{ serviceRequest.name }}</td></tr>
+        <tr><td>{{ "Request ID"|trans }}</td><td>{{ serviceRequest.id }}</td></tr>
+        <tr><td>{{ "Delivery Type"|trans }}</td><td>{{ serviceRequest.urgency|trans }}</td></tr>
+        <tr><td>{{ "Survey"|trans }}</td><td>{{ porcha.survey.name }}</td></tr>
+        <tr><td>{{ "Upozila"|trans }}</td><td>{{ porcha.upozila.name }}</td></tr>
+        <tr><td>{{ "Mouza"|trans }}</td><td>{{ porcha.mouza.name }}</td></tr>
+        <tr><td>{{ "Jlno"|trans }}</td><td>{{ porcha.jlNo|numberBanglaConvert }}</td></tr>
+        <tr><td>{{ "Khatian No"|trans }}</td><td>{{ porcha.khatianNo|numberBanglaConvert }}</td></tr>
+        <tr><td height="50">{{ "Token Provider <br>and Signature"|trans|raw }}</td><td></td></tr>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{{ form_start(form) }}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">{{ "Volume"|trans }}</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td>{{ 'Survey'|trans }}</td>
+                    <td>{{ volume.survey.name }}</td>
+                </tr>
+                {#<tr>#}
+                    {#<td>{{ 'Template First Page'|trans }}</td>#}
+                    {#<td>{{ volume.templatePage1.name|trans|default('')|trans }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>{{ 'Additional Page'|trans }}</td>#}
+                    {#<td>{{ volume.templatePage1Additional.name|default('')|trans }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>{{ 'Template Second Page'|trans }}</td>#}
+                    {#<td>{{ volume.templatePage2.name|default('')|trans }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>{{ 'Additional Page'|trans }}</td>#}
+                    {#<td>{{ volume.templatePage2Additional.name|default('')|trans }}</td>#}
+                {#</tr>#}
+                <tr>
+                    <td>{{ 'District'|trans }}</td>
+                    <td>{{ volume.district.name|default('') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Upozila'|trans }}</td>
+                    <td>{{ volume.upozila.name|default('') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Thana'|trans }}</td>
+                    <td>{{ volume.thana.name|default('') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Mouza'|trans }}</td>
+                    <td>{{ volume.mouzas|join(", ") }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Pargona'|trans }}</td>
+                    <td>{{ volume.pargana|numberBanglaConvert }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Volume No'|trans }}</td>
+                    <td>{{ volume.volumeNo|numberBanglaConvert }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'No of Khatians'|trans }}</td>
+                    <td>{{ volume.noOfKhatians|numberBanglaConvert }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Last Khatian No'|trans }}</td>
+                    <td>{{ volume.lastKhatianNos|numberBanglaConvert }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Sub Khatian Nos'|trans }}</td>
+                    <td>{{ volume.subKhatianNos|numberBanglaConvert }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Missing Khatian Nos'|trans }}</td>
+                    <td>{{ volume.missingKhatianNos|numberBanglaConvert }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn default" data-dismiss="modal">{{ "Close"|trans }}</button>
+    {{ form_widget(form.approved) }}
+</div>
+{{ form_end(form) }}

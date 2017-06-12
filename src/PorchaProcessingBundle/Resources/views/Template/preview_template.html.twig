@@ -1,0 +1,21 @@
+{% extends "preview.html.twig" %}
+
+{% block title %}{{ 'Preview Template'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Preview Template'|trans }} </h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12" id="template-view">
+            {% if template is not null %}
+                <form class="form-horizontal" role="form" method="post" action="{{ form_action }}">
+                {{ placeholderReplaceWithTooltip(template.body, form) }}
+                {{ form_row(form._token) }}
+                </form>
+            {% else %}
+                <h3>{{ 'Nothing to preview'|trans }}</h3>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

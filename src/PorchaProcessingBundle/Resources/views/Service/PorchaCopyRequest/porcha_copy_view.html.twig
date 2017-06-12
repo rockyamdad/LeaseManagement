@@ -1,0 +1,101 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Request Khatian Form'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Request Khatian Form'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ "Correction Info"|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+
+    <div class="col-sm-12" id="porcha-request-form" style="margin: auto; float: none">
+            {% include 'flash.html.twig' %}
+        <div class="portlet light">
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Correction Info"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4"><strong>{{ 'Requested Subject'|trans }} :</strong></div>
+                                <div class="col-sm-8"> {{ form.subject }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4"><strong>{{ 'Requested Volume/Khatian'|trans }} : </strong></div>
+                                <div class="col-sm-8">{{ form.requestedVolumeKhatian }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4"><strong>{{ 'Requested Reason'|trans }} : </strong></div>
+                                <div class="col-sm-8">{{ form.requestReason }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-4"><strong>{{ 'Requested Response'|trans }}:</strong></div>
+                                <div class="col-sm-8">{{ form.requestResponse }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4"><strong>{{ 'Document'|trans }}:</strong></div>
+                                {% for index , file in form.documents %}
+                                    {% if officeType[index] == 'DC' %}
+
+                                <div class="col-sm-10">
+                                    <a class="btn btn-xs" target="_blank"
+                                       href="{{ asset('uploads/acLand/') }}{{ file.path }}">{{ file.fileName }}</a> : {{ 'DC Office'|trans }}
+                                </div>
+                                {% elseif officeType[index] == 'AC_LAND'  %}
+
+                                    <div class="col-sm-10">
+                                        <a class="btn btn-xs" target="_blank"
+                                           href="{{ asset('uploads/acLand/') }}{{ file.path }}">{{ file.fileName }}</a> : {{ 'AC Land Office'|trans }}
+                                    </div>
+
+                                {% endif %}
+
+                                {% endfor %}
+
+                        </div>
+
+                        </div>
+                        <input type="button" onclick="window.history.back();" value="{{ "Back"|trans }}" class="btn green" name="save">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    <script type="text/javascript">
+
+    </script>
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/porchaprocessing/js/correction-porcha-application.js') }}"></script>#}
+    {#<script src="{{ asset('bundles/porchaprocessing/js/porcha-application-list.js') }}"></script>#}
+{% endblock include_javascripts %}

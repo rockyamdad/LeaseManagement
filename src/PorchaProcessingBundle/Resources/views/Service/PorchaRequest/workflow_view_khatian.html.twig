@@ -1,0 +1,238 @@
+{% extends "preview.html.twig" %}
+
+{% block title %}{{ khatian.volume.survey.name ~' '~ 'Khatian No'|trans }}: {{ khatian.khatianNo|numberBanglaConvert }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.thana }}, {{ khatian.jlnumber.district }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ khatian.volume.survey.name ~ 'Khatian No'|trans }}: {{ khatian.khatianNo|numberBanglaConvert }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.thana }}, {{ khatian.jlnumber.district }}</h1>{% endblock %}
+
+{% block body %}
+    <style>
+        body{
+            margin: 10px 20px;
+        }
+        #non-delv {
+            background-color: #c1d6e7;
+            padding: 10px 10px;
+        }
+        .clearfix{
+            clear: both;
+        }
+        @media screen {
+            .print-page{
+                display: none;
+            }
+            div.khatian-pages > div:first-child{
+                display: block;
+            }
+
+        }
+        @media print {
+            .print-page{
+                display: block !important;
+                page-break-after: always;
+            }
+            .print-page:last-of-type {
+                page-break-after: avoid;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+    <!-- BEGIN PAGE CONTENT INNER -->
+    {{ form_start(workflowForm, {'action': path('porcha_request_workflow_action', {id: khatianLog.id})}) }}
+    <div class="row">
+        <div class="col-sm-12" id="template-view">
+            <div class="no-print">
+                <div class="pull-left">
+                    <a href="javascript:history.back()" class="btn grey">{{ 'Back'|trans }}</a>
+                    <a href="javascript:window.print()" class="btn blue">{{ 'Print'|trans }}</a>
+                {% if workflowForm.back is defined %}
+                    <a href="#" class="btn yellow" id="correction-message">{{ "Write Correction Message"|trans }}</a>
+                {% endif %}
+                </div>
+                <div class="pull-right">
+
+                    {% if workflowForm.back is defined %}
+                    {{ form_widget(workflowForm.back) }}
+                    {% endif %}
+
+                    {% set formardLabel = 'Forward'|trans %}
+                    {% if khatianLog.khatianStatus == 'READY_FOR_APPROVAL' %}
+                        {% set formardLabel = 'Ready For Delivery'|trans %}
+                    {% endif %}
+                    {{ form_widget(workflowForm.forward, {label: formardLabel}) }}
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                {{ "Khatian Pages"|trans }}
+                {% for page in pagination %}
+                    <button class="print-pagination btn-default btn" rel="{{ page['id'] }}">{{ numberBanglaConvert(page['label']|trans) }}</button>
+                {% endfor %}
+            </div>
+            <div style="clear: both"></div>
+
+            {% if (khatianLog.nonDeliverableMessage) %}
+                <div id="non-delv">
+                    {{ 'This Khatian is non deliveral'|trans }} |
+                    {{ 'non delivery remark'|trans }} :
+                    {{ khatianLog.nonDeliverableMessage.message }}
+                </div>
+            {% endif %}
+
+            <div class="khatian-pages">
+                {% for id, khatianPage in khatianPages %}
+
+                    {% if (khatianPage.data) %}
+                        <div class="print-page" id="print-page-{{ khatianPage.data['id'] }}">
+
+                            {{ placeholderReplaceWithData(khatianPage.template.body, khatianPage.data) }}
+
+                            {% if workflowForm.correctionMessages[id] is defined %}
+
+                                <div class="correction-form" style="display: none; cursor: default">
+
+                                    {{ form_widget(workflowForm.correctionMessages[id].message) }}
+                                    <div style="margin-top: 10px">
+                                        <input type="button" rel="{{ workflowForm.correctionMessages[id].message.vars.id }}" class="close" value="{{ 'Close'|trans }}" />
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div id="signature_show_part" align="center" style="width:768px">
+
+                                <table width="100%" cellpadding="5" cellspacing="5">
+
+                                    <tr>
+                                        <td width="25%" align="center" style="font-family:nikoshBAN">নকলকারী</td>
+                                        <td width="25%" align="center" style="font-family:nikoshBAN">যাচাইকারী</td>
+                                        <td width="25%" align="center" style="font-family:nikoshBAN">তুলনাকারী</td>
+                                        <td width="25%" align="center" style="font-family:nikoshBAN">অনুমোদনকারী</td>
+                                    </tr>
+                                    <tr class="no-print">
+                                        {% if khatianLog.entryOperator is not null %}
+                                        <td align="center">
+                                            <table width="100%" cellpadding="1" cellspacing="1">
+                                                <tr>
+                                                    <td align="center"><img
+                                                                src="{{ asset(khatianLog.entryOperator.profile.signature) }}"
+                                                                width="110" height="50"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.entryOperator.profile.fullNameEn }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.entryOperator.profile.designation }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" style="font-family:nikoshBAN;font-size:13px;">
+                                                        তারিখঃ {{ khatianLog.entryAt|date('d/m/Y') }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        {% endif %}
+                                        {% if khatianLog.verifier is not null %}
+                                        <td width="25%" align="center">
+                                            <table width="100%" cellpadding="1" cellspacing="1">
+                                                <tr>
+                                                    <td align="center">{% if khatianLog.verifier is not null %}<img
+                                                            src="{{ asset(khatianLog.verifier.profile.signature) }}"
+                                                            width="110" height="50">{% endif %}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.verifier is not null ? khatianLog.verifier.profile.fullNameEn : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.verifier is not null ? khatianLog.verifier.profile.designation : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.verifier is not null ? "তারিখঃ " ~ khatianLog.verifiedAt|date('d/m/Y') : '' }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        {% endif %}
+                                        {% if khatianLog.comparer is not null %}
+                                        <td width="25%" align="center">
+                                            <table width="100%" cellpadding="1" cellspacing="1">
+                                                <tr>
+                                                    <td align="center">{% if khatianLog.comparedAt is not null %}<img
+                                                            src="{{ asset(khatianLog.comparer.profile.signature) }}"
+                                                            width="110" height="50">{% endif %}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.comparer is not null ? khatianLog.comparer.profile.fullNameEn : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.comparer is not null ? khatianLog.comparer.profile.designation : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.comparer is not null ? "তারিখঃ " ~ khatianLog.comparedAt|date('d/m/Y') : '' }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        {% endif %}
+                                        {% if khatianLog.approver is not null %}
+                                        <td width="25%" align="center">
+                                            <table width="100%" cellpadding="1" cellspacing="1">
+                                                <tr>
+                                                    <td align="center">{% if khatianLog.approver is not null %}<img
+                                                            src="{{ asset(khatianLog.approver.profile.signature) }}"
+                                                            width="110" height="50">{% endif %}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.approver is not null ? khatianLog.approver.profile.fullNameEn : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN">{{ khatianLog.approver is not null ? khatianLog.approver.profile.designation : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"
+                                                        style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.approver is not null ? "তারিখঃ " ~ khatianLog.comparedAt|date('d/m/Y') : '' }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+            {#{% if template is not null %}#}
+                {#{{ placeholderReplaceWithData(template.body, khatian_page) }}#}
+            {#{% else %}#}
+                {#<h3>{{ 'Nothing to view'|trans }}</h3>#}
+            {#{% endif %}#}
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+    <div style="display: none">{{ form_rest(workflowForm) }}</div>
+    {{ form_end(workflowForm) }}
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/correction-message.js') }}"></script>
+{% endblock include_javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-print.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-print.css') }}"/>
+{% endblock %}

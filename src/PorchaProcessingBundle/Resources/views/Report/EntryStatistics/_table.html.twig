@@ -1,0 +1,44 @@
+<div class="portlet-body">
+    <h4 class="text-center">{{ 'Khatian Entry Statistics'|trans }}</h4>
+    <table class="table table-bordered" style="margin-bottom: 5px">
+        <thead>
+        <tr>
+            <th rowspan="2" class="bg-color-1 text-center">{{ "status"|trans }}</th>
+            <th colspan="2" class="bg-color-2 text-center">{{ "Today"|trans }} ({{ today|date("Y-m-d")|toBanglaDate }})</th>
+            <th colspan="2" class="bg-color-3 text-center">{{ "Yesterday"|trans }} ({{ today|date_modify('-1 day')|date("Y-m-d")|toBanglaDate }})</th>
+            <th colspan="2" class="bg-color-4 text-center">{{ "Total till today"|trans }}</th>
+            <th colspan="4" class="bg-color-5 text-center">{{ "অপেক্ষমান নাগরিক আবেদন"|trans }}</th>
+        </tr>
+        <tr>
+            <th class="bg-color-2">{{ "Khatian Count"|trans }}</th>
+            <th class="bg-color-2">{{ "Correction Required"|trans }}</th>
+            <th class="bg-color-3">{{ "Khatian Count"|trans }}</th>
+            <th class="bg-color-3">{{ "Correction Required"|trans }}</th>
+            <th class="bg-color-4">{{ "Khatian Count"|trans }}</th>
+            <th class="bg-color-4">{{ "Correction Required"|trans }}</th>
+            <th class="bg-color-5">১-৬ দিন</th>
+            <th class="bg-color-5">৭-১৮ দিন</th>
+            <th class="bg-color-5">২ সপ্তাহের উর্ধে </th>
+            <th class="bg-color-5">মোট</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for type, row in data %}
+        <tr>
+            <td class="bg-color-1">{{ type|lower|trans }}</td>
+            <td class="bg-color-2">{{ row.today.complete|numberBanglaConvert }}</td>
+            <td class="bg-color-2">{{ row.today.correction|numberBanglaConvert }}</td>
+            <td class="bg-color-3">{{ row.yesterday.complete|numberBanglaConvert }}</td>
+            <td class="bg-color-3">{{ row.yesterday.correction|numberBanglaConvert }}</td>
+            <td class="bg-color-4">{{ row.total.complete|numberBanglaConvert }}</td>
+            <td class="bg-color-4">{{ row.total.correction|numberBanglaConvert }}</td>
+            <td class="bg-color-5">{{ serviceRequestData[type].in7Days|numberBanglaConvert }}</td>
+            <td class="bg-color-5">{{ serviceRequestData[type].in14Days|numberBanglaConvert }}</td>
+            <td class="bg-color-5">{{ serviceRequestData[type].over2Weeks|numberBanglaConvert }}</td>
+            <td class="bg-color-5">{{ serviceRequestData[type].total|numberBanglaConvert }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">প্রদর্শিত তথ্য সর্বশেষ আপডেট করা হয়েছে {{ today|date_modify('-1 day')|date("Y-m-d")|toBanglaDate('j-m-Y') }} তারিখে</div>
+</div>

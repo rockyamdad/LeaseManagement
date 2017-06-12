@@ -1,0 +1,216 @@
+<div class="visible-print">
+{% if app.user.office %}
+    <div class="text-center">
+        <h4>{{ app.user.office.name }}, {{ app.user.office.district.name }}</h4>
+        <h4>{{ 'Application Receive Register'|trans }}</h4>
+        <h4>{{ app.user.office.getOfficeTypeName|trans }}</h4>
+
+    </div>
+{% endif %}
+{{ 'No of Application'|trans }} : {{ serviceRequest.getTotalItemCount|numberBanglaConvert }}
+{% if app.request.get('ff[sr.createdAt]', '', true) %}
+    <div class="text-center">
+        <h4>{{ "Date"|trans }} : {{ app.request.get('ff[sr.createdAt]', '', true)|toBanglaDate }}</h4>
+
+    </div>
+{% endif %}
+</div>
+<div class="row list-separated hidden-print">
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {{ "Till Today"|trans }}
+        </div>
+        {% if office.type != 'UDC' %}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.WEB|numberBanglaConvert }}</div>
+        </div>
+        {% endif %}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {% if "now"|date('Y-m-d') == app.request.query.get("ff[sr.createdAt]", null, true) %}
+                {{ "Today"|trans }}
+            {% else %}
+                {{ "On This Date"|trans }}
+            {% endif %}
+            <div class="font-grey-mint font-sm">
+                {{ app.request.query.get("ff[sr.createdAt]", "now"|date('Y-m-d'), true)|toBanglaDate }}
+            </div>
+        </div>
+        {% if office.type != 'UDC' %}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.WEB|numberBanglaConvert }}</div>
+        </div>
+        {% endif %}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+</div>
+{#<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <tr>
+        <th>{{ "Till Today"|trans }}</th>
+        <td>{{ "Direct"|trans }} - {{ statistics.total.DIRECT }}</td>
+        <td>{{ "Web"|trans }} - {{ statistics.total.WEB }}</td>
+        <td>{{ "UDC"|trans }} - {{ statistics.total.UDC }}</td>
+        <th>{{ "On This Date"|trans }}</th>
+        <td>{{ "Direct"|trans }} - {{ statistics.today.DIRECT }}</td>
+        <td>{{ "Web"|trans }} - {{ statistics.today.WEB }}</td>
+        <td>{{ "UDC"|trans }} - {{ statistics.today.UDC }}</td>
+    </tr>
+</table>#}
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header" border="1" style="margin-bottom: 0" width="100%">
+    <thead>
+    <tr class="uppercase">
+        <th width="20%">{{ "Sl No."|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Recipient'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Applicant Mobile'|trans, 'sr.contactNumber') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Copy Type'|trans, 's.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Upozila'|trans, 'u.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Mouza'|trans, 'm.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'J. L'|trans, 'p.jlNo') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Khatian No'|trans, 'p.khatianNo') }}</th>
+        <th width="50%">{{ "Delivery method"|trans }}</th>
+        <th width="50%">{{ "Court Fee"|trans }}</th>
+        <th width="50%">{{ 'Applicatin Date'|trans }}</th>
+        <th width="50%">{{ 'Delivery Date'|trans }}</th>
+        {#<th width="50%">{{ 'APP Status'|trans }}</th>#}
+        {% if office.type == 'UDC' %}
+            <th width="50%">{{ 'Khatian Status'|trans }}</th>
+        {% else %}
+            <th width="50%">{{ 'Status'|trans }}</th>
+        {% endif %}
+        <th width="65%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for index, pr in serviceRequest %}
+            <tr id="row-{{ pr.id }}">
+                <td>{{ numberBanglaConvert((serviceRequest.getCurrentPageNumber - 1) * serviceRequest.getItemNumberPerPage + index + 1) }}</td>
+                <td><span{% if pr.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}></span>{{ pr.serviceRequest.idbn }}</td>
+                <td>
+                    {% if pr.serviceRequest.requestFrom|upper == 'WEB' %}
+                        {{ 'Web'|trans }}
+                    {% elseif pr.serviceRequest.requestFrom|upper == 'UDC' %}
+                        {{ pr.serviceRequest.office.name }}<br/>
+                        {% if pr.serviceRequest.createdBy.profile is defined %}{{ pr.serviceRequest.createdBy.profile.fullNameBn }}{% endif %}
+                    {% else %}
+                        {% if pr.serviceRequest.createdBy.profile is defined %}{{ pr.serviceRequest.createdBy.profile.fullNameBn }}{% endif %}
+                    {% endif %}
+                </td>
+                <td>{{ pr.serviceRequest.name }}</td>
+                <td>{{ pr.serviceRequest.contactNumber }}</td>
+                <td>{{ pr.survey.name|trans }}</td>
+                <td>{{ pr.upozila.name }}</td>
+                <td>{{ pr.mouza.name }}</td>
+                <td>{{ pr.jlNo }}</td>
+                <td>{{ pr.khatianNo }}</td>
+                <td>
+                    {% if pr.serviceRequest.deliveryMethod|upper == 'DIRECT'  %}
+                        {{ 'DC Office'|trans }}
+                    {% else %}
+                        {{ pr.serviceRequest.deliveryMethod|trans }}
+                    {% endif %}
+                </td>
+                <td>{{ pr.serviceRequest.courtFee }}</td>
+                <td>{{ pr.serviceRequest.createdAt|date('d/m/Y')|numberBanglaConvert }}</td>
+                <td>{{ pr.serviceRequest.estimateDeliveryAt ? pr.serviceRequest.estimateDeliveryAt|date('d/m/Y')|numberBanglaConvert : '' }}</td>
+                {#<td>{{ pr.serviceRequest.status }}</td>#}
+                <td>
+                    {% if pr.serviceRequest.status == 'READY_FOR_DELIVERY' %}
+                        {% if pr.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                            <a href="javascript:;" title="{{ 'Non Deliverable'|trans }}"><img src="{{ asset('assets/layout3/img/non-deliverable.png') }}" alt="{{ 'Non Deliverable'|trans }}"></a>
+                        {% endif %}
+                        <span class="label bg-green">{{ 'READY_FOR_DELIVERY'|trans }}</span>
+                    {% elseif pr.serviceRequest.status == 'DELIVERED' %}
+                        {% if pr.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                            <a href="javascript:;" title="{{ 'Non Deliverable'|trans }}"><img src="{{ asset('assets/layout3/img/non-deliverable.png') }}" alt="{{ 'Non Deliverable'|trans }}"></a>
+                        {% endif %}
+                        <span class="label bg-green">{{ 'Delivered'|trans }}</span>
+                    {% else %}
+                        {% if (pr.khatianLog) %}
+                            {% if pr.khatianLog.khatianVersion.khatian.isArchived %}
+                                {% if pr.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                                    <a href="javascript:;" title="{{ 'Non Deliverable'|trans }}"><img src="{{ asset('assets/layout3/img/non-deliverable.png') }}" alt="{{ 'Non Deliverable'|trans }}"></a>
+                                {% endif %}
+                                <span class="label {{ pr.khatianLog.khatianStatusColor }}">{{ pr.khatianLog.khatianStatusView }}</span>
+                            {% else %}
+
+                                {% if pr.khatianLog.entryOperator and pr.khatianLog.khatianStatus != 'NONE' %}
+                                    {% if pr.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                                        <a href="javascript:;" title="{{ 'Non Deliverable'|trans }}"><img src="{{ asset('assets/layout3/img/non-deliverable.png') }}" alt="{{ 'Non Deliverable'|trans }}"></a>
+                                    {% endif %}
+                                    <span class="label {{ pr.khatianLog.khatianStatusColor }}">{{ pr.khatianLog.khatianStatusView }}</span>
+                                {% else %}
+                                    <span class="label bg-blue-hoki">{{ 'Waiting'|trans }}</span>
+                                {% endif %}
+
+                            {% endif %}
+                        {% else %}
+                            <span class="label bg-red">{{ 'Not Entry'|trans }}</span>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="width90px">
+                        <a class="btn blue btn-sm compact-btn" href="{{ path('porcha_request_view', {id: pr.serviceRequest.id}) }}" title="{{ 'application'|trans }} {{ 'View'|trans }}"><i class="fa fa-file"></i></a>
+                        {% if pr.serviceRequest.status != 'DELIVERED' %}
+                            <a class="btn blue btn-sm compact-btn" href="{{ path('porcha_request_edit', {id: pr.serviceRequest.id}) }}" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                        {% endif %}
+                        {% if pr.serviceRequest.status == 'READY_FOR_DELIVERY' %}
+
+                            {% set delivery_link_view = 'false' %}
+                            {% if pr.serviceRequest.office.type|upper == 'UDC' and pr.serviceRequest.deliveryMethod == 'UDC' %}
+                                {% set delivery_link_view = 'true' %}
+                            {% elseif pr.serviceRequest.office.type|upper == 'DC' and (pr.serviceRequest.deliveryMethod|upper == 'DIRECT' or pr.serviceRequest.deliveryMethod|upper == 'POSTAL')  %}
+                                {% set delivery_link_view = 'true' %}
+                            {% endif %}
+
+                            {% if delivery_link_view == 'true' and is_granted('ROLE_DELIVER_SERVICE_REQUEST')  %}
+                                <a class="btn blue btn-sm compact-btn delivery-confirmation"
+                                   data-app-id="{{ pr.serviceRequest.id }}"
+                                   data-app-name="{{ pr.serviceRequest.name }}"
+                                   data-app-khatian="{{ pr.survey.name }} {{ 'Khatian No'|trans }}: {{ pr.khatianNo }}, {{ pr.mouza.name }}, {{ pr.upozila.name }}, {{ pr.district.name }}"
+                                   href="{{ path('porcha_request_status_delivered', {id: pr.serviceRequest.id}) }}" title="{{ 'delivery'|trans }}">
+                                    <i class="fa fa-paper-plane"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        <a target="_blank" class="btn blue btn-sm compact-btn" href="{{ path('porcha_application_token_print', {id: pr.serviceRequest.id}) }}" title="{{ 'delivery slip'|trans }}"><i class="fa fa-ticket"></i></a>
+                        {% if pr.khatianLog is not null and pr.khatianLog.khatianStatus == 'APPROVED' %}
+                            <a href="{{ path('khatian_pages', {id: pr.khatianLog.id}) }}" class="btn blue btn-sm" title="{{ 'View Khatian'|trans }}" target="_blank" ><i class="fa fa-file-o"></i></a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="20">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

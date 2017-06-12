@@ -1,0 +1,199 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header" style="margin-bottom: 0" width="100%">
+    <thead>
+    <tr class="uppercase">
+
+        <th width="20%">{{ "Sl No."|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Recipient'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Applicant Mobile'|trans, 'sr.contactNumber') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Copy Type'|trans, 's.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Upozila'|trans, 'p.upozila.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Mouza'|trans, 'p.mouza.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Khatian No'|trans, 'p.khatianNo') }}</th>
+        <th width="50%">{{ "Delivery method"|trans }}</th>
+        <th width="50%">{{ "Court Fee"|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Applicatin Date'|trans, 'sr.createdAt') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(requests, 'Delivery Date'|trans, 'sr.deliveredAt') }}</th>
+        <th width="50%">{{ 'Status'|trans }}</th>
+        <th  width="50%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if requests is not empty %}
+
+        {% for index, request in requests %}
+            <tr>
+
+                <td>{{ numberBanglaConvert((requests.getCurrentPageNumber - 1) * requests.getItemNumberPerPage + index + 1) }}</td>
+                <td><span{% if request.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}></span>{{ request.serviceRequest.id }}</td>
+                <td>
+                    {% if request.serviceRequest.requestFrom|upper == 'WEB' %}
+                        {{ 'Web'|trans }}
+                    {% elseif request.serviceRequest.requestFrom|upper == 'UDC' %}
+                        {{ request.serviceRequest.office.name }}<br/>
+                        {% if request.serviceRequest.createdBy.profile is defined %}{{ request.serviceRequest.createdBy.profile.fullNameBn }}{% endif %}
+                    {% else %}
+                        {% if request.serviceRequest.createdBy.profile is defined %}{{ request.serviceRequest.createdBy.profile.fullNameBn }}{% endif %}
+                    {% endif %}
+                </td>
+                <td>{{ request.serviceRequest.name }}</td>
+                <td>{{ request.serviceRequest.contactNumber }}</td>
+                <td>{{ request.survey.name|trans }}</td>
+                <td>{{ request.upozila.name }}</td>
+                <td>{{ request.mouza.name }}</td>
+                <td>{{ request.khatianNo }}</td>
+                <td>
+                    {% if request.serviceRequest.deliveryMethod|upper == 'DIRECT'  %}
+                        {{ 'DC Office'|trans }}
+                    {% else %}
+                        {{ request.serviceRequest.deliveryMethod|trans }}
+                    {% endif %}
+                </td>
+                <td>{{ request.serviceRequest.courtFee }}</td>
+                <td>{{ request.serviceRequest.createdAt|date('d/m/Y') }}</td>
+                <td>{{ request.serviceRequest.estimateDeliveryAt ? request.serviceRequest.estimateDeliveryAt|date('d/m/Y') : '' }}</td>
+
+                    {% if request.serviceRequest.status == 'READY_FOR_DELIVERY' %}
+                        <td>
+                            {% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                                <img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">
+                            {% endif %}
+                            <span class="label bg-green">{{ 'READY_FOR_DELIVERY'|trans }}</span>
+                        </td>
+                        <td>
+                            <a href="{{ path('khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="দেখুন " ><i class="fa fa-file-o"></i></a>
+                        </td>
+                    {% else %}
+
+                    {% if (request.khatianLog) %}
+
+                        {% if request.khatianLog.khatianVersion.khatian.isArchived %}
+                            <td>
+                                {% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                                    <img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">
+                                {% endif %}
+                                <span class="label {{ request.khatianLog.khatianStatusColor }}">{{ request.khatianLog.khatianStatusView }}</span>
+                            </td>
+                            <td>
+                                {% if request.khatianLog.khatianStatus == 'HAS_ENTRY' and is_granted('ROLE_KHATIAN_ENTRY') %}
+                                    <a href="{{ path('porcha_request_workflow_khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="পরবর্তী ধাপে প্রেরণ " ><i class="fa fa-arrow-right"></i></a>
+                                {% endif %}
+                                <a href="{{ path('khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="দেখুন " ><i class="fa fa-file-o"></i></a>
+                            </td>
+                        {% else %}
+                            <td>
+                                {% if request.khatianLog.entryOperator and request.khatianLog.khatianStatus != 'NONE' %}
+                                    {% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}
+                                        <img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">
+                                    {% endif %}
+                                    <span class="label {{ request.khatianLog.khatianStatusColor }}">{{ request.khatianLog.khatianStatusView }}</span>
+                                {% else %}
+                                    <span class="label bg-blue-hoki">{{ 'Waiting'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td></td>
+                        {% endif %}
+
+                    {% else %}
+                        <td>
+                            <span class="label bg-red">{{ 'Not Entry'|trans }}</span>
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_KHATIAN_ENTRY') %}
+                                <a href="{{ path('porcha_request_find_application_khatian', {id: request.id}) }}" class="btn blue btn-sm" title="নতুন এন্ট্রি " ><i class="fa fa-plus"></i></a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                {% endif %}
+
+
+
+
+
+                {#<td>{{ sl }}</td>#}
+                {#<td>{{ request.upozila.name }}</td>#}
+                {#<td>{{ request.mouza.name }}</td>#}
+                {#<td><span{% if request.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}></span>{{ request.serviceRequest.id }}</td>#}
+                {#<td>{{ request.serviceRequest.name }}</td>#}
+                {#<td>{{ request.survey.type|trans }}</td>#}
+                {#<td>{{ request.jlNo }}</td>#}
+                {#<td>{{ request.khatianNo }}</td>#}
+                {#<td>#}
+                    {#{% if request.serviceRequest.office.type|upper == 'UDC' %}#}
+                        {#{{ request.serviceRequest.office.name }}#}
+                    {#{% elseif request.serviceRequest.office.type|upper == 'DC' %}#}
+                        {#{{ 'Office'|trans }}#}
+                    {#{% elseif request.serviceRequest.office.type|upper == 'DC' %}#}
+                        {#{{ 'DC Office'|trans }}#}
+                    {#{% endif %}#}
+                {#</td>#}
+                {#<td>{{ request.serviceRequest.urgency|trans }}</td>#}
+                {#<td>{{ request.serviceRequest.createdAt|date('d-m-Y') }}</td>#}
+                {#<td>{{ request.serviceRequest.estimateDeliveryAt|date('d-m-Y') }}</td>#}
+
+                    {#{% if request.serviceRequest.status == 'READY_FOR_DELIVERY' %}#}
+                        {#<td>#}
+                            {#{% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}#}
+                                {#<img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">#}
+                            {#{% endif %}#}
+                            {#<span class="label bg-green">{{ 'READY_FOR_DELIVERY'|trans }}</span>#}
+                        {#</td>#}
+                        {#<td>#}
+                            {#<a href="{{ path('khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="দেখুন " ><i class="fa fa-file-o"></i></a>#}
+                        {#</td>#}
+                    {#{% else %}#}
+                        {#{% if (request.khatianLog) %}#}
+
+                            {#{% if request.khatianLog.khatianVersion.khatian.isArchived %}#}
+                                {#<td>#}
+                                    {#{% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}#}
+                                        {#<img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">#}
+                                    {#{% endif %}#}
+                                    {#<span class="label {{ request.khatianLog.khatianStatusColor }}">{{ request.khatianLog.khatianStatusView }}</span>#}
+                                {#</td>#}
+                                {#<td>#}
+                                    {#{% if request.khatianLog.khatianStatus == 'HAS_ENTRY' and is_granted('ROLE_KHATIAN_ENTRY') %}#}
+                                        {#<a href="{{ path('porcha_request_workflow_khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="পরবর্তী ধাপে প্রেরণ " ><i class="fa fa-arrow-right"></i></a>#}
+                                    {#{% endif %}#}
+                                    {#<a href="{{ path('khatian_pages', {id: request.khatianLog.id}) }}" class="btn blue btn-sm" title="দেখুন " ><i class="fa fa-file-o"></i></a>#}
+                                {#</td>#}
+                            {#{% else %}#}
+                                {#<td>#}
+                                    {#{% if request.khatianLog.entryOperator and request.khatianLog.khatianStatus != 'NONE' %}#}
+                                        {#{% if request.khatianLog.khatianVersion.nonDeliverable is not empty %}#}
+                                            {#<img src="{{ asset('assets/layout3/img/non-deliverable.png') }}">#}
+                                        {#{% endif %}#}
+                                        {#<span class="label {{ request.khatianLog.khatianStatusColor }}">{{ request.khatianLog.khatianStatusView }}</span>#}
+                                    {#{% else %}#}
+                                        {#<span class="label bg-blue-hoki">{{ 'Waiting'|trans }}</span>#}
+                                    {#{% endif %}#}
+                                {#</td>#}
+                                {#<td></td>#}
+                            {#{% endif %}#}
+
+                        {#{% else %}#}
+                            {#<td>#}
+                                {#<span class="label bg-red">{{ 'Not Entry'|trans }}</span>#}
+                            {#</td>#}
+                            {#<td>#}
+                                {#{% if is_granted('ROLE_KHATIAN_ENTRY') %}#}
+                                    {#<a href="{{ path('porcha_request_find_application_khatian', {id: request.id}) }}" class="btn blue btn-sm" title="নতুন এন্ট্রি " ><i class="fa fa-plus"></i></a>#}
+                                {#{% endif %}#}
+                            {#</td>#}
+                        {#{% endif %}#}
+                    {#{% endif %}#}
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="20">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(requests) }}
+</div>

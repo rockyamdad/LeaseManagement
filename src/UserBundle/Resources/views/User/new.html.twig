@@ -1,0 +1,51 @@
+{% extends "RbsUserBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Users'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Users'|trans }}</h1>{% endblock %}
+
+{% form_theme form '@RbsUser/_form_template/bootstrap_3_horizontal_layout_user.html.twig' %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('users_home') }}">{{ 'Users'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ mode == 'create' ? 'Create'|trans : 'Update'|trans }} {{ 'User'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ mode == 'create' ? 'Create'|trans : 'Update'|trans }} {{ 'User'|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class='table-data'>
+                        {% include "RbsUserBundle:User:new_content.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
+    <script src="{{ asset('bundles/rbsuser/js/user.js') }}"></script>
+
+{% endblock include_javascripts %}

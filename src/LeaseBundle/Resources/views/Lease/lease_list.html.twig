@@ -1,0 +1,66 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'List of Lease'|trans  }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'List of Lease'|trans  }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans  }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'List of Lease'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        {% if leases is not empty %}
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Lease Running List'|trans  }} ({{ leases[0].BnType }})</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class='table-data'>
+                        {% include 'LeaseBundle:Lease:lease_list_partial.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+
+    <div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('assets/layout3/img/loading-spinner-grey.gif') }}" alt="" class="loading">
+                    <span> &nbsp;&nbsp;Loading... </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+    "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+{% endblock %}
+

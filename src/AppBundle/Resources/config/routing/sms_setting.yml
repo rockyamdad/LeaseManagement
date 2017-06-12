@@ -1,0 +1,14 @@
+create_sms_setting:
+    path:     /smssetting/new
+    defaults: { _controller: AppBundle:Settings:createSmsSetting }
+
+sms_setting_list:
+    path:     /smssetting/list/{appType}
+    defaults:
+        _controller: AppBundle:Settings:smsSettingList
+        appType: 'PORCHA'
+
+update_sms_setting:
+    path:     /smssetting/update/{id}
+    defaults: { _controller: AppBundle:Settings:createSmsSetting }
+

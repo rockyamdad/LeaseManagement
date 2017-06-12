@@ -1,0 +1,57 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'View'|trans }} {{ 'Template'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'View'|trans }} {{ 'Template'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <form class="form-horizontal" role="form" id="update-khatian" method="post" action="">
+                <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ template.name }}</span>
+                    </div>
+                    {% if template.approved == 1 %}
+                    <div class="actions">
+                        <a href="{{ path('template_set_for_my_office', {id: template.id}) }}" class="btn {{ (is_set) ? 'red' : 'green' }}">
+                            {{ (is_set) ? 'Unset from my Office'|trans : 'Set for my Office'|trans }}</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="portlet-body">
+
+                    <div class="row">
+                        <div class="col-sm-12" id="template-update">
+                            {% if template is not null %}
+                                <form class="form-horizontal" role="form" method="post" action="{{ form_action }}">
+                                    {{ placeholderReplaceWithFields(template.body, form) }}
+                                    {{ form_row(form._token) }}
+                                </form>
+                            {% else %}
+                                <h3>{{ 'Nothing to preview'|trans }}</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </form>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/khatian-update.js') }}" type="text/javascript"></script>
+{% endblock %}

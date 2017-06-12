@@ -1,0 +1,79 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Khatian Entry'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Khatian Entry'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">{{ 'Khatian Entry'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase"></span>
+                    </div>
+                </div>
+                {% set forwardAction = true %}
+                <div class="portlet-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'Khatian Pages'|trans }}</th>
+                            <th class="text-center" width="100px">{{ 'Message'|trans }}</th>
+                            <th class="text-center" width="150px">{{ 'Entry Complete'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for page in khatian_pages %}
+                            <tr class=" item-box">
+                                <td><a href="{{ path('entry_operator_khatian_page', {id: page.id}) }}">{{ page.type|trans }}</a></td>
+                                <td class="text-center"><i class="fontSize22 {{ page.correctionLog ? 'icon-envelope-open' : '' }}"></i></td>
+                                <td class="text-center"><span aria-hidden="true" class="fontSize22 {{ page.entryComplete ? 'icon-check' : '' }}"></span></td>
+                            </tr>
+                            {% if (page.entryComplete == 0) %}
+                                {% set forwardAction = false %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" role="form" id="update-khatian" method="post" action="{{ form_action }}">
+                            <input type="hidden" id="workflow-action" name="workflowAction" />
+                            <button class="btn green" id="back-action" data-action="DRAFT" type="submit">
+                                {{ 'Save As Draft'|trans }}
+                            </button>
+                            <button class="btn green" id="forward-action" data-action="READY_FOR_VERIFICATION" type="submit" {% if (forwardAction == false) %} disabled {% endif %}>
+                                {{ 'Forward'|trans }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block document_ready %}
+    $('#forward-action').click(function(){
+    $('#workflow-action').val($(this).attr('data-action')).submit();
+    });
+    $('#back-action').click(function(){
+    $('#workflow-action').val($(this).attr('data-action')).submit();
+    });
+{% endblock %}

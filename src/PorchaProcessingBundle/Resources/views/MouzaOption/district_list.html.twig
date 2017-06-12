@@ -1,0 +1,94 @@
+{% extends "metronic.html.twig" %}
+{% import 'macros.html.twig' as macro %}
+
+{% block title %}{{ 'Districts'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Users List'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Districts'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-8">
+            {% include 'flash.html.twig' %}
+
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'List of Districts'|trans }}</span>
+
+                    </div>
+                    {#<div class="actions">#}
+                        {#<a href="{{ path('district_create') }}" class="btn green">#}
+                            {#<i class="fa fa-plus"></i> {{ 'Create New'|trans }}</a>#}
+                    {#</div>#}
+                </div>
+                <div class="portlet-body">
+
+                    <div class='table-data'>
+                        {% include 'PorchaProcessingBundle:MouzaOption:district_list_sub.html.twig' %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% if is_granted('ROLE_FILE_IMPORT')  %}
+        <div class="col-sm-4">
+            {% include 'flash.html.twig' %}
+
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Import'|trans }}</span>
+
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+
+                    {% if form_errors(form.file) != '' %}
+                        <div class="alert alert-danger">
+                            {{ form_errors(form.file) }}
+                        </div>
+                    {% endif %}
+
+                    <form action="{{ form_action }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="exampleInputFile1">{{ 'Import CSV file'|trans }}</label>
+                            {{ form_widget(form.file) }}
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <button type="submit" class="btn green">{{ 'Submit'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init();
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'RbsUserBundle::layout.html.twig' %}
+
+{% block title %}{{ mode == 'edit' ? 'Update'|trans : 'Add'|trans }} {{ 'Volume'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Update'|trans }} {{ 'Volume'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('groups_home') }}">{{ 'Groups'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ mode == 'edit' ? 'Update'|trans : 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-update-page">
+
+        <div class="col-md-8 col-sm-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ mode == 'edit' ? 'Update'|trans : 'Add'|trans }} {{ 'group'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <div class="form-body">
+                    {{ form_start(form, {'method': 'POST'}) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets  filter='cssrewrite'
+    "assets/plugins/jquery-multi-select/css/multi-select.css"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% endblock stylesheets %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+    "assets/plugins/select2/select2.min.js"
+    "assets/plugins/jquery-multi-select/js/jquery.multi-select.js"
+
+    "assets/plugins/jquery-validation/js/jquery.validate.min.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock include_javascripts %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $("select[multiple=multiple]").multiSelect({selectableOptgroup: true});
+{% endblock document_ready %}

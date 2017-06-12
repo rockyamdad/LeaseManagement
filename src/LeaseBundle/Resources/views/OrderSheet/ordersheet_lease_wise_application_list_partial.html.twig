@@ -1,0 +1,58 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans  }}</th>
+        <th>{{  'Applicant Name'|trans}}</th>
+        <th>{{  'Application Tracking Id'|trans}}</th>
+        <th>{{  'Status'|trans}}</th>
+        <th width="170"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if applications is not empty %}
+        {% for application in applications %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                    {% if application.applicant %}
+                            {{ application.applicant.name }}{% if not loop.last %},{% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if application.applicationTrackingId %}
+                       {{  application.applicationTrackingId }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (application.status == 'PENDING') %}
+                        <span class="label label-primary">{{ 'Pending'|trans }}</span>
+                    {% elseif(application.status == 'WAITING_FOR_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% elseif(application.status == 'APPROVED') %}
+                        <span class="label label-success">{{ 'Approved'|trans }}</span>
+                    {% else%}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if is_granted('ROLE_ORDER_SHEET_VIEW') %}
+                        <a href="{{ path('lease_order_sheet_view', {'id': application.id}) }}" class="btn btn-lg"  title="{{ 'Order Sheet view'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(applications) }}
+</div>

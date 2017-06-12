@@ -1,0 +1,99 @@
+services:
+
+    porcha_processing.service.mouza_option_manager:
+        class: PorchaProcessingBundle\Service\MouzaOptionManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    porcha_processing.service.volume_manager:
+        class: PorchaProcessingBundle\Service\VolumeManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage, @porcha_processing.service.khatian_manager]
+
+    porcha_processing.service.khatian_manager:
+        class: PorchaProcessingBundle\Service\KhatianManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage, @porcha_processing.service.workflow_manager]
+
+    porcha_processing.service.khatian_action_menu_manager:
+        class: PorchaProcessingBundle\Service\KhatianActionMenuManager
+        arguments: [@security.authorization_checker, @security.token_storage, @router]
+
+    porcha_processing.service.khatian_application_action_menu_manager:
+        class: PorchaProcessingBundle\Service\KhatianApplicationActionMenuManager
+        arguments: [@security.authorization_checker, @security.token_storage, @router]
+
+    porcha_processing.service.workflow_manager:
+        class: PorchaProcessingBundle\Service\WorkflowManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    porcha_processing.service.archive_manager:
+        class: PorchaProcessingBundle\Service\ArchiveManager
+        arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    porcha_processing.service.report_manager:
+            class: PorchaProcessingBundle\Service\ReportManager
+            arguments: [@doctrine.orm.entity_manager, @security.token_storage]
+
+    template.service.template_manager:
+        class: PorchaProcessingBundle\Service\TemplateManager
+        arguments: [@doctrine.orm.entity_manager]
+
+    template.twig.placeholder_replace:
+        class: PorchaProcessingBundle\Extension\Twig\PlaceholderReplace
+        arguments: [@service_container]
+
+    template.twig.custom_extension:
+        class: PorchaProcessingBundle\Extension\Twig\CustomTwigExtension
+        arguments: [@service_container, @template.twig.placeholder_replace]
+        tags:
+            - { name: twig.extension }
+
+    porcha_processing.service.khatian_correction_log_manager:
+        class: PorchaProcessingBundle\Service\KhatianPageCorrectionLogManager
+        arguments: [@doctrine.orm.entity_manager]
+
+    service.digits_only_constraint:
+        class: PorchaProcessingBundle\Validator\Constraints\BanglaDigitsOnlyValidator
+        tags:
+           - { name: validator.constraint_validator, alias: bangla_digits_only }
+
+    service.khatian_exist_constraint:
+        class: PorchaProcessingBundle\Validator\Constraints\KhatianExistValidator
+        arguments: [@doctrine.orm.entity_manager, @service_container]
+        tags:
+           - { name: validator.constraint_validator, alias: khatian_exist }
+
+    service.volume_exists_constraint:
+        class: PorchaProcessingBundle\Validator\Constraints\VolumeExistsValidator
+        arguments: [@service_container]
+        tags:
+           - { name: validator.constraint_validator, alias: volume_exists }
+
+    service.volume_range_checking_constraint:
+        class: PorchaProcessingBundle\Validator\Constraints\VolumeRangeCheckingValidator
+        arguments: [@service_container]
+        tags:
+           - { name: validator.constraint_validator, alias: volume_range_checking }
+
+    porcha_processing.service.dashboard_manager:
+        class: PorchaProcessingBundle\Service\DashboardManager
+        arguments: [@doctrine.orm.entity_manager, @translator, @porcha_processing.service.khatian_manager, @security.token_storage, @security.authorization_checker]
+
+    porcha_processing.service.api_manager:
+        class: PorchaProcessingBundle\Service\ApiManager
+        arguments: [@doctrine.orm.entity_manager]
+
+    porcha_processing.service.listener:
+        class: PorchaProcessingBundle\EventListener\CountItem
+        arguments: [@service_container]
+        tags:
+           - { name: doctrine.event_listener, event: postPersist }
+           - { name: doctrine.event_listener, event: postUpdate }
+
+    service.request.sms_listener:
+        class: PorchaProcessingBundle\EventListener\SMSSentListener
+        tags:
+            - { name: kernel.event_listener, event: service.request.created, method: onServiceRequestCreated }
+            - { name: kernel.event_listener, event: service.request.updated, method: onServiceRequestUpdated }
+        arguments: [@doctrine.orm.entity_manager, @sms.transporter]
+
+    porcha_processing.service.archive_controller:
+            class: PorchaProcessingBundle\Controller\ArchiveController

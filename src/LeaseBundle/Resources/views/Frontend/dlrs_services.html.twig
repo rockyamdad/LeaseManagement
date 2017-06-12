@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+<div class="page-container">
+    <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <!-- BEGIN PORTLET-->
+                <div class="portlet light tasks-widget">
+                    <div class="portlet-title">
+                        <div class="caption caption-md">
+                            <h2 class="caption-color"><span class="caption-helper">ইউ ডি সি তালিকা    সমূহ  </span></h2>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        ক্রম নং
+                                    </th>
+                                    <th>
+                                        ইউ ডি সি  নাম
+                                    </th>
+                                    <th>
+                                        যোগাযোগের তথ্য
+                                    </th>
+                                    <th>
+                                        ঠিকানা
+                                    </th>
+                                    <th>
+                                        সক্রিয়তা
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for index, UDCList in UDCLists %}
+                                    <tr>
+                                        <td>
+                                            {{ ((UDCLists.getCurrentPageNumber - 1) * UDCLists.getItemNumberPerPage + index + 1)|numberBanglaConvert }}
+                                        </td>
+                                        <td>
+                                            {{ UDCList.name }}
+                                        </td>
+                                        <td>
+                                            {{ UDCList.contactInfo }}
+                                        </td>
+                                        <td>
+                                            {{ UDCList.address }}
+                                        </td>
+                                        <td>
+                                            {% if UDCList.approved == 1 %}
+                                                <i class="fa fa-check" style="color: green"></i>
+                                            {% else %}
+                                                <i class="fa fa-times" style="color: red"></i>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div style="clear: both;"></div>
+                            <div style="margin-top:30px; text-align: center;" class="navigation">
+                                {{ knp_pagination_render(UDCLists) }}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+lease_bundle_lease:
+    resource: "@LeaseBundle/Resources/config/routing/lease.yml"
+    prefix:   /lease
+
+lease_bundle_lease_assign:
+    resource: "@LeaseBundle/Resources/config/routing/leaseAssign.yml"
+    prefix:   /lease_assign
+
+lease_application:
+    resource: "@LeaseBundle/Resources/config/routing/application.yml"
+    prefix:   /application
+
+lease_order_sheet:
+    resource: "@LeaseBundle/Resources/config/routing/orderSheet.yml"
+    prefix:   /orderSheet
+
+lease_bundle_gadget:
+    resource: "@LeaseBundle/Resources/config/routing/gadget.yml"
+    prefix:   /gadget
+
+market:
+    resource: "@LeaseBundle/Resources/config/routing/market.yml"
+    prefix:   /market
+
+lease_bundle_portal:
+    resource: "@LeaseBundle/Resources/config/routing/portal.yml"
+    prefix:   /portal

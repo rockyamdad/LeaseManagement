@@ -1,0 +1,130 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    {% if applications[0].lease is defined %}
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans  }}</th>
+        {% if applications[0].lease.type == 'Market'  %}
+            <th>{{  'Market Body'|trans }}</th>
+        {% elseif applications[0].lease.type == 'WaterBody' %}
+            <th>{{  'Name'|trans }}</th>
+            <th>{{  'Mouza'|trans }}</th>
+        {% endif %}
+        {% if applications[0].lease.type != 'Gadget'  %}
+            <th>{{  'Khatian'|trans  }}</th>
+        {% endif %}
+        {% if applications[0].lease.type != 'Gadget'  %}
+        <th>{{  'Khatian dag No'|trans  }}</th>
+        {% endif %}
+        {% if applications[0].lease.type == 'Market'  %}
+            <th>{{  'Shop No'|trans}}</th>
+            <th>{{  'Amount'|trans}} (বর্গ ফুট) </th>
+        {% elseif applications[0].lease.type == 'WaterBody' %}
+            <th>{{  'Shotangso'|trans}}</th>
+        {% else %}
+
+        {% endif %}
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'total application count'|trans  }}</th>
+        <th>{{  'The number of requests sent for approval'|trans  }}</th>
+        <th width="170"></th>
+    </tr>
+    {% endif %}
+    </thead>
+    <tbody>
+    {% if applications is not empty %}
+        {% for index,application in applications %}
+            <tr>
+                <td>{{ ((applications.getCurrentPageNumber - 1) * applications.getItemNumberPerPage + index + 1)|numberBanglaConvert }}</td>
+
+                {% if application.lease.type == 'Market'  %}
+                    <td>{{ application.lease.marketDetail.market.marketName }}</td>
+                {% elseif applications[0].lease.type == 'WaterBody' %}
+                    <td>{{ application.lease.name }}</td>
+                    <td>{{ application.lease.khatian.mouza }}</td>
+                {% endif %}
+
+                {% if not  application.lease.gadget %}
+
+                    {% if application.lease.khatian.id is defined%}
+                    <td>{{ application.lease.khatian.khatianNo }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if application.lease.marketDetail %}
+                        <td>{{ application.lease.marketDetail.khatianDagNo|numberBanglaConvert  }}</td>
+                    {% elseif application.lease.waterBodyDetails %}
+                        <td>
+                            {% for waterBodyDetail in application.lease.waterBodyDetails %}
+                                {{ waterBodyDetail.khatianDagNo|numberBanglaConvert  }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endif %}
+                    {% if application.lease.type == 'Market'  %}
+                        <td>{{ application.lease.marketDetail.shopNo|numberBanglaConvert }}</td>
+                        <td>{{ application.lease.shotangso|numberBanglaConvert }}</td>
+                    {% elseif application.lease.type == 'WaterBody' %}
+                        <td>{{ application.lease.shotangso|numberBanglaConvert }}</td>
+                    {% else %}
+
+                    {% endif %}
+
+                {% endif %}
+                <td>
+                    {% if application.lease.startDate is defined %}
+                    {{ application.lease.getBnStartDate }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if application.lease.startDate is defined %}
+                    {{ application.lease.getBnEndDate }}
+                    {% endif %}
+                </td>
+                <td> <span class="badge badge-success" >{{ application.totalApp }}</span> </td>
+                <td> <span class="badge badge-success" >{{ application.waitingForCount }}</span> </td>
+
+                <td>
+
+                    {% if is_granted('ROLE_APPLICATION_VIEW') %}
+                        {% if((userType =='ইউ এন ও অ্যাডমিন')) %}
+                            {% if application.lease.id is defined %}
+                                <a href="{{ path('lease_wise_application_view', {'id': application.lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                            {% endif %}
+                         {% else %}
+                             <a href="{{ path('lease_wise_application_view', {'id': application.lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                                 <i class="fa fa-list"></i>
+                             </a>
+                        {% endif %}
+                    {% endif %}
+            {#        {% if is_granted('ROLE_MANUAL_APPLICATION_CREATE') %}
+                        {% if application.lease.application is null %}
+                            <a href="{{ path('manual_application', {'id': application.lease.id}) }}" class="btn purple btn-sm"  title="{{ 'Direct Application'|trans }}">
+                                <i class="fa fa-fighter-jet"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}#}
+
+                    {% if application.lease.khatian.id is defined%}
+                    <a href="{{ path('khatian_pages',{'id':application.lease.khatian.id}) }}" target="_blank" class="btn btn-lg"  title="{{ 'Khatian view'|trans }}">
+                        <i class="fa fa-file"></i>
+                    </a>
+                    {% endif %}
+
+
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(applications) }}
+</div>

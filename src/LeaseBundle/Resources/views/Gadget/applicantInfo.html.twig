@@ -1,0 +1,19 @@
+<td>{{ form_widget(form.name, {'attr': {'class': 'size','placeholder':'Name'}}) }}</td>
+<td>{{ form_widget(form.fatherName, {'attr': {'class': 'form-control input-small','placeholder':'Father Name'}}) }}
+{{ form_widget(form.motherName, {'attr': {'class': 'form-control input-small','placeholder':'Mother Name'}}) }}
+{{ form_widget(form.spouseName, {'attr': {'class': 'form-control input-small','placeholder':'Spouse Name'}}) }}</td>
+<td>{{ form_widget(form.gender, {'attr': {'class': 'form-control input-small','placeholder':'Gender'}}) }}
+{{ form_widget(form.nid, {'attr': {'class': 'form-control input-small','placeholder':'Nid'}}) }}
+
+    <div class="input-group input-small"
+         data-date-viewmode="years">
+        {{ form_widget(form.dob,{'attr':{'class':'date2','placeholder':'Dob'}} ) }}
+
+        <span class="input-group-btn">
+                                            <button class="btn default date2" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+    </div></td>
+
+<td>{{ form_widget(form.email, {'attr': {'class': 'form-control input-small','placeholder':'Email'}}) }}
+    {{ form_widget(form.address, {'attr': {'class': 'form-control input-small','placeholder':'Address'}}) }}
+</td>

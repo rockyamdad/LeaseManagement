@@ -1,0 +1,43 @@
+body{
+    margin: 10px 20px;
+}
+#non-delv {
+    background-color: #c1d6e7;
+    padding: 10px 10px;
+}
+.bg-grey {
+    background-color: #95a5a6;
+}
+.label {
+    border-radius: 0.25em;
+    padding: 3px 6px;
+    color: #ffffff
+}
+.clearfix{
+    clear: both;
+}
+.print-pagination.disabled{
+    cursor: default;
+}
+@media screen {
+    .print-page{
+        display: none;
+    }
+    div.khatian-pages > div:first-child {
+        display: block;
+    }
+
+}
+@media print {
+    .print-page{
+        display: block !important;
+        page-break-after: always;
+        margin-top: 5px;
+    }
+    .print-page:last-of-type {
+        page-break-after: avoid;
+    }
+    .no-print {
+        display: none;
+    }
+}

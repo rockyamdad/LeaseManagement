@@ -1,0 +1,27 @@
+report_dc_volume_wise:
+    path:     /report/dc-volume-wise
+    defaults: { _controller: PorchaProcessingBundle:Report/DcReport:index}
+    methods: [GET,POST]
+    options:
+        expose: true
+
+report_dc_khatian_delivery_register:
+    path:     /report/dc-khatian-delivery-register
+    defaults: { _controller: PorchaProcessingBundle:Report/DcReport:listKhatianDeliveryRegister}
+    methods: [GET,POST]
+    options:
+        expose: true
+
+report_dc_mouza_map_delivery_register:
+    path:     /report/dc-mouza-delivery-register
+    defaults: { _controller: PorchaProcessingBundle:Report/DcReport:listMouzaMapDeliveryRegister}
+    methods: [GET,POST]
+    options:
+        expose: true
+
+report_dc_court_fee_register:
+    path:     /report/dc-court-fee-register
+    defaults: { _controller: PorchaProcessingBundle:Report/DcReport:listCourtFeeRegister}
+    methods: [GET,POST]
+    options:
+        expose: true

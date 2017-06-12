@@ -1,0 +1,49 @@
+porcha_processing_routing_mouza_option:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/mouza_option.yml"
+
+porcha_processing_routing_volume:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/volume.yml"
+
+porcha_processing_routing_archive:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/archive.yml"
+
+porcha_processing_routing_khatian:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/khatian.yml"
+
+porcha_processing_routing_template:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/template.yml"
+
+porcha_request_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/porcha_request.yml"
+
+porcha_correction_request_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/porcha_correction_request.yml"
+porcha_copy_request_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/porcha_copy_request.yml"
+
+information_slip_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/information_slip_request.yml"
+
+case_copy_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/case_copy_request.yml"
+
+mouza_map_routing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/service/mouza_request.yml"
+
+porcha_processing_report_court_fee:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/report/court_fee.yml"
+
+porcha_processing_udc_report:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/report/udc_report.yml"
+
+porcha_processing_dc_report:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/report/dc_report.yml"
+
+porcha_processing_report_top_sheet:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/report/top_sheet.yml"
+
+porcha_processing_report_api:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/api.yml"
+
+porcha_processing_entry_team:
+    resource: "@PorchaProcessingBundle/Resources/config/routing/workflow_team.yml"

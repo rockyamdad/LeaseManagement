@@ -1,0 +1,47 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(upozilas, 'Upozila'|trans, 'u.name') }}</th>
+            <th>{{ knp_pagination_sortable(upozilas, 'Geocode'|trans, 'u.geocode') }}</th>
+            <th>{{ knp_pagination_sortable(upozilas, 'District'|trans, 'd.name') }}</th>
+            <th width="120">{{ 'Approved'|trans }}</th>
+            <th width="50"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if upozilas is not empty %}
+            {% for upozila in upozilas %}
+            <tr>
+                <td>{{ upozila.name }}</td>
+                <td>{{ upozila.geocode }}</td>
+                <td>{{ upozila.district.name }}</td>
+                <td>
+                    {% if upozila.approved %}
+                        <i class="fa fa-check font-green"> </i>
+                    {% else %}
+                        {{ 'Approval needed'|trans }}
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_update_upozila', {id: upozila.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="6">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% if (upozilas.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ upozilas.getTotalItemCount }}
+    </div>
+{% endif %}
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(upozilas) }}
+</div>

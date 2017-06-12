@@ -1,0 +1,88 @@
+{% extends "RbsUserBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Users'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Users'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Users'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'List of User'|trans }}</span>
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('user_create') }}" class="btn green">
+                            <i class="fa fa-plus"></i> {{ 'Create New User'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <form id="form-search" class="form-inline hidden-print" role="form" method="post" action="">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <select name="ff[u.enabled]" id="delivery-type" placeholder="{{ 'Request From'|trans }}" class="form-control">
+                                    <option value="">{{ 'All Status'|trans }}</option>
+                                    <option value="1">{{ 'Enable'|trans }}</option>
+                                    <option value="0">{{ 'Disable'|trans }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ff[g.id]" id="delivery-type" placeholder="{{ 'Request From'|trans }}" class="form-control">
+                                    <option value="">{{ 'All Roles'|trans }}</option>
+                                    {% for group in groups %}
+                                        <option value="{{ group.id }}">{{ group.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ff[u.isNessUser]" id="delivery-type" placeholder="{{ 'Request From'|trans }}" class="form-control">
+                                    <option value="">{{ 'All Users'|trans }}</option>
+                                    <option value="1">{{ 'Ness User'|trans }}</option>
+                                    <option value="0">{{ 'Internal Users'|trans }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button class="btn green" id="btn-search" data-url="{{ path('users_home') }}" type="button">{{ 'Search'|trans }}</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <hr class="hidden-print" />
+
+                    <div class='table-data'>
+                        {% include "RbsUserBundle:User:list_content.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="ajaxAssignRoleNessUser" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('assets/layout3/img/loading-spinner-grey.gif') }}" alt="" class="loading">
+                    <span> &nbsp;&nbsp;Loading... </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

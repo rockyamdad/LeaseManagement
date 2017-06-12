@@ -1,0 +1,14 @@
+market_create:
+    path:     /create
+    defaults: { _controller: LeaseBundle:Market:marketCreate }
+
+market_list:
+    path:     /list
+    defaults: { _controller: LeaseBundle:Market:marketList }
+
+
+market_edit:
+    path:     /edit/{id}
+    defaults: { _controller: LeaseBundle:Market:marketEdit }
+
+

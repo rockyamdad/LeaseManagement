@@ -1,0 +1,103 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header">
+    <thead>
+    <tr class="uppercase">
+        {% if office_template == true %}
+            <th>{{ 'Division'|trans }}</th>
+            <th>{{ 'District'|trans }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Survey'|trans, 't.survey') }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Name'|trans, 't.name') }}</th>
+            <th>{{ 'Created By'|trans }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Created At'|trans, 't.createdAt') }}</th>
+            <th>{{ 'Approved By'|trans }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Approved At'|trans, 't.approvedAt') }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Approved'|trans, 't.approved') }}</th>
+        {% else %}
+            <th>{{ knp_pagination_sortable(templates, 'Survey'|trans, 't.survey') }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Name'|trans, 't.name') }}</th>
+            <th>{{ 'Created By'|trans }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Created At'|trans, 't.createdAt') }}</th>
+            <th>{{ 'Approved By'|trans }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Approved At'|trans, 't.approvedAt') }}</th>
+            <th>{{ knp_pagination_sortable(templates, 'Approved'|trans, 't.approved') }}</th>
+        {% endif %}
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if templates is not empty %}
+        {% for template in templates %}
+            {% if office_template is not null %}
+                <tr>
+                    <td>{{ template.office.district.division.name }}</td>
+                    <td>{{ template.office.district.name }}</td>
+                    <td>{{ template.template.survey.name }}</td>
+                    <td>{{ template.template.name }}</td>
+                    <td>
+                        {% if (template.template.createdBy) %}
+                            {{ template.template.createdBy.profile.fullNameBn }}<br/>
+                            {{ template.template.createdBy.profile.designation }}
+                        {% endif %}
+                    </td>
+                    <td>{{ (template.template.createdAt) ? template.template.createdAt|date('d/m/Y') : '' }}</td>
+                    <td>
+                        {% if (template.template.approvedBy) %}
+                            {{ template.template.approvedBy.profile.fullNameEn }}<br/>
+                            {{ template.template.approvedBy.profile.designation }}
+                        {% endif %}
+                    </td>
+                    <td>{{ (template.template.approvedAt) ? template.template.approvedAt|date('d/m/Y') : '' }}</td>
+                    <td>
+                        {% if template.template.approved %}
+                            <i class="fa fa-check font-green"> </i>
+                        {% else %}
+                            {{ 'Approval needed'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn blue btn-sm" href="{{ path('template_view_template', {id: template.template.id}) }}" title="{{ 'View'|trans }}"><i class="fa fa-file"></i></a>
+                        <a class="btn blue btn-sm" href="{{ path('template_edit_template', {id: template.template.id}) }}" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{ (template.survey) ? template.survey.name : '' }}</td>
+                    <td>{{ template.name }}</td>
+                    <td>
+                        {% if (template.createdBy) %}
+                            {{ template.createdBy.profile.fullNameBn }}<br/>
+                            {{ template.createdBy.profile.designation }}
+                        {% endif %}
+                    </td>
+                    <td>{{ (template.createdAt) ? template.createdAt|date('d/m/Y') : '' }}</td>
+                    <td>
+                        {% if (template.approvedBy) %}
+                            {{ template.approvedBy.profile.fullNameBn }}<br/>
+                            {{ template.approvedBy.profile.designation }}
+                        {% endif %}
+                    </td>
+                    <td>{{ (template.approvedAt) ? template.approvedAt|date('d/m/Y') : '' }}</td>
+                    <td>
+                        {% if template.approved %}
+                            <i class="fa fa-check font-green"> </i>
+                        {% else %}
+                            {{ 'Approval needed'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn blue btn-sm" href="{{ path('template_view_template', {id: template.id}) }}" title="{{ 'View'|trans }}"><i class="fa fa-file"></i></a>
+                        <a class="btn blue btn-sm" href="{{ path('template_edit_template', {id: template.id}) }}" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="10">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(templates) }}
+</div>

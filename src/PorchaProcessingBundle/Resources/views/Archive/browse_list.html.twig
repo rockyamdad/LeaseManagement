@@ -1,0 +1,171 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Archived Volume List'|trans  }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Archived Volume List'|trans  }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans  }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Archived Volume List'|trans  }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="browse-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Archived Volume List'|trans  }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                            <form id="form-search" class="form-horizontal" role="form" method="post" action="">
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if surveys is defined %}
+                                                        <select class="form-control select2" name="ff[v.survey]" id="survey" placeholder="{{ 'Survey'|trans }}">
+                                                            <option value=""></option>
+                                                            {% for survey in surveys %}
+                                                                <option value="{{ survey.id }}">{{ survey.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if districts is defined %}
+                                                        <select class="form-control select2 mo-district" name="ff[v.district]" id="district" placeholder="{{ 'District'|trans }}">
+                                                            <option value=""></option>
+                                                            {% for district in districts %}
+                                                                <option value="{{ district.id }}">{{ district.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if upozilas is defined %}
+                                                        <input type="hidden" id="upozila" name="ff[v.upozila]" class="form-control mo-thana" placeholder="{{ 'Upozila'|trans }}" />
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if thanas is defined %}
+                                                        <input type="hidden" id="thana" name="ff[v.thana]" class="form-control mo-thana" placeholder="{{ 'Thana'|trans }}" />
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if mouzas is defined %}
+                                                        <input type="hidden" id="mouza" name="ff[m.id]" class="form-control mo-mouza" placeholder="{{ 'Mouza'|trans }}" />
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <button class="btn green" id="btn-search" data-url="{{ (search_url is defined) ? search_url : '' }}" type="button">{{ 'Search'|trans }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+
+                                </div>
+                            </form>
+                            <hr/>
+
+                    <div class='table-data'>
+                        {% include 'PorchaProcessingBundle:Archive:browse_list_sub.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="static1" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">{{ 'New Khatian'|trans }}</h4>
+                    </div>
+                    <form class="form-horizontal" method="post" id="new-khatian-form" action="">
+                    <div class="modal-body" style="text-align: center">
+
+                            <div id="modal-msg" class=""></div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label required">{{ 'Khatian No'|trans }}</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control input-medium" required="required" name="khatianNo"/>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label required">{{ 'Additional Pages'|trans }}</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control select2 input-small" name="page1Additional">
+                                            {% for i in 0..30 %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn default" data-dismiss="modal">{{ 'Close'|trans }}</button>
+                        <button type="submit" id="btn-new-khatian" class="btn green" >{{ 'Submit'|trans }}</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/archive.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init();
+{% endblock %}
+

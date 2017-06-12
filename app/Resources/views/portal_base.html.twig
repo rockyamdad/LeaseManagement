@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>উপজেলা পর্যায়ে ভূমি ইজারা ও ব্যবস্থাপনা - কেরানীগঞ্জ</title>
+    <link rel="icon" type="image/ico" href="http://dcms.e-service.gov.bd/assets/templates/default/images/ico.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <script type="text/javascript">window.onloadQueue = window.onloadQueue || [];</script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- <link href="assets/global/css/components.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/style.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/style-responsive.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/themes/red.css" rel="stylesheet" id="style-color">
+     <link href="assets/frontend/layout/css/custom.css" rel="stylesheet">-->
+    <!-- Fonts START -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <!-- Fonts END -->
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite'
+        'assets/plugins/font-awesome/css/font-awesome.min.css'
+        'assets/plugins/simple-line-icons/simple-line-icons.min.css'
+        'assets/plugins/bootstrap/css/bootstrap.min.css'
+        'assets/plugins/fancybox/source/jquery.fancybox.css'
+        'assets/plugins/uniform/css/uniform.default.css'
+        'assets/plugins/slider-layer-slider/css/layerslider.css'
+        'assets/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css'
+
+        'assets/plugins/intl-tel-input-master/build/css/intlTelInput.css'
+
+        'assets/plugins/select2/select2.css'
+        'assets/plugins/bootstrap-datepicker/css/datepicker3.css'
+
+        'assets/plugins/morris/morris.css'
+        'assets/admin/pages/css/tasks.css'
+        'assets/plugins/bootstrap-toastr/toastr.min.css'
+
+        'assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css'
+
+        'assets/css/components-rounded.css'
+        'assets/css/plugins.css'
+        'assets/admin/layout3/css/layout.css'
+        'assets/admin/layout3/css/themes/default.css'
+        'assets/admin/layout3/css/custom.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock  %}
+
+</head>
+<body>
+<div class="container">
+
+    {{ include('header_portal.html.twig')}}
+
+    {% block body %}{% endblock %}
+    {% block javascriptBlock %}
+
+        {% javascripts
+
+        'assets/plugins/excanvas.min.js'
+        'assets/plugins/respond.min.js'
+
+        'assets/plugins/jquery.min.js'
+        'assets/plugins/jquery-migrate.min.js'
+        'assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js'
+        'assets/plugins/bootstrap/js/bootstrap.min.js'
+        'assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js'
+        'assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js'
+        'assets/plugins/jquery.blockui.min.js'
+        'assets/plugins/jquery.cokie.min.js'
+        'assets/plugins/uniform/jquery.uniform.min.js'
+        'assets/plugins/slider-layer-slider/js/greensock.js'
+        'assets/plugins/slider-layer-slider/js/layerslider.transitions.js'
+        'assets/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js'
+        'assets/frontend/pages/scripts/layerslider-init.js'
+        'assets/plugins/select2/select2.min.js'
+
+        'assets/plugins/intl-tel-input-master/build/js/intlTelInput.js'
+
+        'assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js'
+        'assets/plugins/bootstrap-toastr/toastr.min.js'
+
+        'assets/plugins/jquery-validation/js/jquery.validate.min.js'
+        'assets/plugins/jquery-validation/js/additional-methods.min.js'
+        'assets/plugins/pace/pace.min.js'
+        'assets/plugins/morris/morris.min.js'
+        'assets/plugins/morris/raphael-min.js'
+        'assets/plugins/jquery.sparkline.min.js'
+        'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+        'assets/admin/pages/scripts/components-pickers.js'
+        'assets/scripts/metronic.js'
+        'assets/admin/layout3/scripts/layout.js'
+        'assets/elrs-assets/js/index-app-bd.min.js'
+        'assets/plugins/jquery-validation/js/localization/messages_bn_BD.js'
+        '@FOSJsRoutingBundle/Resources/public/js/router.js'
+        'bundles/app/js/app-util.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        {% endjavascripts %}
+    {% endblock javascriptBlock %}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            {% block documentReady %}
+            {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+
+            toastr.{{ type }}('{{ message }}','', {timeOut: 10000, hideMethod: "hide", closeButton: true});
+
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+            AppUtil.init();
+            Layout.init(); // init layout
+            Metronic.init(); // init metronic core componets
+            LayersliderInit.initLayerSlider();
+            ComponentsPickers.init();
+            $('.wysihtml5').wysihtml5({
+                "stylesheets": ["{{ asset('assets/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]
+            });
+            {% endblock %}
+        });
+    </script>
+    {{ include('footer_portal.html.twig')}}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+{% for fee in officeSetting['additionalFee'] %}
+    <tr class="ADDITIONAL_FEE">
+        <td class="text-right">{{ fee.name|trans }}</td>
+        <td class="price" rel="{{ fee.amount }}">{{ fee.amount|numberBanglaConvert }}/=</td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,111 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Request Khatian Form'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Request Khatian Form'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Request Khatian Form'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+
+    {{ form_start(form) }}
+    <div class="col-sm-12" id="porcha-request-form" style="margin: auto; float: none">
+            {% include 'flash.html.twig' %}
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Request Khatian Form"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Correction Info"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <label class="col-sm-2" aria-required="true">{{ 'Requested Subject'|trans }}</label>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">{{ form_widget(form.subject) }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" aria-required="true">{{ 'Requested Volume/Khatian'|trans }}</label>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">{{ form_widget(form.requestedVolumeKhatian) }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2" aria-required="true">{{ 'Requested Reason'|trans }}</label>
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">{{ form_widget(form.requestReason) }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2" aria-required="true">{{ 'Document'|trans }}</label>
+                            <div class="col-sm-12">
+
+                                {% for file in entity.documents %}
+
+                                    <div class="col-sm-12">
+                                    <a class="btn btn-xs" target="_blank" href="{{ asset('uploads/acLand/') }}{{ file.path }}">{{ file.fileName }}
+                                    </a>
+
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2" aria-required="true">{{ 'Requested Response'|trans }}</label>
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">{{ form_widget(form.requestResponse) }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {#<label class="col-sm-2" aria-required="true">{{ 'Requested Reason'|trans }}</label>#}
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">{{ form_widget(form.documents) }}</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="{{ "Save"|trans }}" class="btn green" name="save">
+        </div>
+    </div>
+    <div class="display-none">{{ form_rest(form) }}</div>
+    {{ form_end(form) }}
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    <script type="text/javascript">
+
+    </script>
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/porcha-copy-application.js') }}"></script>
+    {#<script src="{{ asset('bundles/porchaprocessing/js/porcha-application-list.js') }}"></script>#}
+{% endblock include_javascripts %}

@@ -1,0 +1,172 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ additionalfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Additional Fee'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ additionalfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Additional Fee'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('courtfee_list') }}">{{ 'Additional Fee'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ additionalfee.id ? 'Update'|trans : 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="additionalfee-update-page">
+
+        <form class="form-horizontal" id="form-update-additionalfee" role="form" method="post" action="{{ form_action }}">
+
+            <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ additionalfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Additional Fee'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Application type'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.applicationType) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group survy_type">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Survey Name'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.survey) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Title of additional fee 1'|trans }}</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeKey1) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Amount'|trans }} ({{ 'Tk'|trans }})</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeValue1) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">{{ 'Applicable'|trans }}</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.feeApplicable1) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Title of additional fee 2'|trans }}</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeKey2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Amount'|trans }} ({{ 'Tk'|trans }})</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeValue2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">{{ 'Applicable'|trans }}</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.feeApplicable2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Title of additional fee 3'|trans }}</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeKey3) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6">{{ 'Amount'|trans }} ({{ 'Tk'|trans }})</label>
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.feeTypeValue3) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">{{ 'Applicable'|trans }}</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.feeApplicable3) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Status'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.active) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            {%  if current_user_office.type|upper == 'MINISTRY'%}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-5">
+                                        {{ form_widget(form.locked) }}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a class="btn default" href="{{ path('courtfee_list') }}">{{ 'Cancel'|trans }}</a>
+                                    <button type="submit" id="additional_fee_submit" class="btn green">{{ 'Save'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        </form>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/office.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,19 @@
+<table class="table table-hover table-light">
+    <tbody>
+    <tr>
+        <td class="fit">
+            <img alt="" class="user-tip-pic dropdown-user" style="max-width: 100px" src="{{ asset(user.profile.photo) }}">
+        </td>
+        <td class="fit">
+            <img alt="" class="" style="max-width: 100px"  src="{{ asset(user.profile.signature) }}">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <strong>{{ user.profile.fullNameEn }}</strong><br/>
+            <strong>{{ user.profile.designation }}</strong><br/>
+            <span class="data-extra"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>

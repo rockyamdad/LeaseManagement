@@ -1,0 +1,48 @@
+lease_assign_list:
+    path:     /list
+    defaults: { _controller: LeaseBundle:LeaseAssign:index }
+
+waiting_for_terminate_lease_list:
+    path:     /waiting_for_terminate_list/{type}
+    defaults: { _controller: LeaseBundle:LeaseAssign:waitingForTerminateLeaseList }
+
+waiting_for_terminate_lease_status_change:
+    path:     /waiting_for_terminate_status_change/{status}/{id}
+    defaults: { _controller: LeaseBundle:LeaseAssign:waitingForTerminateLeaseStatusChange }
+
+
+lease_assign_create:
+    path:     /create/{id}
+    defaults: { _controller: LeaseBundle:LeaseAssign:create }
+
+register_6_lease_view:
+    path:     /view/{id}
+    defaults: { _controller: LeaseBundle:LeaseAssign:view }
+
+register_6_lease_edit:
+    path:     /edit/{id}
+    defaults: { _controller: LeaseBundle:LeaseAssign:update }
+
+challan_amount:
+    path:     /challan-amount/{demandFee}
+    defaults: { _controller: LeaseBundle:LeaseAssign:challanAmount }
+    options:
+            expose: true
+
+challan_amount_market:
+    path:     /challan-amount-market/{demandFee}
+    defaults: { _controller: LeaseBundle:LeaseAssign:challanAmountMarket }
+    options:
+            expose: true
+
+lease_assign_status_change:
+    path:     /{id}/{status}
+    defaults: { _controller: LeaseBundle:LeaseAssign:leaseAssignStatusChange }
+
+lease_status_change:
+    path:     /lease-status/change/{id}
+    defaults: { _controller: LeaseBundle:LeaseAssign:leaseStatusChange }
+
+
+
+

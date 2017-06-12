@@ -1,0 +1,5 @@
+data_source_upozilas:
+    path:     /data-source/district/{districtId}/upzilla
+    defaults: { _controller: AppBundle:DataSource:upozilaList }
+    options:
+        expose: true

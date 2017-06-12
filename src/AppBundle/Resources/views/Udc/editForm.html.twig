@@ -1,0 +1,181 @@
+{% extends "RbsUserBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Users'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Users'|trans }}</h1>{% endblock %}
+
+{% form_theme form '@RbsUser/_form_template/bootstrap_3_horizontal_layout_user.html.twig' %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('users_home') }}">{{ 'Users'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">{{ 'User'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="udc-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase"> {{ 'User'|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class='table-data'>
+                        {{ form_start(form,{'attr':{'id':'udc-form-page'}} ,{'method': 'POST'}) }}
+
+                        <span class="bold"> {{ 'Udc Information'|trans }}</span>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.district, { 'attr': {'class': 'select2'} }) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.upozila, { 'attr': {'class': 'select2'} }) }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.union, { 'attr': {'class': 'select2'} }) }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.udcName, { 'attr': {'class': ''} }) }}
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.udcMobileNo, { 'attr': {'class': ''} }) }}
+
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.udcEmail, { 'attr': {'class': ''} }) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.udcAddress, { 'attr': {'class': ''} }) }}
+                            </div>
+
+                        </div>
+                        <hr>
+                        <span class="bold">{{ 'UnionCharman and Secretery'|trans }}</span>
+
+                        <hr/>
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.usName, { 'attr': {'class': ''} }) }}
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.usMobileNo, { 'attr': {'class': ''} }) }}
+
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.usEmail, { 'attr': {'class': ''} }) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.usAddress, { 'attr': {'class': ''} }) }}
+                            </div>
+
+                        </div>
+
+                        <hr>
+                        <span class="bold">{{ 'Entrepreneur'|trans }}</span>
+                        <div class="row">
+                            <table id="tableRowCount" class="table">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-2">{{ 'Name'|trans }}</th>
+                                    <th class="col-md-2">{{ 'FName'|trans }}</th>
+                                    <th class="col-md-2">{{ 'Qualification'|trans }}</th>
+                                    <th class="col-md-2">{{ 'Mobile No'|trans }}</th>
+                                    <th class="col-md-2">{{ 'Email'|trans }}</th>
+                                    <th class="col-md-2">{{ 'Gender'|trans }}</th>
+                                    <th class="col-md-2">{{ 'type'|trans }}</th>
+                                    <th class="col-md-2">{{ 'Address'|trans }}</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="udcEntrepreneurs" class="tags" data-prototype="{% filter escape %}
+                                {{ include('AppBundle:Udc:udcEntrepreneurPrototype.html.twig', { 'form': form.udcEntrepreneurs.vars.prototype }) }}
+                                {% endfilter %}}">
+                                {% for udcEntrepreneur in form.udcEntrepreneurs %}
+                                    <tr>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.name, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.fatherName, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.educationalQualification, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.mobileNo, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.email, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.gender, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.entrepreneurType, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.address, { 'attr': {'class': ''} }) }}</td>
+                                        <td width="10%">{{ form_widget(udcEntrepreneur.remove, { 'label': '×','attr': {'class': 'btn red btn-xs closeTd' } }) }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                        <hr/>
+                        {#<h4>User Information</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form_row(form.user.username, { 'attr': {'class': ''} }) }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.user.plainPassword.first, { 'attr': {'class': ''} }) }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_row(form.user.plainPassword.second, { 'attr': {'class': ''} }) }}
+                            </div>
+                        </div>#}
+
+                        <span class="bold">{{ 'Approved Information'|trans }}</span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form_row(form.status, { 'attr': {'class': ''} }) }}
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a class="btn default" href="#" onclick="window.history.go(-1); return false;">{{ 'Cancel'|trans }}</a>
+                                    <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {#{{ form_row(form.submit, { 'attr': {'class': ''} }) }}#}
+
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+
+{#    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>#}
+    <script src="{{ asset('bundles/app/js/udc.js') }}"></script>
+
+{% endblock include_javascripts %}
+

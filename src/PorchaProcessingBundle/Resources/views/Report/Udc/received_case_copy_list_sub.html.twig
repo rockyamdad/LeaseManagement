@@ -1,0 +1,46 @@
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        {#<th width="20">{{ "Sl No."|trans }}</th>#}
+        <th width="100">{{ 'Request ID'|trans }}</th>
+        <th width="100">{{ 'Applicatin Date'|trans }}</th>
+        <th width="200">{{  'Recipient'|trans }}</th>
+        <th width="200">{{ 'Applicant Name'|trans }}</th>
+        <th width="200">{{ 'Applicant Mobile'|trans }}</th>
+        <th width="100">{{ 'Lawyer name'|trans }}</th>
+        <th width="100">{{ 'Case no'|trans }}</th>
+        <th width="100">{{ 'Court name'|trans }}</th>
+        <th width="100">{{  'Delivery method'|trans }}</th>
+        <th width="100">{{ 'Delivery Date'|trans }}</th>
+        <th width="100">{{ "Court Fee"|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for sc in serviceRequest %}
+            <tr>
+                <td><span{% if sc.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ sc.serviceRequest.id }}</span></td>
+                <td>{{ sc.serviceRequest.createdAt|date('Y-m-d') }}</td>
+                <td>{{ sc.serviceRequest.createdBy|default('N/A') }}</td>
+                <td>{{ sc.serviceRequest.name }}</td>
+                <td>{{ sc.serviceRequest.contactNumber }}</td>
+                <td>{{ sc.lawyerName|default('') }}</td>
+                <td>{{ sc.caseNo|default('') }}</td>
+                <td>{{ sc.courtName|default('') }}</td>
+                <td>{{ sc.serviceRequest.deliveryMethod|trans }}</td>
+                <td>{{ sc.serviceRequest.deliveredAt|date('Y-m-d') }}</td>
+                <td>{{ sc.serviceRequest.courtFee|default('') }}</td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

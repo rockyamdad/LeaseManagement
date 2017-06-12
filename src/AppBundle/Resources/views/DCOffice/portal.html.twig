@@ -1,0 +1,51 @@
+{% extends "metronic.html.twig" %}
+
+
+{% block pageTitle %}<h1>{{ 'Profile'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('users_list_all') }}">{{ 'Users'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {#{{ user.name }}#}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-md-7 col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold">{{ 'DC Portal'|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table no-border">
+                        <tr>
+                            <th width="30%">{{ 'Office Name'|trans }}</th>
+                            <td>{{ dc_office.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'Address'|trans }}</th>
+                            <td>{{ dc_office.address }}</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

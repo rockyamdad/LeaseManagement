@@ -1,0 +1,292 @@
+{% extends "preview.html.twig" %}
+
+{% block title %}{{ 'Applicant View'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1 xmlns="http://www.w3.org/1999/html">{{ 'Applicant View'|trans }}</h1>{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="template-view">
+
+        <div class="no-print">
+            <div class="pull-left">
+                {# <a href="javascript:history.back()" class="btn grey">{{ 'Back'|trans }}</a>#}
+                <a href="javascript:window.print()" class="btn blue">{{ 'Print'|trans }}</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix no-print"></div>
+        <hr class="no-print">
+        </br>
+
+        <div class="col-md-12">
+
+            <div class="col-lg-10 col-md-offset-1">
+             <div class="form-horizontal">
+                 {% if application.lease.type == 'WaterBody' %}
+                    <div class="form-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p> <strong>জলমহল ইজিরা</strong></p>
+
+
+                                    <p> বরাবর,</p>
+
+                                    <p>সহকারী কমিশনার (ভুমি)</p>
+
+                                    <p>বিষয় &ndash; জলমহল ইজিরা গ্রহণের জন্য আবেদন।</p>
+
+                                    <p>জনাব/মহদয়,</p>
+
+                                    <p>
+                                        সবিনয় নিবেদন এই যে, আমি <u>{{ application.applicant.name }}</u>  পিতা <u>{{ application.applicant.fatherName }}</u> মাতা <u>{{ application.applicant.motherName }}</u> , <u>{{ application.applicant.address }}</u>  নিম্মেলিখিত জলমহল  {{  application.lease.startDate|date("m/d/Y")|toBanglaDate }}  থেকে   {{  application.lease.endDate|date("m/d/Y")|toBanglaDate }}  পর্যন্ত ইজিরা গ্রহন করতে আগ্রহী।
+                                    </p>
+                                    <p>
+                                        আতবপর, মহাদয় সমীপে বিনত প্রাথনা এই আমার আবেদনটি গ্রহন করে ইজিরা বরাদ্দ করিয়া আমাকে বাধিত করবেন।
+                                    </p>
+
+                                    <p><br />
+                                        &nbsp;</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <p>তারিখ : {{ application.createdDateTime|date("m/d/Y")|toBanglaDate }}</p>
+                                    </div>
+                                    <div class="col-xs-6">
+                                            <p>বিনীত নিবেদন,</p>
+                                                <div class="col-xs-10 col-xs-offset-2">
+                                                    <p>নাম : {{ application.applicant.name }}</p>
+                                                    <p>ঠিকানা : {{ application.applicant.address }} </p>
+                                                    <p>মোবাইল নং : {{ application.phoneNo }}</p>
+                                                    <p>মেইল : {{ application.applicant.email }}</p>
+                                                    <p>জাতীয় পরিচয় পত্র : {{ application.applicant.nid }}</p>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </br>
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;"  width="25%">
+                                        <thead>
+                                        <tr>
+                                            <th>{{'Mouza'|trans }}</th>
+                                            <th>{{'Khatian No'|trans }}</th>
+                                            <th>{{'Khatian dag No'|trans }}</th>
+                                            <th>{{'Proposed Amount'|trans }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% set khatianDags = application.lease.waterBodyDetails %}
+                                        {% for khatianDag in khatianDags %}
+                                            <tr>
+                                                <td>
+                                                    {{ application.lease.khatian.mouza }}
+                                                </td>
+                                                <td>
+                                                    {{ application.lease.khatian.id }}
+                                                </td>
+                                                <td>
+                                                    {{ khatianDag.khatianDagNo }}
+                                                </td>
+                                                <td>
+                                                    {{ khatianDag.proposedAmount }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                 {% endif %}
+                 {% if application.lease.type == 'Market' %}
+                     <div class="form-body">
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <p> <strong>দোকান আবেদন</strong></p>
+
+
+                                     <p> বরাবর,</p>
+
+                                     <p>সহকারী কমিশনার (ভুমি)</p>
+
+                                     <p>বিষয় &ndash;  {{ application.lease.marketDetail.market.marketName }}  – এর {{ application.lease.marketDetail.shopNo }}  ইজিরা গ্রহণের জন্য আবেদন।</p>
+
+                                     <p>জনাব/মহদয়,</p>
+
+                                     <p>
+                                         সবিনয় নিবেদন এই যে, আমি <u>{{ application.applicant.name }}</u> পিতা <u>{{ application.applicant.fatherName }}</u> মাতা <u>{{ application.applicant.motherName }}</u> , <u>{{ application.applicant.address }}</u>  নিম্মেলিখিত দোকান   {{ "now"|date("m/d/Y")|toBanglaDate }} —সনের ইজিরা গ্রহন করতে আগ্রহী।
+                                     </p>
+                                     <p>
+                                         আতবপর, মহাদয় সমীপে বিনত প্রাথনা এই আমার আবেদনটি গ্রহন করে ইজিরা বরাদ্দ করিয়া আমাকে বাধিত করবেন।
+                                     </p>
+
+                                     <p><br />
+                                         &nbsp;</p>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="col-xs-12">
+                                     <div class="col-xs-6">
+                                         <p>তারিখ : {{ application.createdDateTime|date("m/d/Y")|toBanglaDate }}</p>
+                                     </div>
+                                     <div class="col-xs-6">
+                                         <p>বিনীত নিবেদন,</p>
+                                         <div class="col-xs-10 col-xs-offset-2">
+                                             <p>নাম : {{ application.applicant.name }}</p>
+                                             <p>ঠিকানা : {{ application.applicant.address }} </p>
+                                             <p>মোবাইল নং : {{ application.phoneNo }}</p>
+                                             <p>মেইল : {{ application.applicant.email }}</p>
+                                             <p>জাতীয় পরিচয় পত্র : {{ application.applicant.nid }}</p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             </br>
+                             <div class="row">
+                                 <div class="col-md-8 col-md-offset-2">
+                                     <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;"  width="25%">
+                                         <thead>
+                                         <tr>
+                                             <th>{{'Market'|trans }}</th>
+                                             <th>{{ 'Shop No'|trans }}</th>
+                                             <th>{{'Mouza'|trans }}</th>
+                                             <th>{{'Khatian No'|trans }}</th>
+                                             <th>{{'Khatian dag No'|trans }}</th>
+                                             <th>{{'Proposed Amount'|trans }}</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+
+                                         {% set khatianDags = application.lease.marketDetail %}
+                                             <tr>
+                                                 <td>
+                                                     {{ khatianDags.market.marketName }}
+                                                 </td>
+                                                 <td>
+                                                     {{ khatianDags.shopNo }}
+                                                 </td>
+                                                 <td>
+                                                     {{ khatianDags.lease.khatian.mouza }}
+                                                 </td>
+                                                 <td>
+                                                     {{ khatianDags.lease.khatian.id }}
+                                                 </td>
+                                                 <td>
+                                                     {{ khatianDags.khatianDagNo }}
+                                                 </td>
+                                                 <td>
+                                                     {{ khatianDags.lease.shotangso }} বর্গ ফুট
+                                                 </td>
+                                             </tr>
+
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+
+                         </div>
+                     </div>
+                 {% endif %}
+                 {% if application.lease.type == 'Gadget' %}
+                     <div class="form-body">
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <p> <strong>ভি পি আবেদন</strong></p>
+
+
+                                     <p> বরাবর,</p>
+
+                                     <p>সহকারী কমিশনার (ভুমি)</p>
+
+                                     <p>বিষয় &ndash; (ভি পি নং) নং ইজিরা গ্রহণের জন্য আবেদন।</p>
+
+                                     <p>জনাব/মহদয়,</p>
+
+                                     <p>
+                                         সবিনয় নিবেদন এই যে, আমি <u>{{ application.applicant.name }}</u> পিতা <u>{{ application.applicant.fatherName }}</u> মাতা <u>{{ application.applicant.motherName }}</u> , <u>{{ application.applicant.address }}</u>  নিম্মেলিখিত ভুমি   {{ "now"|date("m/d/Y")|toBanglaDate }}   —সনের ইজিরা গ্রহন করতে আগ্রহী।
+                                     </p>
+                                     <p>
+                                         আতবপর, মহাদয় সমীপে বিনত প্রাথনা এই আমার আবেদনটি গ্রহন করে ইজিরা বরাদ্দ করিয়া আমাকে বাধিত করবেন।
+                                     </p>
+
+                                     <p><br />
+                                         &nbsp;</p>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="col-xs-12">
+                                     <div class="col-xs-6">
+                                         <p>তারিখ : {{ application.createdDateTime|date("m/d/Y")|toBanglaDate }}</p>
+                                     </div>
+                                     <div class="col-xs-6">
+                                         <p>বিনীত নিবেদন,</p>
+                                         <div class="col-xs-10 col-xs-offset-2">
+                                             <p>নাম : {{ application.applicant.name }}</p>
+                                             <p>ঠিকানা : {{ application.applicant.address }} </p>
+                                             <p>মোবাইল নং : {{ application.phoneNo }}</p>
+                                             <p>মেইল : {{ application.applicant.email }}</p>
+                                             <p>জাতীয় পরিচয় পত্র : {{ application.applicant.nid }}</p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             </br>
+                             <div class="row">
+                                 <div class="col-md-8 col-md-offset-2">
+                                     <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;"  width="25%">
+                                         <thead>
+                                         <tr>
+                                             <th>{{'Mouza'|trans }}</th>
+                                             <th>{{'Khatian No'|trans }}</th>
+                                             <th>{{'Khatian dag No'|trans }}</th>
+                                             <th>{{'Proposed Amount'|trans }}</th>
+                                             <th>{{'শ্রেণী'}}</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                             <tr>
+
+                                             </tr>
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+
+                         </div>
+                     </div>
+                 {% endif %}
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/correction-message.js') }}"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/signature-area.js') }}"></script>
+{% endblock include_javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-print.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-print.css') }}"/>
+{% endblock %}

@@ -1,0 +1,54 @@
+<form method="post" id="archived-list-form">
+    <table class="table table-bordered table-striped table-condensed flip-content table-list" >
+        <thead>
+        <tr class="uppercase">
+            <th width="35px"><input type="checkbox" id="check-all"></th>
+            <th>{{ 'District'|trans }}/{{ 'Thana'|trans }}</th>
+            <th>{{ knp_pagination_sortable(khatians, 'Mouza'|trans, 'k.mouza') }}</th>
+            <th>{{ knp_pagination_sortable(khatians, 'J. L. No'|trans, 'k.jlnumber') }}</th>
+            <th>{{ knp_pagination_sortable(khatians, 'Khatian No'|trans, 'k.khatianNo') }}</th>
+            <th>{{ knp_pagination_sortable(khatians, 'Volume No'|trans, 'v.name') }}</th>
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+            <th>{{ 'Approver'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if khatians is not empty %}
+            {% for khatian in khatians %}
+            <tr>
+                <td><input type="checkbox" name="khatians[]" class="check" value="{{ khatian.id }}" /></td>
+                <td>{{ khatian.volume.district.name }}<br/>{{ khatian.volume.thana.name }}</td>
+                <td>{{ khatian.mouza ? khatian.mouza.name : 'N/A' }}</td>
+                <td>{{ khatian.jlnumber ? khatian.jlnumber.name : 'N/A' }}</td>
+                <td>{{ khatian.khatianNo }}</td>
+                <td>{{ khatian.volume.volumeNo }}</td>
+                <td>{{ khatian.lastVersion.entryOperator ? khatian.lastVersion.entryOperator.profile.fullNameEn : 'N/A' }}</td>
+                <td>{{ khatian.lastVersion.verifier ? khatian.lastVersion.verifier.profile.fullNameEn : 'N/A' }}</td>
+                <td>{{ khatian.lastVersion.comparer ? khatian.lastVersion.comparer.profile.fullNameEn : 'N/A' }}</td>
+                <td>{{ khatian.lastVersion.approver ? ((current_user == khatian.lastVersion.approver) ? 'Self'|trans : khatian.lastVersion.comparer.profile.fullNameEn) : 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="15">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <div class="pull-right">
+        <button name="archive" class="btn green">{{ "Archive" }}</button>
+    </div>
+</form>
+
+{% if (khatians.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ khatians.getTotalItemCount }}
+    </div>
+{% endif %}
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(khatians) }}
+</div>

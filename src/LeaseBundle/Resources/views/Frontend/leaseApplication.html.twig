@@ -1,0 +1,165 @@
+{% extends "::portal_base.html.twig" %}
+
+{% block title %}{{ 'Lease'|trans }} {{ 'Application'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Lease'|trans }} {{ 'Application'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    'assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <div class="page-container">
+        <!-- BEGIN SLIDER -->
+        <div class="container">
+
+            <h2 class="caption-color">{{ 'Lease'|trans }} {{ 'Application'|trans }}</h2>
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    {{ form_start(form,{'attr': {'class':'form-horizontal', 'enctype': 'multipart/form-data','id':'leaseApplicationFrom', 'novalidate':'novalidate','autocomplete':'off'}}) }}
+
+                    <table class="table table-bordered table-condensed flip-content table-list"  width="100%" id="row-clone2" >
+                        {{ include('LeaseBundle:Frontend:leaseApplicationApplicantInfo.html.twig', { 'form': form.applicant}) }}
+                    </table>
+                    <fieldset>
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label">মোবাইল নম্বর<span class="require">*</span></label>
+                            <div class="col-md-8">
+                                {#<input type="text" class="form-control" >#}
+                                {{ form_widget(form.phoneNo,{'attr':{'class':'form-control phoneNo',}}) }}
+                                <span class="hide error valid-msg">✓ <button class="btn" type="button" id="verify"> যাচাইকরণ কোড পাঠান</button> </span>
+                                <span class="hide error error-msg">নম্বর টি সঠিক নয় </span>
+                                <span class="validation-style">{{ form_errors(form.phoneNo)}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label required">{{ 'Verification Code'|trans }} <span class="require">*</span></label>
+                            <div class="col-md-8">
+                                <input class="form-control input-small" id="code" name="verification_code" required>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group {{ form_errors(form.applicationDetails) != '' ? 'has-error' : '' }}">
+                            <label class="col-md-4 control-label required">{{ 'Application'|trans }} {{ 'Details'|trans }} </label>
+                            <div class="col-md-8">
+                                {{ form_widget(form.applicationDetails) }}
+                                <span class="help-block">{{ form_errors(form.applicationDetails) }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required">{{ 'National Id'|trans }}<span class="require">*</span></label>
+                            <div class="col-md-8">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                        </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="nid" id="nid">
+													</span>
+                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                            মুছুন </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required">{{ 'Photo'|trans }}<span class="require">*</span></label>
+                            <div class="col-md-8">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                        </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="photo" id="photo">
+													</span>
+                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                            মুছুন </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if(type == 'WaterBody') %}
+                            {{ include('LeaseBundle:Frontend:documentOfWaterBodyLease.html.twig') }}
+                        {% else %}
+                            {{ include('LeaseBundle:Frontend:documentOfOtherLease.html.twig') }}
+                        {% endif %}
+                    </fieldset>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                            <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                            <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                        </div>
+
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-md-4" style="margin-left: 25px;">
+                    <!-- BEGIN Portlet PORTLET-->
+                    <div class="portlet box blue-hoki">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>গুরুত্বপূর্ণ তথ্য
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                <p>নিবন্ধন করার মাধ্যমে আপনি আপনার সকল আবেদনের অবস্থা যাচাই, আবেদনের ইতিহাস দেখা, বাক্তিগত তথ্য দেখা ও পরিবর্তন করতে পারবেন।</p>
+                                <p> আপনি ইতিমধ্যে নিবন্ধিত থাকলে নিম্নের বাটন এ ক্লিক করে লগইন করুন।</p>
+                                {#<a class="btn btn-primary button-save-color" href="{{ path('portal_login') }}">লগইন করুন</a>#}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Portlet PORTLET-->
+                </div>
+            </div>
+
+            <!-- END CONTENT -->
+        </div>
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block javascriptBlock %}
+    {{ parent() }}
+    {% javascripts
+    "@LeaseBundle/Resources/public/js/rajax.js"
+    '@LeaseBundle/Resources/public/js/leaseApplication.js'
+    'assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js'
+    'assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+
+    telInput.intlTelInput({
+    utilsScript: "{{ asset('assets/plugins/intl-tel-input-master/build/js/utils.js') }}",
+    nationalMode: true,
+    preferredCountries: ['bd', 'in']
+    });
+{% endblock %}
+
+

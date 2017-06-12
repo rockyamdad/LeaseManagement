@@ -1,0 +1,169 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Gadget Renew'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Gadget Renew'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('gadget_list') }}">{{ 'Gadget List'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Gadget Renew'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Gadget Renew'|trans }} </span>
+                    </div>
+                </div>
+                {% for leasee in leasees %}
+                    <div class="col-md-6">
+                        <form class="form-horizontal">
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}: {{ loop.index|trans }}</h4>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Name'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ leasee.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Nid'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ leasee.nid }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Dob'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ leasee.dob|date("m/d/Y") }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Address'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ leasee.address }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Cellphone'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ leasee.phoneNo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+
+
+                <div class="portlet-body">
+                    <br>
+                    <form class="form-horizontal" id="fileupload" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required col-md-5">{{ 'Lease Start Date'|trans }}</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium"
+                                         data-date-viewmode="years">
+                                        {{ form_widget(form.startDate,{'attr':{'class':'date2','readonly':'readonly'},'value':''} ) }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required col-md-5">{{ 'Lease End Date'|trans }}</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium"
+                                         data-date-viewmode="years">
+                                        {{ form_widget(form.endDate,{'attr':{'class':'date2','readonly':'readonly'},'value':''} ) }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Document'|trans }}</label>
+                                <div class="col-md-9">
+
+                                    <div class="wrapper">
+                                        <div id="doc_upload1" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <div id="selected_doc_file1"></div>
+                                        <br>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+{% endblock %}
+
+

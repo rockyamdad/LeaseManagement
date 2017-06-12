@@ -1,0 +1,129 @@
+<div class="page-header">
+    <!-- BEGIN HEADER TOP -->
+    <div class="slide-panel-top">
+        <div class="pull-left col-lg-3">
+        </div>
+
+        <div class="pull-right col-lg-3">
+            <p class="text-center">{{ "now"|date(" d / m / Y")|numberBanglaConvert }}</p>
+            {#<p class="text-center">৭ই এপ্রিল , ২০১৬</p>#}
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-1">
+            <a href="{{ path('lease_portal') }}"><img src="{{ asset('assets/elrs-assets/bd.png') }}" height="60px;"  alt="logo" class="logo-default"></a>
+        </div>
+        <div class="col-sm-7">
+            <span style="font-size: 200%" class="text-center custom-color-portal">
+                    উপজেলা পর্যায়ে ভূমি ইজারা ও ব্যবস্থাপনা - কেরানীগঞ্জ
+                </span><br/>
+                <span style="font-size: 100%" class="custom-color-portal">
+                    প্রযুক্তিময় বাংলাদেশ
+            </span>
+        </div>
+        {#{% if app.session.get('phoneNumber') is defined and app.session.get('phoneNumber') %}#}
+            {#<div class="col-sm-4 margin-top-10">#}
+                {#<a class="btn btn-danger" style="float: right" href="{{ path('lease_portal') }}">লগ আউট</a>#}
+            {#</div>#}
+        {#{% else %}#}
+            {#<div class="col-sm-4 margin-top-10">#}
+                {#<div style="float: right">#}
+                {#<a class="btn green-seagreen" href="{{ path('lease_portal') }}">সেবাগ্রহীতার নিবন্ধন</a>#}
+                {#<a class="btn btn-info" href="{{ path('lease_portal') }}">সেবাগ্রহীতার লগইন</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endif %}#}
+        {#<div class="col-sm-4 margin-top-10">#}
+            {#<form action="#" name="search" class="form-horizontal">#}
+                    {#<div class="col-md-12">#}
+                        {#<div class="input-group" style="text-align:left">#}
+                            {#<input type="text" placeholder="খুঁজুন" class="form-control" name="username1" id="username1_input">#}
+												{#<span class="input-group-btn">#}
+												{#<a href="javascript:;" class="btn green-seagreen" id="username1_checker">#}
+                                                    {#<i class="fa fa-search"></i>  অনুসন্ধান </a>#}
+												{#</span>#}
+                        {#</div>#}
+
+                    {#</div>#}
+            {#</form>#}
+
+        {#</div>#}
+    </div>
+    <div class="page-header-menu margin-top-10">
+        <div class="container">
+            <div class="hor-menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ path('lease_portal') }}">প্রথম পাতা</a>
+                    </li>
+
+                    <li class="menu-dropdown mega-menu-dropdown">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                            ই-সেবা সমূহ  <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('water_body_lease_list_for_apply') }}">আবেদনের জন্য উন্মুক্ত  জল মহল  লিজ তালিকা</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('market_body_lease_list_for_apply') }}">আবেদনের জন্য উন্মুক্ত হাট বাজার    লিজ তালিকা</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('gadget_lease_list_for_apply') }}">আবেদনের জন্য উন্মুক্ত    গ্যাজেট  লিজ তালিকা</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('portal_porcha_search') }}">খতিয়ান/পর্চা অনুসন্ধান</a>
+                            </li>
+                            {#<li>#}
+                                {#<a href="{{ path('lease_search') }}">লিজ  অনুসন্ধান</a>#}
+                            {#</li>#}
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('lease_portal') }}">    ব্যবহার নির্দেশিকা  </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('citizen_lease_application_status_check') }}"> আবেদন অবস্থা চেক</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('citizen_lease_renew_check') }}"> লিজ পুনঃনিবন্ধন করুন </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('portal_contact_us') }}"> যোগাযোগ করুন </a>
+                    </li>
+
+                    {% if app.session.get('phoneNumber') is defined and app.session.get('phoneNumber') %}
+                    <li>
+                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                            প্রোফাইল <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                      {#      <li>
+                                <a href="{{ path('profile',{'phoneNumber' :  app.session.get('phoneNumber')  }) }}">
+
+                                    প্রোফাইল</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('password_change',{'phoneNumber' :  app.session.get('phoneNumber')  }) }}">
+
+                                    পাসওয়ার্ড পরিবর্তন</a>
+                            </li>#}
+                            <li>
+                                <a href="{{ path('portal_logout') }}">
+
+                                    লগ আউট </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <!-- <li>
+                         <a href="login.html">লগইন</a>
+                     </li>-->
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END HEADER -->
+</div>

@@ -1,0 +1,173 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ 'Khatian Search'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Khatian Search'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Khatian Search'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="requested-khatian-search-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Khatian Search'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="form-search" role="form" method="post" action="">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{ 'Copy Type'|trans }}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control select2 input-medium mo-survey-type" id="surveyType" name="surveyType" placeholder="{{ 'Select'|trans }}" required>
+                                                <option value=""></option>
+                                                {% for survey in surveys %}
+                                                    <option value="{{ survey.type }}">{{ survey.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{ 'District'|trans }}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control select2 mo-district input-medium" name="districtId" placeholder="{{ 'Select'|trans }}" required>
+                                                <option value=""></option>
+                                                {% for district in districts %}
+                                                    <option value="{{ district.id }}">{{ district.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{ 'Current Upozila'|trans }}</label>
+                                        <div class="col-md-8">
+                                            <input type="hidden" id="upozilaId" name="upozilaId" class="form-control mo-upozila input-medium" placeholder="{{ 'Select'|trans }}" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{ 'Mouza'|trans }}</label>
+                                        <div class="col-md-8">
+                                            <input type="hidden" id="mouzaId" name="mouzaId" class="form-control mo-mouza input-medium" placeholder="{{ 'Select'|trans }}" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <!--/span-->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{ 'Khatian No'|trans }}</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="khatianNo" placeholder="" class="form-control input-medium" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-5">
+                                    <div class="col-md-4">
+                                        <select class="form-control select2 input-small mo-survey-type" id="surveyType" name="sf" placeholder="{{ 'Select'|trans }}" required>
+                                            <option value=""></option>
+                                            <option value="">{{ 'uopristho_sotter_dokholkar'|trans }}</option>
+                                            <option value="">{{ 'otro_sotter_dokholkar'|trans }}</option>
+                                            <option value="">{{ 'dag_nombor'|trans }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="sv" placeholder="" class="form-control input-large" required>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4"></label>
+                                        <div class="col-md-8">
+                                            <button type="submit" id="btn-search" class="btn green" data-url="{{ search_url }}">{{ 'Search'|trans }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                        </div>
+
+                        <div class="alert fade in" id="app-response" style="display: none">
+                            <div class="row" >
+                                <p class="text-danger response-msg" style="text-align: center"></p>
+                            </div>
+                        </div>
+                        <div class="alert alert-success fade in" id="khatian-success" style="display: none">
+                            <div class="row" >
+                                <p class="text-danger response-msg" style="text-align: center"></p>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{ 'Application ID'|trans }}</label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="applicationId" name="applicationId" placeholder="" class="form-control input-large">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" id="btn-send-verification" class="btn green" data-url="{{ search_url }}">{{ 'Send for verification'|trans }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger fade in" id="khatian-new-entry" style="display: none">
+                            <div class="row" >
+                                <p class="text-danger response-msg" style="text-align: center">
+                                     {{ 'Khatian not found'|trans }}<br/><a href="{{ path('volume_list') }}" id="btn-new-entry" class="btn green" data-url="{{ search_url }}">{{ 'Create New Khatian'|trans }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/khatian.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init({'multipleMouza': false});
+
+{% endblock %}
+

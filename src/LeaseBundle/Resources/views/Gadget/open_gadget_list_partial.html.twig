@@ -1,0 +1,88 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans  }}</th>
+        <th>{{  'Case File Number'|trans  }}</th>
+        <th>{{  'Original Owner Name'|trans}}</th>
+        <th>{{  'Father Name'|trans}}</th>
+        <th>{{  'Govt Aquired Date'|trans}}</th>
+        <th>{{  'Address'|trans}}</th>
+        <th>{{  'Status'|trans}}</th>
+        <th>{{  'Lease'|trans}}{{  'Status'|trans}}</th>
+        <th width="170"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gadgets is not empty %}
+        {% for index,gadget in gadgets %}
+            <tr>
+                <td>
+                    {{ ((gadgets.getCurrentPageNumber - 1) * gadgets.getItemNumberPerPage + index + 1)|numberBanglaConvert }}
+                </td>
+                <td>{{ gadget.caseFileNo }}</td>
+                <td>
+                   {{ gadget.orginalOwnerName }}
+                </td>
+                <td>{{ gadget.fatherName}}</td>
+                <td>{{ gadget.govtAquiredDate|date("m/d/Y") }}</td>
+                <td>{{ gadget.address }}</td>
+                <td>
+                    {% if (gadget.status == 'WAITING_FOR_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% elseif(gadget.status == 'APPROVED') %}
+                        <span class="label label-success">{{ 'Approved'|trans }}</span>
+                    {% elseif(gadget.status == 'PENDING') %}
+                        <span class="label label-default">{{ 'PENDING'|trans }}</span>
+                    {% elseif(gadget.status == 'CORRECTION') %}
+                        <span class="label label-warning">{{ 'Correction'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if gadget.lease is not empty %}
+                        {% if (gadget.lease.status == 'TERMINATED') %}
+                            <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                        {% elseif(gadget.lease.status == 'CLOSED') %}
+                            <span class="label label-primary">{{ 'Assigned'|trans }}</span>
+                        {% elseif(gadget.lease.status == 'ACTIVE') %}
+                            <span class="label label-success">{{ 'Enable'|trans }}</span>
+                        {% elseif(gadget.lease.status == 'SUSPEND') %}
+                            <span class="label label-warning">{{ 'Suspend'|trans }}</span>
+                        {% elseif(gadget.lease.status == 'CORRECTION') %}
+                            <span class="label label-warning">{{ 'Correction'|trans }}</span>
+                        {% endif %}
+                    {% else %}
+                    <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if is_granted('ROLE_GADGET_ADD_TO_PORTAL') and gadget.lease == NULL  and gadget.status == 'APPROVED' %}
+                        <a href="{{ path('gadget_add_portal', {'id': gadget.id}) }}" class="btn btn-lg"  title="{{ 'Add To Portal'|trans }}">
+                            <i class="fa fa-send"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_GADGET_EDIT') and gadget.status != 'APPROVED' and gadget.status != 'WAITING_FOR_APPROVAL' %}
+                        <a href="{{ path('gadget_update', {'id':gadget.id}) }}" class="btn btn-lg"  title="{{ 'Edit'|trans }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_GADGET_VIEW') %}
+                        <a href="{{ path('gadget_view',{'id':gadget.id}) }}"  class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(gadgets) }}
+</div>

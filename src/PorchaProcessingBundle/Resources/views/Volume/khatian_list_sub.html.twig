@@ -1,0 +1,46 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>
+            {{ knp_pagination_sortable(khatianLogs, 'Thana'|trans, 'v.thana') }}/
+            {{ knp_pagination_sortable(khatianLogs, 'Upozila'|trans, 'v.upozila') }}
+        </th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Mouza'|trans, 'k.mouza') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'J. L. No'|trans, 'k.jlnumber') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Khatian No'|trans, 'k.canonicalKhatianNo') }}</th>
+        <th>{{ 'Status'|trans }}</th>
+        <th style="width: 140px;"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if khatianLogs is not empty %}
+        {% for log in khatianLogs %}
+        <tr>
+            <td>{{ (log.khatianVersion.khatian.volume.thana) ? log.khatianVersion.khatian.volume.thana.name : (log.khatianVersion.khatian.volume.upozila) ? log.khatianVersion.khatian.volume.upozila.name : 'N/A'|trans }}</td>
+            <td>{{ log.khatianVersion.khatian.mouza ? log.khatianVersion.khatian.mouza.name : 'N/A' }}</td>
+            <td>{{ log.khatianVersion.khatian.jlnumber ? log.khatianVersion.khatian.jlnumber.name : 'N/A' }}</td>
+            <td>{{ log.khatianVersion.khatian.khatianNo }}</td>
+            <td>{{ (log.khatianStatus|upper == 'APPROVED') ? 'Archive'|trans : log.khatianStatusView }}</td>
+            <td>
+                <a href="{{ path('khatian_pages', {id: log.id}) }}" class="btn blue btn-sm" title="{{ 'View'|trans }}" ><i class="fa fa-file-o"></i></a>
+                {#{% if log.khatianStatus|upper == 'DRAFT'  %}#}
+                    {#<a href="{{ path('entry_operator_khatian_pages', {id: log.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>#}
+                    {#{% if khatian.lastVersion.verifier is null %}#}
+                        {#<a href="{{ path('delete_khatian', {id: log.khatianVersion.khatian.id}) }}" class="confirm btn red btn-sm" title="{{ 'খতিয়ান মুছুন' }}"><i class="fa fa-times"></i></a>#}
+                    {#{% endif %}#}
+                {#{% endif %}#}
+
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(khatianLogs) }}
+</div>

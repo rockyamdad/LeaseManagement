@@ -1,0 +1,55 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+  encoders:
+      FOS\UserBundle\Model\UserInterface: sha512
+
+  # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+  providers:
+
+      ness_user:
+          id: ness.user_provider
+
+  role_hierarchy:
+      ROLE_ADMIN:       ROLE_OPERATOR
+      ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+  firewalls:
+      # disables authentication for assets and the profiler, adapt it according to your needs
+      dev:
+          pattern: ^/(_(profiler|wdt)|css|images|js)/
+          security: false
+
+      main:
+          pattern: ^/
+          simple_form:
+              authenticator: app_authenticator
+              login_path: /login
+              check_path: /login_check
+              csrf_provider: form.csrf_provider
+              default_target_path: dashboard
+              always_use_default_target_path: true
+              #use_referer: true
+          logout:
+              path:   /logout
+              target: /login
+          anonymous:    true
+          remember_me:
+              key: "%secret%"
+              lifetime: 60 # 7 days in seconds
+              path: /
+              domain: ~ # Defaults to the current domain from $_SERVER
+
+  access_control:
+      - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/portal, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/udc-api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/udc-office-api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/udc-office-respone-api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/udc-login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/udc-api-login-response, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/, role: ROLE_USER }

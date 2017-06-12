@@ -1,0 +1,118 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+<div class="page-container">
+
+    <div class="portlet light">
+				<div class="portlet-body">
+					<div class="invoice">
+						<div class="row invoice-logo">
+							<div class="col-xs-6 invoice-logo-space">
+                                <h2 class="caption-color" style="margin-left: 2px;">গ্রহণ   রশিদ </h2>
+                              <h3 style="color: green">ভূমি মন্ত্রনালয়, গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
+							</div>
+							<div class="col-xs-6">
+								{#<h4>
+                                    খতিয়ান/পর্চা আবেদন
+								</h4>#}
+							</div>
+						</div>
+						<hr/>
+						<div class="row">
+							<div class="col-xs-offset-1 col-xs-4">
+								<h3 class="caption-color">সিটিজেন :</h3>
+								<ul class="list-unstyled">
+									<li>
+                                        <strong> নাম :</strong> {{ data.name }}
+									</li>
+                                    <li>
+                                        <strong>  ঠিকানা :</strong>
+                                    </li>
+									<li>
+                                        ডাকঘর/পোস্টকোড:{{ data.postal}} &nbsp;&nbsp; গ্রাম/এলাকা :{{ data.area }} </br> রোড নং : {{ data.road }} &nbsp;&nbsp;  বাসা নং :{{ data.house }}
+									</li>
+                                    <li>
+                                        <strong>  উপজেলা : </strong> {{ data.upozila }}
+                                    </li>
+									<li>
+                                        <strong>   জেলা :</strong> {{ data.district }}
+									</li>
+
+								</ul>
+							</div>
+                            <div class="col-xs-2">
+
+                            </div>
+
+                            <div class="col-xs-4 invoice-payment">
+								<h3 class="caption-color">আবেদন তথ্য :</h3>
+								<ul class="list-unstyled">
+									<li>
+										<strong>আবেদন নং  #:</strong> {{ data.id|numberBanglaConvert }}
+									</li>
+                                    <li>
+										<strong>আবেদনের নাম   #:</strong> {{ data.type }}
+									</li>
+									<li>
+										<strong>আবেদনের তারিখ  #:</strong> {{ data.createdDate|date("d/m/Y", false)|numberBanglaConvert }}
+									</li>
+									<li>
+										<strong>আবেদন বিতরণের  তারিখ :</strong> {{ data.delivaryDate|date("d/m/Y", false)|numberBanglaConvert }}
+									</li>
+								</ul>
+							</div>
+						</div>
+                        <br><br>
+						<div class="row">
+							<div class="col-xs-4">
+							{#	<div class="well">
+									<address>
+									<strong>Loop, Inc.</strong><br/>
+									795 Park Ave, Suite 120<br/>
+									San Francisco, CA 94107<br/>
+									<abbr title="Phone">P:</abbr> (234) 145-1810 </address>
+									<address>
+									<strong>Full Name</strong><br/>
+									<a href="mailto:#">
+									first.last@email.com </a>
+									</address>
+								</div>#}
+							</div>
+                            <div class="col-xs-3">
+
+                            </div>
+
+							<div class="col-xs-4 invoice-block" >
+								<ul class="list-unstyled amounts">
+									<li>
+										<strong>কোর্ট ফি	:</strong> {{ data.courtFee|numberBanglaConvert }}
+									</li>
+									<li>
+										<strong>ডেলিভারি করার টাকা :</strong> {{ data.delivaryFee|numberBanglaConvert }}
+									</li>
+									<li>
+										<strong>মোট :</strong> {{ data.totalFee|numberBanglaConvert }}
+									</li>
+								</ul>
+								<br/>
+								<a class="btn btn-lg blue hidden-print margin-bottom-5" onclick="javascript:window.print();">
+                                    প্রিন্ট  <i class="fa fa-print"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascriptBlock %}
+    {{ parent() }}
+    {% javascripts
+    '@AppBundle/Resources/public/js/application.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}
+{% block documentReady %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "::metronic.html.twig" %}
+{% form_theme form ':form:bootstrap_3_cool.html.twig' %}
+
+{% set is_edit = ('branch_update' == app.request.get('_route')) %}
+
+{% block title %}{{ 'Create DC Office'|trans }} - {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Create Branch'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Home'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/">{{ 'Admin'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            {#<a href="{{ path('branch_list_all') }}">Branches</a><i class="fa fa-circle"></i>#}
+        </li>
+        <li class="active">
+            {{ 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Create DC Office'|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <form class="form-horizontal" role="form" method="post"
+                          action="">
+                        <div class="form-body">
+                            {{ form_widget(form) }}
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn green">{{ 'Submit'|trans }}</button>
+                                    <a class="btn default" href="{{ path('users_list_all') }}">{{ 'Cancel'|trans }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+

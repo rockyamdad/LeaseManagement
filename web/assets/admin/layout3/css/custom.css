@@ -1,0 +1,337 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+*/
+body{
+    background: url("/assets/elrs-assets/bg_main.gif") repeat-y scroll center top rgba(0, 0, 0, 0) !important;
+    font-family: Nikosh, "Open Sans", sans-serif;
+    font-size: 16px;
+
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Nikosh, "Open Sans", sans-serif;
+    font-weight: 300;
+}
+.page-header .page-header-menu{
+    background: #EFEFEF;
+}
+.page-header .page-header-menu .hor-menu .navbar-nav > li > a{
+    font-size: 19px;
+    color: #009688;
+}
+.page-header .page-header-menu .hor-menu .navbar-nav > li .dropdown-menu li > a{
+    font-size: 19px;
+    color: white;
+}
+/*.page-header{*/
+/*height: 140px;*/
+/*}*/
+.page-header .page-header-menu .hor-menu .navbar-nav > li .dropdown-menu li > a{
+    font-family: Nikosh, "Open Sans", sans-serif;
+}
+
+.page-header .page-header-top{
+    height: 50px;
+}
+
+.page-header .page-header-top .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu{
+    background: #4E5966;
+}
+.page-header .page-header-menu .hor-menu .navbar-nav > li > a{
+    padding: 9px 18px 9px 18px;
+}
+.nav-tabs > li > a, .nav-pills > li > a{
+    font-size: 16px;
+}
+
+.tiles .tile{
+    margin: 0 10px 10px 4px;
+}
+.page-footer{
+    background-color: #EBEBEB;
+    font-size: medium;
+    color: black;
+}
+.stat-number{
+    height: 113px;
+    width: 124px;
+}
+.number-stats .stat-number .title p{
+    width: 100%;
+    font-size: 22px;
+    color: #3F51B5;
+}
+.number-stats .stat-number .number p{
+    font-size: 28px;
+    color: blueviolet;
+}
+.page-header{
+    -moz-box-shadow:    1px 3px 5px 4px #ccc;
+    -webkit-box-shadow: 1px 3px 5px 4px #ccc;
+    box-shadow:         1px 3px 5px 4px #ccc;
+}
+.page-footer{
+    -moz-box-shadow:    1px 7px 5px 4px #ccc;
+    -webkit-box-shadow: 1px 7px 5px 4px #ccc;
+    box-shadow:         1px 7px 5px 4px #ccc;
+}
+.page-container{
+    background-color: #FFF;
+    min-height: 450px;
+    padding: 10px;
+    -moz-box-shadow:    1px 3px 5px 4px #ccc;
+    -webkit-box-shadow: 1px 3px 5px 4px #ccc;
+    box-shadow:         1px 3px 5px 4px #ccc;
+}
+.portlet-body .number-stats{
+    border: 0px solid;
+}
+
+.important-link-homePage{
+	font-size: 17px;
+}
+.icon-btn{
+	min-width: 160px;
+	height: 80px;
+}
+.custom-radio-design{
+    margin-left: 118px !important;
+}
+.caption-color{
+    color: #607D8B;
+}
+.button-save-color{
+    background-color:#35AA47 !important;
+}
+.button-cancel-color{
+    background-color:#ff0000 !important;
+}
+.icon-btn{
+    min-width: 130px;
+    height: 85px;
+    background-color: #7CB138;
+    color: white;
+}
+
+.number-stats > div {
+    border-right: 2px solid #f5f5f5;
+    border-bottom: 2px solid #f5f5f5;
+}
+
+.icon-btn  div{
+    font-size: 18px;
+    color: white;
+}
+.custom-color-caption{
+    color:#4db3a4 !important;
+    font-family: NikoshBAN, "Open Sans", sans-serif;
+}
+
+.custom-color-top-nav{
+    color: blueviolet;
+}
+.color-custom{
+    background-color: white;
+}
+.custom-color-portal{
+    color:#03a9f4;
+}
+.page-container{
+    min-height: 480px;
+}
+.volume a {
+    font-family: NikoshBAN, "Open Sans", sans-serif;
+    font-size: 1.9em;
+    padding: 10px;
+}
+.volume a:hover {
+    color: green;
+    /*font-size: 2.9em;*/
+}
+label {
+    font-weight: 400;
+    font-size: 17px;
+}
+legend{
+    font-size: 25px;
+}
+.slide-panel-top{
+    background-color: #607d8b;
+    border-bottom: 1px solid #cddc39;
+    color: white;
+    height: 28px;
+    font-size: 16px;
+}
+
+.map {
+    float: right;
+    position: relative;
+    margin: 14px 25px 0px 0px;
+
+}
+
+.map svg path {
+    -moz-transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear
+}
+
+.map svg path.region {
+    cursor: pointer
+}
+
+.map #map_overlay {
+    display: none
+}
+
+.ie8 .map svg {
+    display: none
+}
+
+.ie8 .map #map_overlay {
+    display: block
+}
+
+.map-helper {
+    position: absolute;
+    display: inline-block;
+    display: none;
+    padding: 6px 8px;
+    color: #fff;
+    font-size: 13px;
+    background-color: #222;
+    white-space: nowrap
+}
+
+.map-helper:after {
+    position: absolute;
+    bottom: -18px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    content: "";
+    border-style: solid;
+    border-width: 0 18px 18px 0;
+    border-color: transparent #222 transparent transparent
+}
+.bk-org {
+    background-color: #607D8B !important;
+    color: #fff;
+    line-height: 34px;
+    padding-left: 7px;
+}
+.stats-info{
+    background-color: #EFEFEF;
+    padding: 1px 0px 0px 0px;
+}
+.tiles .tile .tile-object > .name{
+    color: #009688;
+    font-size: 16px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.tiles .tile.image .tile-body > img {
+width: 80%;
+min-height: 70%;
+}
+.has-error .help-block, .has-error .help-inline, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline help-inline{
+color:#a94442; !important;
+}
+.help-inline{
+display: none;
+}
+.has-error .help-block, .has-success .help-inline, .has-success .control-label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline{
+display: none;
+}
+.has-success .help-block, .has-success .help-inline, .has-success .control-label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline{
+display: table-row;
+}
+.validation-style>ul{
+list-style-type: none;
+}
+.validation-style>ul>li{
+margin-left: -38px;
+}
+.validation-style{
+color:red !important;
+float: left! important;
+}
+.control-label>span{
+color: red;
+}
+.scroller .alert{
+padding: 8px;
+}
+.success{
+color: white;
+background-color: #2E6947;
+}
+.imageshow
+{
+background-image: url("../../../../assets/elrs-assets/ajax-loader.gif");
+background-repeat: no-repeat;
+background-position: center;
+}
+.error {
+color: red;
+}
+.has-success{
+color: #609513 ;
+}
+.link-check >a:active{
+color: black;
+text-decoration: none;
+}
+.link-check > a:link{
+color: black;
+text-decoration: none;
+}
+.link-check > a:hover{
+color: darkred;
+text-decoration: none;
+}
+.link-check > a:visited{
+color: black;
+text-decoration: none;
+}
+.volume-style{
+transform: rotate(270deg);
+width: 155px;
+height: 131px;
+}
+.book-style{
+width: 5.7%;
+float: left;
+}
+fieldset>legend{
+    font-size: larger;
+}
+.help-inline{
+    color: #a94442;
+}
+.has-error .form-control{
+    border-color: #ebccd1;
+    box-shadow: none;
+}

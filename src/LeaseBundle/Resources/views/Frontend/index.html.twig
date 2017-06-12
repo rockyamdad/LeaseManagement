@@ -1,0 +1,345 @@
+{% extends '::portal_base.html.twig' %}
+{% block body %}
+    <div class="page-container">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+
+                    <div class="page-slider">
+                        <!-- LayerSlider start -->
+                        <div id="layerslider" style="width: 100%; height: 250px; margin-top: auto;">
+
+
+                            {#<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">#}
+
+                                {#<img src="assets/elrs-assets/pmobanner.jpg" class="ls-bg" alt="Slide background">#}
+
+                            {#</div>#}
+                            {#<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">#}
+
+                                {#<img src="assets/elrs-assets/service_portal.png" class="ls-bg" alt="Slide background">#}
+
+                            {#</div>#}
+                            <div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
+
+                                <img src="{{ asset('assets/elrs-assets/banner101.jpg') }}" class="ls-bg" alt="Slide background">
+
+                            </div>
+                            <div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
+
+                                <img src="{{ asset('assets/elrs-assets/banner102.gif') }}" class="ls-bg" alt="Slide background">
+
+                            </div>
+                            <div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
+
+                                <img src="{{ asset('assets/elrs-assets/banner103.jpg') }}" class="ls-bg" alt="Slide background">
+
+                            </div>
+                            <div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
+
+                                <img src="{{ asset('assets/elrs-assets/banner104.jpg') }}" class="ls-bg" alt="Slide background">
+
+                            </div>
+                            {#<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">#}
+
+                                {#<img src="assets/elrs-assets/paperless-goct-office.jpg" class="ls-bg" alt="Slide background">#}
+
+                            {#</div>#}
+
+                        </div>
+                        <!-- LayerSlider end -->
+                    </div>
+
+                </div>
+                {#<div class="col-md-4 col-sm-12">#}
+
+                        {#<div class="portlet-body stats-info">#}
+                            {#<div class="row number-stats" >#}
+                                {#<div class="col-md-6 col-sm-6 col-xs-6">#}
+                                    {#<div class="stat-left" >#}
+                                        {#<div class="stat-number">#}
+                                            {#<div class="title">#}
+                                                {#<p>সর্বমোট  গৃহীত আবেদন </p>#}
+                                            {#</div>#}
+                                            {#<div class="number">#}
+                                              {#  {% if statistics[0].totalAppReceived is defined and statistics[0].totalAppReceived %}#}
+                                                {#<p>{{ statistics[0].totalAppReceived|numberBanglaConvert }}</p>#}
+                                                {#{% else %}#}
+                                                    {#০#}
+                                                {#{% endif %}#}
+                                            {#</div>#}
+                                        {#</div>#}
+
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-md-6 col-sm-6 col-xs-6">#}
+                                    {#<div class="stat-right">#}
+
+                                        {#<div class="stat-number">#}
+                                            {#<div class="title">#}
+                                                {#<p>   সর্বমোট সর্বাহকৃত  আবেদন </p>#}
+                                            {#</div>#}
+                                            {#<div class="number">#}
+                                               {# {% if statistics[0].totalAppDelivered is defined and statistics[0].totalAppDelivered %}#}
+                                                {#<p>{{ statistics[0].totalAppDelivered|numberBanglaConvert }}</p>#}
+                                                {#{% else %}#}
+                                                    {#০#}
+                                                {#{% endif %}#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="row number-stats">#}
+                                {#<div class="col-md-6 col-sm-6 col-xs-6">#}
+                                    {#<div class="stat-left">#}
+
+                                        {#<div class="stat-number">#}
+                                            {#<div class="title">#}
+                                                {#<p>সর্বমোট রেকর্ড ডিজিটাইজেশন </p>#}
+                                            {#</div>#}
+                                            {#<div class="number">#}
+                                               {# {% if statistics[0].totalDigitizedKhatian is defined and statistics[0].totalDigitizedKhatian %}#}
+                                                {#<p>{{ statistics[0].totalDigitizedKhatian|numberBanglaConvert }}</p>#}
+                                                {#{% else %}#}
+                                                    {#০#}
+                                                {#{% endif %}#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-md-6 col-sm-6 col-xs-6">#}
+                                    {#<div class="stat-right">#}
+
+                                        {#<div class="stat-number">#}
+                                            {#<div class="title">#}
+                                                {#<p>সর্বমোট রেকর্ড রুম </p>#}
+                                            {#</div>#}
+                                            {#<div class="number">#}
+                                                {#{% if statistics[0].totalRecordRoom is defined and statistics[0].totalRecordRoom %}#}
+                                                {#<p>{{ statistics[0].totalRecordRoom|numberBanglaConvert }}</p>#}
+                                                {#{% else %}#}
+                                                    {#০#}
+                                                {#{% endif %}#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+
+                            {#</div>#}
+
+                        {#</div>#}
+
+                {#</div>#}
+            </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 margin-top-10">
+                <h4 class="bk-org">সকল ই-সেবা</h4>
+                <div class="tiles">
+
+                        {#<div class="tile image">#}
+                            {#<a data-toggle="modal" href="#application_list">#}
+                            {#<div class="tile-body">#}
+                                {#<i class="fa fa-file-text"></i>#}
+                                {#<img src="{{ asset('assets/elrs-assets/application2.png') }}">#}
+                            {#</div>#}
+                            {#<div class="tile-object">#}
+                                {#<div class="name">#}
+                                    {#সকল   আবেদন সমূহ#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#<div class="tile image">#}
+                            {#<a data-toggle="modal" id="khatianSats" href="#khotian_status">#}
+                            {#<div class="tile-body">#}
+                                {#<i class="fa fa-laptop"></i>#}
+                                {#<img src="{{ asset('assets/elrs-assets/stauts1.jpg') }}">#}
+                            {#</div>#}
+                            {#<div class="tile-object">#}
+                                {#<div class="name">#}
+                                    {#আবেদনের সর্বশেষ অবস্থা#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        <div class="tile image">
+                            <a data-toggle="modal" href="#application_list">
+                                <div class="tile-body">
+                                    {#<i class="fa fa-file-text"></i>#}
+                                    <img src="{{ asset('assets/elrs-assets/application2.png') }}">
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        উন্মুক্ত লিজ তালিকা
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tile image">
+                            <a href="{{ path('lease_portal') }}">
+                            <div class="tile-body">
+                                {#<i class="fa fa-language"></i>#}
+                                <img src="{{ asset('assets/elrs-assets/user-manual.jpg') }}">
+
+                            </div>
+                            <div class="tile-object">
+                                <div class="name">
+                                    ব্যবহার নির্দেশিকা
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="tile image">
+                            <a data-toggle="modal" href="{{ path('portal_porcha_search') }}">
+                                <div class="tile-body">
+                                    {#<i class="fa fa-search-minus"></i>#}
+                                    <img src="{{ asset('assets/elrs-assets/record-search.jpg') }}">
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        খতিয়ান/পর্চা  অনুসন্ধান
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tile image">
+                            <a href="{{ path('fos_user_security_login') }}" target="_blank">
+                                <div class="tile-body">
+                                    {#<i class="fa fa-user"></i>#}
+                                    <img src="{{ asset('assets/elrs-assets/udc-login2.png') }}">
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        ইউ এন ও  লগইন
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tile image">
+                            <a href="{{ path('portal_contact_us') }}">
+                                <div class="tile-body">
+
+                                    <img src="{{ asset('assets/elrs-assets/user-registration.png') }}">
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        যোগাযোগ করুন
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {#<div class="tile image">#}
+                            {#<a data-toggle="modal" href="#porcha_search">#}
+                            {#<div class="tile-body">#}
+                                {#<i class="fa fa-search-minus"></i>#}
+                                {#<img src="{{ asset('assets/elrs-assets/record-search.jpg') }}">#}
+                            {#</div>#}
+                            {#<div class="tile-object">#}
+                                {#<div class="name">#}
+                                    {#লিজ  অনুসন্ধান#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#{% if app.session.get('phoneNumber') is defined and app.session.get('phoneNumber') %}#}
+
+                        {#{% else %}#}
+                        {#<div class="tile image">#}
+                            {#<a href="{{ path('lease_portal') }}">#}
+                                {#<div class="tile-body">#}
+                                    {#<i class="fa fa-pencil-square-o"></i>#}
+                                    {#<img src="{{ asset('assets/elrs-assets/user-registration.png') }}">#}
+                                {#</div>#}
+                                {#<div class="tile-object">#}
+                                    {#<div class="name">#}
+                                        {#সেবাগ্রহীতার নিবন্ধন#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#{% endif %}#}
+                        {#{% if app.session.get('phoneNumber') is defined and app.session.get('phoneNumber') %}#}
+                        {#<div class="tile image">#}
+                            {#<a href="{{ path('lease_portal') }}">#}
+                            {#<div class="tile-body">#}
+                                {#<i class="fa fa-child"></i>#}
+                                {#<img src="{{ asset('assets/elrs-assets/user-login.jpg') }}">#}
+                            {#</div>#}
+                            {#<div class="tile-object">#}
+                                {#<div class="name">#}
+                                    {#লগ আউট#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#{% else %}#}
+                        {#<div class="tile image">#}
+                            {#<a href="{{ path('lease_portal') }}">#}
+                                {#<div class="tile-body">#}
+                                    {#<i class="fa fa-child"></i>#}
+                                    {#<img src="{{ asset('assets/elrs-assets/user-login.jpg') }}">#}
+                                {#</div>#}
+                                {#<div class="tile-object">#}
+                                    {#<div class="name">#}
+                                        {#সেবাগ্রহীত লগইন#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#{% endif %}#}
+
+                    </div>
+                </div>
+            <div class="col-md-4 col-sm-12 margin-top-10">
+                <h4 class="bk-org">প্রকল্পের উদ্দেশ্য</h4>
+                <div class="portlet-body stats-info">
+                    <p>বিদ্যমান ভূমি জরিপসমূহের ডিজিটাল পদ্ধতিতে প্রণয়ন এবং সংরক্ষনের সুবিধাসমুহ -</p>
+                    <p>(১) ভূমি ব্যবস্থাপনা আধুনিকায়নের লক্ষ্যে আধুনিক প্রযুক্তি ব্যবহার করে বিভিন্ন জরিপের ( সিএস, এস এ, আরএস  ) খতিয়ানসমূহ ভূমি মালিকগনকে  সহজে সরবরাহ করা।</p>
+
+                    <p>(২) বিভিন্ন জরিপের ( সিএস, এস এ, আরএস  )  খতিয়ানসমূহ  সহজে সরবরাহ করার লক্ষ্যে ভূমি রেকর্ড ও জরিপ অধিদপ্তর এবং জেলা প্রশাসনকে শক্তিশালীকরণ। </p>
+                </div>
+
+            </div>
+
+            </div>
+
+    </div>
+    <!-- All modal list
+     ------------------
+     -------------------------
+     --------------------------------
+     -->
+
+    {#{{ include(':Frontend:index_partial_porcha_search.html.twig')}}
+    {{ include(':Frontend:index_partial_application_list.html.twig')}}
+    {{ include(':Frontend:index_partial_vrr_list.html.twig')}}
+    {{ include(':Frontend:index_partial_khotian_status.html.twig')}}#}
+
+    <!-- Modal list ended
+     -----------------------
+     --------------------------------
+     --------------------------------------
+     -->
+
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}
+
+{% block documentReady %}
+    {{ parent() }}
+
+{% endblock %}

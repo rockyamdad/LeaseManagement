@@ -1,0 +1,67 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Market'|trans }} {{ 'Update'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Market'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('market_list') }}">{{ 'Market List'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Update'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase"> {{ 'Market'|trans }} {{ 'Update'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="marketUpdate" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+
+                            <div class="form-group {{ form_errors(form.marketName) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label ">{{ 'Market'|trans }} {{ 'Name'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.marketName) }}
+                                    <span class="help-block">{{ form_errors(form.marketName) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9 col-md-offset-2">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+

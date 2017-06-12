@@ -1,0 +1,33 @@
+{% extends "::portal_base.html.twig" %}
+{% block body %}
+<div class="page-container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light tasks-widget">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        {% if leases is not empty %}
+                            {% if leases[0].type == 'Market'  %}
+                                <h2 class="caption-color"><span class="caption-helper">আবেদনের জন্য উন্মুক্ত হাট বাজার  তালিকা</span></h2>
+                            {% elseif leases[0].type == 'WaterBody' %}
+                                <h2 class="caption-color"><span class="caption-helper">আবেদনের জন্য উন্মুক্ত জল মহল লিজ  তালিকা</span></h2>
+                            {% else %}
+                                <h2 class="caption-color"><span class="caption-helper">আবেদনের জন্য উন্মুক্ত গ্যাজেট  তালিকা</span></h2>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class='table-data'>
+                        {% include '@Lease/Frontend/partial_portal_open_lease_list_for_apply.html.twig' %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

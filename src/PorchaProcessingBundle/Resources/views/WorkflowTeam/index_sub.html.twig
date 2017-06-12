@@ -1,0 +1,103 @@
+<div class="">
+    <table class="table table-bordered table-striped table-condensed flip-content table-list table-ta-left">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ 'group'|trans ~ ' ' ~ 'Name'|trans }}</th>
+            <th>{{ 'Survey'|trans }}</th>
+            <th>{{ 'Upozila'|trans }}</th>
+            <th>{{ 'Mouza'|trans }}</th>
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+            <th>{{ 'Approver'|trans }}</th>
+            <th width="80px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if teams is not empty %}
+            {% for team in teams %}
+                <tr>
+                    <td>{{ team.name }}</td>
+                    <td class="ta-left">
+                        {% if team.surveys is defined %}
+                            {% set i = 1 %}
+                            {% for survey in team.surveys %}
+                                {{ i|numberBanglaConvert }}. {{ survey.name }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.upozilas is defined %}
+                            {% set i = 1 %}
+                            {% for upozila in team.upozilas %}
+                                {{ i|numberBanglaConvert }}. {{ upozila.name }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.mouzas is defined %}
+                            {% set i = 1 %}
+                            {% for mouza in team.mouzas %}
+                                {{ i|numberBanglaConvert }}. {{ mouza.name }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.entryOperators is defined %}
+                            {% set i = 1 %}
+                            {% for entryOperator in team.entryOperators %}
+                                {{ i|numberBanglaConvert }}. {{ entryOperator.nameWithUsername }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.verifiers is defined %}
+                            {% set i = 1 %}
+                            {% for verifier in team.verifiers %}
+                                {{ i|numberBanglaConvert }}. {{ verifier.nameWithUsername }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.comparers is defined %}
+                            {% set i = 1 %}
+                            {% for comparer in team.comparers %}
+                                {{ i|numberBanglaConvert }}. {{ comparer.nameWithUsername }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.approvers is defined %}
+                            {% set i = 1 %}
+                            {% for approver in team.approvers %}
+                                {{ i|numberBanglaConvert }}. {{ approver.nameWithUsername }}<br/>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a title="{{ 'Edit'|trans }}" class="btn blue btn-sm" href="{{ path('workflow_team_edit', {id: team.id, 'type': type}) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="মুছে ফেলুন" class="btn red btn-sm btn-delete"
+                           data-csrf="{{ csrf_token("delete_team_action_" ~ team.id) }}"
+                           href="{{ path('workflow_team_delete', {id: team.id, 'type': type}) }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="15" style="text-align: center">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>

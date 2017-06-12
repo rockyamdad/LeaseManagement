@@ -1,0 +1,21 @@
+<div class="modal-header green" id="modal-general">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    {% block modal_title %}
+    {% endblock %}
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="modal-inner-msg" class="Metronic-alerts fade in"></div>
+            <div id="modal-inner-content">
+                {% block modal_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    {% block modal_button %}
+        <button type="button" class="btn default" data-dismiss="modal">{{ 'Close'|trans }}</button>
+    {% endblock %}
+</div>

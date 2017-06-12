@@ -1,0 +1,154 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ office.id ? 'Update'|trans : 'New'|trans }} {{ 'DC Office'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ office.id ? 'Update'|trans : 'New'|trans }} {{ 'DC Office'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="">{{ 'Offices'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="office-update-page">
+
+        <form class="form-horizontal" id="form-update-office" role="form" method="post" action="{{ form_action }}">
+
+            <div class="col-md-8">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ office.id ? 'Update'|trans : 'New'|trans }} {{ 'DC Office'|trans }}</span>
+                    </div>
+                </div>
+                    <div class="portlet-body">
+
+                        <div class="form-body">
+
+                            <div class="form-group {% if form_errors(form.district) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">
+                                    {{ 'District'|trans }}
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.district) }}
+                                    <span class="help-block">{{ form_errors(form.district) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {% if form_errors(form.name) is not empty %}has-error{% endif %}">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Office Name'|trans }}
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.name) }}
+                                    <span class="help-block">{{ form_errors(form.name) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Contact Person'|trans }}
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.contactPerson) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Contact Info'|trans }}
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.contactInfo) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Record Room In Charge Info'|trans }}
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.recordRoomInChargeInfo) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {{ 'Ness Organization ID'|trans }}
+                                </label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.nessOrgId) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <label>
+                                            {{ form_widget(form.active, {'label': 'Active'|trans}) }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a class="btn default" href="#" onclick="window.history.go(-1); return false;">{{ 'Cancel'|trans }}</a>
+                                    <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Modules'|trans }}</span>
+                    </div>
+                </div>
+                    <div class="portlet-body">
+
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <div class="col-md-9">
+                                <div class="checkbox-list">
+                                    <label>
+                                        <input type="checkbox" {% if 'INFORMATION_SLIP_REQUEST_PROCESSING' in office.modules|keys %}checked{% endif %} name="modules[INFORMATION_SLIP_REQUEST_PROCESSING]"> {{ 'INFORMATION_SLIP_REQUEST_PROCESSING'|trans }} </label>
+                                    <label>
+                                        <input type="checkbox" {% if 'CASE_COPY_REQUEST_PROCESSING' in office.modules|keys %}checked{% endif %} name="modules[CASE_COPY_REQUEST_PROCESSING]"> {{ 'CASE_COPY_REQUEST_PROCESSING'|trans }} </label>
+                                    <label>
+                                        <input type="checkbox" {% if 'MOUZA_MAP_REQUEST_PROCESSING' in office.modules|keys %}checked{% endif %} name="modules[MOUZA_MAP_REQUEST_PROCESSING]"> {{ 'MOUZA_MAP_REQUEST_PROCESSING'|trans }} </label>
+                                    <label>
+                                        <input type="checkbox" {% if 'OTHER_REQUEST_PROCESSING' in office.modules|keys %}checked{% endif %} name="modules[OTHER_REQUEST_PROCESSING]"> {{ 'OTHER_REQUEST_PROCESSING'|trans }} </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+

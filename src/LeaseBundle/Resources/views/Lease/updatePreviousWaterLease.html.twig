@@ -1,0 +1,492 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Lease'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Lease'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Previous'|trans }} {{ 'Water Body'|trans }} {{ 'Lease'|trans }} {{ 'Update'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase"> {{ 'Previous'|trans }} {{ 'Water Body'|trans }} {{ 'Lease'|trans }} {{ 'Update'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="fileupload" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+                            <div class="form-group {{ form_errors(form.name) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'Name'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.name) }}
+                                    <span class="help-block">{{ form_errors(form.name) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Survey'|trans }}</label>
+                                <div class="col-md-3">
+                                    <select name="survey" class="form-control select2 input-large survey" id="survey" data-placeholder="{{ lease.khatian.volume.survey.name }}">
+                                        <option></option>
+                                        {% for  survey in surveys %}
+                                            <option value="{{ survey.type }}">{{ survey.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Mouza'|trans }}</label>
+                                <div class="col-md-3">
+                                    <select name="mouza" class="form-control select2 input-large mouza" id="mouza"  data-placeholder="{{ lease.khatian.mouza.name }}">
+                                        <option></option>
+                                        {% for  mouza in mouzas %}
+                                            <option value="{{ mouza.id }}">{{ mouza.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ form_errors(form.khatian) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'Khatian'|trans }}</label>
+                                <div class="col-md-3">
+                                    {{ form_widget(form.khatian) }}
+                                    <span class="help-block">{{ form_errors(form.khatian) }}</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="button" id="add-dag-no" class="btn green"  value="{{ 'attach dagNo'|trans }}" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-5">
+                                    <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;margin-left: 141px"  width="25%" id="row-clone" data-prototype="
+                                        {% filter escape %}
+                                         {{ include('LeaseBundle:Lease:leaseKhatianDagNo.html.twig', { 'form': form.waterBodyDetails.vars.prototype }) }}
+                                        {% endfilter %}">
+                                        <thead>
+                                        <tr>
+                                            <th>{{'Khatian dag No'|trans }}</th>
+                                            <th>{{'Total Amount'|trans }}</th>
+                                            <th>{{'Proposed Amount'|trans }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="dag-list">
+                                        {% for tag in form.waterBodyDetails %}
+                                            <tr>
+                                                <td>
+                                                    {{ form_widget(tag.khatianDagNo, {'attr': {'class': 'form-control'}}) }}
+                                                </td>
+                                                <td>
+                                                    {{ form_widget(tag.totalAmount, {'attr': {'class': 'form-control'}}) }}
+                                                </td>
+                                                <td>
+                                                    {{ form_widget(tag.proposedAmount, {'attr': {'class': 'form-control'}}) }}
+                                                </td>
+                                                <td>
+                                                    <a class="btn red btn-sm remove-old remove-old-lease_details"  ref="{{ tag.vars.value.id }}">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required col-md-5">{{ 'Fiscal Year'|trans }}</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium"
+                                         data-date-viewmode="years">
+                                        {{ form_widget(form.fiscalyear) }}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group {{ form_errors(form.remarks) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label ">{{ 'Remarks'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.remarks) }}
+                                    <span class="help-block">{{ form_errors(form.remarks) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Private Document'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="wrapper">
+                                        <div id="doc_upload1" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <label id="selected_doc_file1"  class="selectedFileClass"><ol>
+                                                {% for document in LeasePrivateDocuments %}
+                                                    <li><a href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                {% endfor %}
+                                            </ol></label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-offset-2">
+                                    <input name="private_caption" class="form-control input-small" placeholder="ক্যাপশন" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Public Document'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="wrapper">
+                                        <div id="doc_upload2" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <label id="selected_doc_file2" class="selectedFileClass"><ol>
+                                                {% for document in LeasePublicDocuments %}
+                                                    <li><a href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                {% endfor %}
+                                            </ol></label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-offset-2">
+                                    <input name="public_caption" class="form-control input-small" placeholder="ক্যাপশন" >
+                                </div>
+                            </div>
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}</h4>
+                            <div>
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        {% for application in form.applications %}
+                                            <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;margin-left: 141px"  width="100%" id="row-clone2">
+                                                {{ include('LeaseBundle:Gadget:applicantInfo.html.twig', { 'form': application.applicant }) }}
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-lg-2 control-label">মোবাইল নম্বর</label>
+                                <div class="col-lg-10">
+                                    {% for application in form.applications %}
+                                        {#<input type="text" class="form-control" >#}
+                                        {{ form_widget(application.phoneNo,{'attr':{'class':'form-control phoneNo',}}) }}
+                                        <span class="hide error valid-msg">✓ </span>
+                                        <span class="hide error error-msg">নম্বর টি সঠিক নয় </span>
+                                        <span class="validation-style">{{ form_errors(application.phoneNo)}}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Application'|trans }} {{ 'Document'|trans }}</h4>
+
+                            {% if documents %}
+                                <div>
+                                    {% for document in documents %}
+                                        {% if document.type == 'Nid' %}
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">{{ 'National Id'|trans }}</label>
+                                                <div class="col-md-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                            </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="nid" id="nid">
+													</span>
+                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                মুছুন </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 200px;" id="selected_nid_file" class="selectedFileClass">
+
+                                                    <ol><li><a href="{{ asset('uploads') }}/{{ document.path }}">{{ document.type }}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                        {% if document.type == 'Photo' %}
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">{{ 'Photo'|trans }}</label>
+                                                <div class="col-md-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                            </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="photo" id="photo">
+													</span>
+                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                মুছুন </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 200px;" id="selected_photo_file" class="selectedFileClass">
+
+                                                    <ol><li><a href="{{ asset('uploads') }}/{{ document.path }}">{{ document.type }}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+
+                                        {% if document.type == 'Nibondhon' %}
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">{{ 'Nibondhon Copy'|trans }}</label>
+                                                <div class="col-md-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                            </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="nibondhon" id="nibondhon">
+													</span>
+                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                মুছুন </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 200px;" id="selected_photo_file" class="selectedFileClass">
+
+                                                    <ol><li><a href="{{ asset('uploads') }}/{{ document.path }}">{{ document.type }}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        {% if document.type == 'Audit' %}
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">{{ 'Audit Copy'|trans }}</label>
+                                                <div class="col-md-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                            </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="audit" id="audit">
+													</span>
+                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                মুছুন </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 200px;" id="selected_photo_file" class="selectedFileClass">
+
+                                                    <ol><li><a href="{{ asset('uploads') }}/{{ document.path }}">{{ document.type }}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        {% if document.type == 'Resulation' %}
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">{{ 'Resulation Copy'|trans }}</label>
+                                                <div class="col-md-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                            </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													নির্বাচন করুন </span>
+													<span class="fileinput-exists">
+													পরিবর্তন করুন  </span>
+													<input type="file" name="resulation" id="resulation">
+													</span>
+                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                মুছুন </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 200px;" id="selected_photo_file" class="selectedFileClass">
+
+                                                    <ol><li><a href="{{ asset('uploads') }}/{{ document.path }}">{{ document.type }}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Register'|trans }} {{ 'Details'|trans }}</h4>
+
+                                {% for application in form.applications %}
+                                {% for register in application.registerSix %}
+
+
+                                                <div class="form-group {{ form_errors(register.chalanNo) != '' ? 'has-error' : '' }}">
+                                                    <label class="col-md-2 control-label required">{{ 'chalanNo'|trans }}</label>
+                                                    <div class="col-md-3">
+                                                        {{ form_widget(register.chalanNo) }}
+                                                        <span class="help-block">{{ form_errors(register.chalanNo) }}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label required col-md-5">{{ 'chalanDate'|trans }}</label>
+
+                                                    <div class="col-md-5">
+                                                        <div class="input-group input-medium"
+                                                             data-date-viewmode="years">
+                                                            {{ form_widget(register.chalanDate,{'attr':{'class':'date2','readonly':'readonly'}} ) }}
+
+                                                            <span class="input-group-btn">
+                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group {{ form_errors(register.chalanAmount) != '' ? 'has-error' : '' }}">
+                                                    <label class="col-md-2 control-label required">{{ 'chalanAmount'|trans }}</label>
+                                                    <div class="col-md-9">
+                                                        {{ form_widget(register.chalanAmount) }}
+                                                        <span class="help-block">{{ form_errors(register.chalanAmount) }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group {{ form_errors(register.nothiNo) != '' ? 'has-error' : '' }}">
+                                                    <label class="col-md-2 control-label required">{{ 'nothiNo'|trans }}</label>
+                                                    <div class="col-md-9">
+                                                        {{ form_widget(register.nothiNo) }}
+                                                        <span class="help-block">{{ form_errors(register.nothiNo) }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group {{ form_errors(register.bank) != '' ? 'has-error' : '' }}">
+                                                    <label class="col-md-2 control-label required">{{ 'bank'|trans }}</label>
+                                                    <div class="col-md-9">
+                                                        {{ form_widget(register.bank) }}
+                                                        <span class="help-block">{{ form_errors(register.bank) }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group {{ form_errors(register.branch) != '' ? 'has-error' : '' }}">
+                                                    <label class="col-md-2 control-label required">{{ 'branch'|trans }}</label>
+                                                    <div class="col-md-9">
+                                                        {{ form_widget(register.branch) }}
+                                                        <span class="help-block">{{ form_errors(register.branch) }}</span>
+                                                    </div>
+                                                </div>
+                                        {% endfor %}
+                                {% endfor %}
+
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Register'|trans }} {{ 'Document'|trans }}</h4>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"></label>
+                                <div class="col-md-9">
+                                    <div class="wrapper">
+                                        <div id="register" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <label id="selected_doc_file3"  class="selectedFileClass"><ol>
+                                                {% for document in regDocuments %}
+                                                    <li><a href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                {% endfor %}
+                                            </ol></label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-offset-2">
+                                    <input name="register_caption" class="form-control input-small" placeholder="ক্যাপশন" >
+                                </div>
+                            </div>
+
+
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        var rowCount = '{{ (form.waterBodyDetails is defined) ? form.waterBodyDetails|length : 0 }}'
+
+    </script>
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+    telInput.intlTelInput({
+    utilsScript: "{{ asset('assets/plugins/intl-tel-input-master/build/js/utils.js') }}",
+    nationalMode: true,
+    preferredCountries: ['bd', 'in']
+    });
+{% endblock %}
+
+

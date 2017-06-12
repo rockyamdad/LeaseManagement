@@ -1,0 +1,26 @@
+holiday_list:
+    path:     /admin/holiday/list/{type}
+    defaults:
+        _controller: AppBundle:Holiday:holidayList
+        type: 'week_leave'
+
+create_holiday:
+    path:     /admin/holiday/new-holiday
+    defaults: { _controller: AppBundle:Holiday:createHoliday }
+
+delete_holiday:
+    path:     /admin/holiday/delete/{id}
+    defaults: { _controller: AppBundle:Holiday:deleteHoliday }
+
+holiday_year_summery:
+    path:     /admin/holiday/yearsummery
+    defaults: { _controller: AppBundle:Holiday:yearSummery }
+    methods: [GET]
+    options:
+            expose: true
+
+holiday_list_by_type:
+    path:     /admin/holiday/listbytype/{year}/{type}
+    defaults: { _controller: AppBundle:Holiday:holidayListByType }
+    options:
+        expose: true

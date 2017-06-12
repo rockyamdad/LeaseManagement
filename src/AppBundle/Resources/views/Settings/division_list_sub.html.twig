@@ -1,0 +1,29 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(divisions, 'Division'|trans, 'd.name') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if divisions is not empty %}
+            {% for division in divisions %}
+                <tr>
+                    <td>{{ division.name }}</td>
+                    <td>{{ division.approved ? 'Yes'|trans : 'Approval needed'|trans }}</td>
+                    <td>
+                        <a href="{{ path('app_update_division', {id: division.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="5">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(divisions) }}
+</div>

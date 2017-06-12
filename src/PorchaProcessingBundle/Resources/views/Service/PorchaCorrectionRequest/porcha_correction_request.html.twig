@@ -1,0 +1,138 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Request Khatian Form'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Request Khatian Form'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Porcha Correction Form'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+
+    {{ form_start(form) }}
+    <div class="col-sm-12" id="porcha-request-form" style="margin: auto; float: none">
+            {% include 'flash.html.twig' %}
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Request Khatian Form"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Details of Request Khatian"|trans }}</span>
+                </div>
+            </div>
+            <div class="portlet-body khatian-list">
+                <table class="table" id="khatian-fields-list">
+                    <thead>
+                    <tr>
+                        <td>{{ "Survey"|trans }}</td>
+                        <td>{{ "District"|trans }}</td>
+                        <td>{{ "Upozila"|trans }}</td>
+                        <td>{{ "Mouza"|trans }}</td>
+                        <td width="100">{{ "Jlno"|trans }}</td>
+                        <td width="100">{{ "Khatian No"|trans }}</td>
+                    </tr>
+                    <tr>
+                    {{ include('PorchaProcessingBundle:Service/PorchaCorrectionRequest:_porcha_correction_prototype.html.twig', { 'form': form.detail_entities.vars.prototype }) }}
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center">
+                            <div class="portlet-title">
+                                <div class="caption caption-md title-text-center">
+                                    <i class="icon-bar-chart theme-font hide"></i>
+                                    <span class="caption-subject theme-font bold uppercase">{{ "Correction Info"|trans }}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td> পর্চা সংশোধন   তথ্য</td>
+                        <td colspan="6">{{ form_widget(form.detail_entities.vars.prototype.correctionInfo) }}</td>
+                    </tr>
+                    <tr> <td> পর্চা সংশোধন  কারণ  </td>
+                        <td colspan="6">{{ form_widget(form.detail_entities.vars.prototype.correctionReason) }}</td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Correction Info"|trans }}</span>
+                </div>
+            </div>
+            {# correction info#}
+            <div class="portlet-body">
+                <div class="row">
+                    <label class="col-sm-2" aria-required="true"></label>
+
+                        <div class="col-sm-12">
+                             <div class="col-sm-12"></div>
+                        </div>
+
+                    <label class="col-sm-2" aria-required="true"></label>
+                        <div class="col-sm-12">
+                            <div class="col-sm-12"></div>
+                        </div>
+
+                </div>
+            </div>
+
+            {#end correction info #}
+
+            <div class="portlet-title">
+                <div class="caption caption-md title-text-center">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject theme-font bold uppercase">{{ "Applicant Info"|trans }}</span>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            {{ form_label(form.name) }}
+                            <div class="col-sm-4 applicant-address">{{ form_widget(form.name) }}</div>
+                            {{ form_label(form.contactNumber) }}
+                            <div class="col-sm-4">{{ form_widget(form.contactNumber) }}</div>
+                        </div>
+
+                        <div class="row">
+                            {{ form_label(form.nid) }}
+                            <div class="col-sm-4">{{ form_widget(form.nid) }}</div>
+                            {{ form_label(form.email) }}
+                            <div class="col-sm-4">{{ form_widget(form.email) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="{{ "Save"|trans }}" class="btn green" name="save">
+            {#{% if mode == 'new' %}<input type="submit" value="{{ "Save and Create New"|trans }}" class="btn green" name="save-and-new">{% endif %}#}
+        </div>
+    </div>
+    <div class="display-none">{{ form_rest(form) }}</div>
+    {{ form_end(form) }}
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    <script type="text/javascript">
+        var khatianCount = {{ form.detail_entities|length }};
+        var mode = '{{ mode }}';
+    </script>
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/correction-porcha-application.js') }}"></script>
+    {#<script src="{{ asset('bundles/porchaprocessing/js/porcha-application-list.js') }}"></script>#}
+{% endblock include_javascripts %}

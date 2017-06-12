@@ -1,0 +1,7 @@
+report_top_sheet:
+    path:     /report/top-sheet
+    defaults: { _controller: PorchaProcessingBundle:Report/TopSheet:index }
+
+report_top_sheet_list:
+    path:     /report/top-sheet/list
+    defaults: { _controller: PorchaProcessingBundle:Report/TopSheet:list }

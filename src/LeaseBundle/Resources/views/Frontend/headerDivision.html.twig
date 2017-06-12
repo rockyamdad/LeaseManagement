@@ -1,0 +1,5 @@
+{% for division in divisions %}
+    <li><a href="{{ path('division_vrr',{'id':division.id}) }}">
+            {{ division.name }}
+        </a></li>
+{% endfor %}

@@ -1,0 +1,177 @@
+khatian_new_khatian:
+    path:     /khatian/{volume}/{mouzaId}/{officeTemplate}/new/{type}
+    defaults:
+        _controller: PorchaProcessingBundle:Khatian:newKhatian
+        type: 'batch'
+    methods: [GET]
+    options:
+        expose: true
+
+entry_operator_action:
+    path:     /update/khatian/{id}/action
+    defaults: { _controller: PorchaProcessingBundle:Khatian:entryOperatorAction }
+    methods: [GET,POST]
+
+entry_operator_khatian_pages:
+    path:     /update/khatian/{id}/pages
+    defaults: { _controller: PorchaProcessingBundle:Khatian:entryOperatorKhatianPages }
+    methods: [GET,POST]
+    options:
+        expose: true
+
+entry_operator_khatian_page_preview:
+    path:     /preview/khatian-page/{id}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:khatianPagePreviewBeforeEntry }
+    methods: [GET,POST]
+    options:
+        expose: true
+    requirements:
+        id:  \d+
+
+entry_operator_khatian_page:
+    path:     /update/khatian/{id}/{khatianPage}/page
+    defaults:
+        _controller: PorchaProcessingBundle:Khatian:entryOperatorKhatianPage
+        khatianPage: null
+    methods: [GET,POST]
+    options:
+        expose: true
+
+change_entry_template:
+    path:     /change/template/{khatianLog}/{khatianPage}/{officeTemplate}
+    defaults:
+        _controller: PorchaProcessingBundle:Khatian:changeEntryTemplate
+    methods: [GET]
+
+delete_khatian_page:
+    path:     /delete/khatian/{id}/page/{khatianLog}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:deleteKhatianPage }
+    methods: [GET]
+
+delete_khatian:
+    path:     /delete/khatian/{id}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:deleteKhatian }
+    methods: [GET]
+
+workflow_khatian_pages:
+    path:     /workflow/khatian/{id}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:workflowKhatianPages }
+    methods: [GET,POST]
+    requirements:
+        id:  \d+
+
+khatian_pages:
+    path:      /portal/view/khatian/{id}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:khatianPages }
+    methods: [GET,POST]
+    requirements:
+        id:  \d+
+
+khatian_workflow_action:
+    path:     /khatian/{id}/workflow-action
+    defaults: { _controller: PorchaProcessingBundle:Khatian:workflowAction }
+    methods: [POST]
+
+khatian_draft_khatians:
+    path:     /khatian/drafts
+    defaults: { _controller: PorchaProcessingBundle:Khatian:drafts }
+
+khatian_sent_khatian_list:
+    path:     /khatian/sent-khatians
+    defaults: { _controller: PorchaProcessingBundle:Khatian:sentKhatianList }
+
+khatian_re_assigned_khatian_list:
+    path:     /khatian/reassigned-khatians
+    defaults: { _controller: PorchaProcessingBundle:Khatian:reAssignedKhatianList }
+
+khatian_verify_new_khatian_list:
+    path:     /khatian/verify-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Khatian:verifyNewKhatianList }
+
+khatian_compare_new_khatian_list:
+    path:     /khatian/compare-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Khatian:compareNewKhatianList }
+
+khatian_approve_new_khatian_list:
+    path:     /khatian/approve-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Khatian:approveNewKhatianList }
+
+khatian_move_to_draft:
+    path:     /khatian/move-to-draft/{id}
+    defaults: { _controller: PorchaProcessingBundle:Khatian:khatianMovetoDraft }
+
+khatian_no_check:
+    path:     /khatian/khatian-no-check
+    defaults: { _controller: PorchaProcessingBundle:Khatian:checkKhatianNoExists }
+    options:
+        expose: true
+
+batch_khatian_search:
+    path:     /khatian/search
+    defaults: { _controller: PorchaProcessingBundle:Khatian:batchKhatianSearch }
+    options:
+        expose: true
+
+update_template_field:
+    path:     /update-template-field
+    defaults: { _controller: PorchaProcessingBundle:Khatian:updateTemplateField }
+
+vrr_save_khatian:
+    path:     /api/save-khatian
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:vrrSaveKhatian }
+    methods: [GET,POST]
+
+vrr_save_khatian_correction:
+    path:     /api/save-khatian-Correction
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:vrrSaveKhatianCorrection }
+    methods: [GET,POST]
+
+vrr_search_khatian:
+    path:     /api/search-khatian
+    defaults: { _controller: PorchaProcessingBundle:Khatian:vrrSearchKhatian }
+    methods: [GET,POST]
+
+save-mouza:
+    path:     /api/save-mouza
+    defaults: { _controller: PorchaProcessingBundle:Service/MouzaMapRequest:saveMouza }
+    methods: [GET,POST]
+
+save-case-copy:
+    path:     /api/save-case-copy
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:saveCaseCopy }
+    methods: [GET,POST]
+
+save-information-application:
+    path:     /api/save-information-application
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:saveInformationApplication }
+    methods: [GET,POST]
+
+workflow_move_khatians_to_next_step:
+    path:     /workflow/move-to-next
+    defaults: { _controller: PorchaProcessingBundle:Khatian:moveKhatiansToNextStep }
+    options:
+        expose: true
+
+khatian_selected_khatians_print_view:
+    path:     /khatian/selected/print
+    defaults: { _controller: PorchaProcessingBundle:Khatian:selectedKhatinsPrint }
+    options:
+        expose: true
+
+update_canonical_khatian_nos:
+    path:     /khatian/canonical-khatian/update
+    defaults: { _controller: PorchaProcessingBundle:Khatian:updateCanonicalKhatianNos }
+    methods: [GET,POST]
+
+update_canonical_volume_nos:
+    path:     /volume/canonical-volume/update
+    defaults: { _controller: PorchaProcessingBundle:Khatian:updateCanonicalVolumeNos }
+    methods: [GET,POST]
+
+testk:
+    path:     /khatian/testk
+    defaults: { _controller: PorchaProcessingBundle:Khatian:testk }
+    methods: [GET,POST]
+
+
+

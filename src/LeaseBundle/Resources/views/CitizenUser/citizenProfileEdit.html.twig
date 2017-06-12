@@ -1,0 +1,170 @@
+{% extends "::portal_base.html.twig" %}
+
+{% block body %}
+<div class="page-container">
+
+    <h1 class="caption-color">প্রোফাইল সম্পাদন  করুন </h1>
+    <div class="row">
+        <div class="col-md-7 col-sm-7">
+
+            {{ form_start(form,{'attr':{'class':'form-horizontal','id':'ProfileEditForm', 'novalidate':'novalidate','autocomplete':'off'}}) }}
+
+            <fieldset>
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">জাতীয় পরিচয় পত্র</label>
+                    <div class="col-lg-8">
+                        {{ form_widget(form.nationalId,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.nationalId)}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">জন্ম তারিখ</label>
+                    <div class="col-lg-8">
+                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                            {#<input type="text" class="form-control" style="width:383px;" readonly>#}
+                            {{ form_widget(form.profile.birthDate,{'attr':{'class':'form-control','readonly':'on'}}) }}
+                            <span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                        </div>
+                        <span class="help-block validation-style">{{ form_errors(form.profile.birthDate)}}</span>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">নাম <span class="require">*</span></label>
+                    <div class="col-lg-8">
+                        {#<input type="text" class="form-control" id="firstname">#}
+                        {{ form_widget(form.profile.fullname,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.profile.fullname)}}</span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">পিতার নাম <span class="require">*</span></label>
+                    <div class="col-lg-8">
+                        {#<input type="text" class="form-control" id="lastname">#}
+                        {{ form_widget(form.profile.fatherName,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.profile.fatherName)}}</span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">মাতার নাম <span class="require">*</span></label>
+                    <div class="col-lg-8">
+                        {#<input type="text" class="form-control" >#}
+                        {{ form_widget(form.profile.motherName,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.profile.motherName)}}</span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">লিঙ্গ </label>
+                    <div class="col-lg-8">
+                        {#<select name="foo" class="select2me form-control">#}
+                        {#<option value="1">লিঙ্গ নির্বাচন করুন </option>#}
+                        {#<option value="1">পুরুষ</option>#}
+                        {#<option value="1">মহিলা</option>#}
+                        {#</select>#}
+                        {{ form_widget(form.profile.gender,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.profile.gender)}}</span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">প্রোফাইল ছবি</label>
+
+                    <div class="col-lg-8 fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                            {% if user.profile.path is defined and user.profile.path %}
+                                <img src="/uploads/profile/{{ user.profile.path }}" width="100%" height="100%">
+                            {% else %}
+                                <img alt="" class="img" src="{{ asset('assets/elrs-assets/blank-profile.jpg') }}"/>
+                            {% endif %}
+                        </div>
+                        <div>
+                                                    <span class="btn default btn-file">
+                                                    <span class="fileinput-new">
+                                                    Select image </span>
+                                                    <span class="fileinput-exists">
+                                                    Change </span>
+                                                        {{ form_widget(form.profile.file) }}
+                                                    </span>
+                            <a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">
+                                Remove </a>
+                        </div>
+                        <br/>
+                        <span class="help-block validation-style">{{ form_errors(form.profile.file)}}</span>
+                        <label id="restaurant_bundle_mediabundle_banner_file-error" class="error" for="restaurant_bundle_mediabundle_banner_file"></label>
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">ইমেইল </label>
+                    <div class="col-lg-8">
+                        {#<input type="text" class="form-control" id="password">#}
+                        {{ form_widget(form.email,{'attr':{'class':'form-control',}}) }}
+                        <span class="help-block validation-style">{{ form_errors(form.email)}}</span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-lg-4 control-label">ঠিকানা <span class="require">*</span></label>
+                    <div class="col-lg-8">
+                        {#<textarea class="form-control" rows="3"></textarea>#}
+                        {{ form_widget(form.profile.address,{'attr':{'class':'form-control',}}) }}
+
+                        <span class="help-block validation-style">{{ form_errors(form.profile.address)}}</span>
+                    </div>
+
+                </div>
+            </fieldset>
+
+
+
+
+            <div class="row">
+                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                    {#<button type="submit" class="btn btn-primary button-save-color">অ্যাকাউন্ট তৈরি করুন</button>#}
+                    {{ form_widget(form.save,{'attr':{'class':'btn btn-primary button-save-color',}}) }}
+                </div>
+
+            </div>
+            {{ form_end(form) }}
+
+        </div>
+        <div class="col-md-4 col-sm-4 pull-right">
+            <div class="form-info">
+                <h2><em>Important</em> Information</h2>
+                <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo quat.</p>
+
+                <p>Duis autem vel eum iriure at dolor vulputate velit esse vel molestie at dolore.</p>
+
+                <button type="button" class="btn btn-default">More details</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascriptBlock %}
+    {{ parent() }}
+    {% javascripts
+    '@LeaseBundle/Resources/public/js/profileEditValidation.js'
+    'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/admin/pages/scripts/components-pickers.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}
+{% block documentReady %}
+    {{ parent() }}
+    ComponentsPickers.init();
+{% endblock %}

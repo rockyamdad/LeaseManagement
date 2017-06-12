@@ -1,0 +1,103 @@
+<table class="signature_area" cellpadding="5" cellspacing="5">
+
+    <tr>
+        <td width="25%" align="center" style="font-family:nikoshBAN">নকলকারী</td>
+        <td width="25%" align="center" style="font-family:nikoshBAN">যাচাইকারী</td>
+        <td width="25%" align="center" style="font-family:nikoshBAN">তুলনাকারী</td>
+        <td width="25%" align="center" style="font-family:nikoshBAN">অনুমোদনকারী</td>
+    </tr>
+    <tr class="no-print">
+        {% if (khatianLog.entryOperator) %}
+            <td align="center">
+                <table width="100%" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <td align="center"><img
+                                    src="{{ asset(khatianLog.entryOperator.profile.signature) }}"
+                                    width="110" height="50"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.entryOperator.profile.fullNameBn }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.entryOperator.profile.designation }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:nikoshBAN;font-size:13px;">
+                            তারিখঃ {{ khatianLog.entryAt|date('d/m/Y') }}</td>
+                    </tr>
+                </table>
+            </td>
+        {% endif %}
+        {% if (khatianLog.verifier) %}
+            <td width="25%" align="center">
+                <table width="100%" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <td align="center">{% if khatianLog.verifier is not null %}<img
+                                src="{{ asset(khatianLog.verifier.profile.signature) }}"
+                                width="110" height="50">{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.verifier is not null ? khatianLog.verifier.profile.fullNameBn : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.verifier is not null ? khatianLog.verifier.profile.designation : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.verifier is not null ? "তারিখঃ " ~ khatianLog.verifiedAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                </table>
+            </td>
+        {% endif %}
+        {% if (khatianLog.comparer) %}
+            <td width="25%" align="center">
+                <table width="100%" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <td align="center">{% if khatianLog.comparedAt is not null %}<img
+                                src="{{ asset(khatianLog.comparer.profile.signature) }}"
+                                width="110" height="50">{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.comparer is not null ? khatianLog.comparer.profile.fullNameBn : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.comparer is not null ? khatianLog.comparer.profile.designation : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.comparer is not null ? "তারিখঃ " ~ khatianLog.comparedAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                </table>
+            </td>
+        {% endif %}
+        {% if (khatianLog.approver) %}
+            <td width="25%" align="center">
+                <table width="100%" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <td align="center">{% if khatianLog.approver is not null %}<img
+                                src="{{ asset(khatianLog.approver.profile.signature) }}"
+                                width="110" height="50">{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.approver is not null ? khatianLog.approver.profile.fullNameBn : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN">{{ khatianLog.approver is not null ? khatianLog.approver.profile.designation : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center"
+                            style="font-family:nikoshBAN;font-size:13px;">{{ khatianLog.approver is not null ? "তারিখঃ " ~ khatianLog.comparedAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                </table>
+            </td>
+        {% endif %}
+    </tr>
+</table>

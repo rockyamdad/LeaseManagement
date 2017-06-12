@@ -1,0 +1,19 @@
+{#{% set serviceType = app.request.attributes.get('_route_params')['serviceType'] %}#}
+
+<ul class="nav nav-tabs hidden-print">
+    <li{% if serviceType == 'porcha_request' %} class="active"{% endif %}>
+        <a href="{{ path('porcha_request_list') }}">{{ 'Porcha Request'|trans }}</a>
+    </li>
+    <li{% if serviceType == 'mouza_map' %} class="active"{% endif %}>
+        <a href="{{ path('mouza_map_request_list') }}">{{ 'Mouza Map'|trans }}</a>
+    </li>
+    <li{% if serviceType == 'case_copy' %} class="active"{% endif %}>
+        <a href="{{ path('case_copy_list') }}">{{ 'Case copy'|trans }}</a>
+    </li>
+    <li{% if serviceType == 'information_slip' %} class="active"{% endif %}>
+        <a href="{{ path('information_slip_list') }}">{{ 'Information Slip'|trans }}</a>
+    </li>
+    <li{% if serviceType == 'porcha_correction_request' %} class="active"{% endif %}>
+        <a href="{{ path('porcha_correction_request_list') }}">{{ 'Porcha Correction'|trans }}</a>
+    </li>
+</ul>

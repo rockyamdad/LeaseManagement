@@ -1,0 +1,69 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(mouzas, 'Mouza'|trans, 'm.name') }}</th>
+            <th>{{ 'CS'|trans }} {{ 'J. L. No'|trans }}</th>
+            <th>{{ 'SA'|trans }} {{ 'J. L. No'|trans }}</th>
+            <th>{{ 'RS'|trans }} {{ 'J. L. No'|trans }}</th>
+            <th>
+                {% if filterBy == 'THANA' %}
+                    {{ knp_pagination_sortable(mouzas, 'Thana'|trans, 't.name') }}
+                {% else %}
+                    {{ knp_pagination_sortable(mouzas, 'Upozila'|trans, 'u.name') }}
+                {% endif %}
+            </th>
+            <th>{{ 'District'|trans }}</th>
+            <th width="120">{{ 'Approved'|trans }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if mouzas is not empty %}
+            {% for mouza in mouzas %}
+                <tr>
+                    <td>{{ mouza.name }}</td>
+
+                    {% set x = {'CS': '', 'SA': '', 'RS': ''} %}
+                    {% set mm = mouza.jlnumbers %}
+
+                    {% for m in mm %}
+                        {% if m.surveyType|upper == 'CS' %}
+                            {% set x = x|merge({ 'CS' : m.name }) %}
+                        {% elseif m.surveyType|upper == 'SA' %}
+                            {% set x = x|merge({ 'SA' : m.name }) %}
+                        {% elseif m.surveyType|upper == 'RS' %}
+                            {% set x = x|merge({ 'RS' : m.name }) %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <td class="ta-center">{{ x['CS'] }}</td>
+                    <td class="ta-center">{{ x['SA'] }}</td>
+                    <td class="ta-center">{{ x['RS'] }}</td>
+                    <td>{{ mouza.upozila is defined ? mouza.upozila.name|default('') : '' }}</td>
+                    <td>{{ (mouza.upozila) ? mouza.upozila.district.name : '' }}</td>
+                    <td>
+                        {% if mouza.approved %}
+                            <i class="fa fa-check font-green"> </i>
+                        {% else %}
+                            {{ 'Approval needed'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('mouza_update', {id: mouza.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                        {% if is_granted('ROLE_MOUZA_OPTION_DELETE') %}
+                            <a href="{{ path('mouza_delete', {id: mouza.id}) }}" class="btn red btn-sm" title="{{ 'Delete'|trans }}" onclick="return confirm('{{ 'Are you sure ?'|trans }}')"><i class="fa fa-times"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="6">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(mouzas) }}
+</div>

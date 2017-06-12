@@ -1,0 +1,58 @@
+{% extends '::portal_base.html.twig' %}
+{% block body %}
+    <div class="page-container">
+        <!-- BEGIN SLIDER -->
+        <div class="container">
+
+            <h2 class="caption-color"> লিজ পুনঃনিবন্ধন করুন</h2>
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    <div class="col-md-10 col-md-offset-1">
+                    <form  method="post">
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fa fa-check"></i>
+                                <input type="text" name="trackingId" class="form-control" placeholder="আবেদন ট্র্যাকিং আইডি">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fa fa-check"></i>
+                                <input type="text" name="otp" class="form-control" placeholder="পাসওয়ার্ড">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn green">সাবমিট </button>
+                    </form>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4" style="margin-left: 25px;">
+                    <!-- BEGIN Portlet PORTLET-->
+                    <div class="portlet box blue-hoki">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>গুরুত্বপূর্ণ তথ্য
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                <p>নিবন্ধন করার মাধ্যমে আপনি আপনার সকল আবেদনের অবস্থা যাচাই, আবেদনের ইতিহাস দেখা, বাক্তিগত তথ্য দেখা ও পরিবর্তন করতে পারবেন।</p>
+                                <p> আপনি ইতিমধ্যে নিবন্ধিত থাকলে নিম্নের বাটন এ ক্লিক করে লগইন করুন।</p>
+                                {#<a class="btn btn-primary button-save-color" href="{{ path('portal_login') }}">লগইন করুন</a>#}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Portlet PORTLET-->
+                </div>
+            </div>
+
+            <!-- END CONTENT -->
+        </div>
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+

@@ -1,0 +1,134 @@
+{% extends "metronic.html.twig" %}
+{% if self %}
+{% form_theme form 'form/bootstrap_3_cool.html.twig' %}
+{% endif %}
+
+{% block pageTitle %}<h1>{{ self ? 'My ' : user.name ~ '\'s ' }} Profile</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">Dashboard</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('users_list_all') }}">Users</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ user.name }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-md-7 col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold">Basic Information</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table no-border">
+                        <tr>
+                            <th width="30%">Username</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Employee ID</th>
+                            <td>{{ user.employeeId }}</td>
+                        </tr>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ user.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ user.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Enabled</th>
+                            <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last logged in</th>
+                            <td>
+                                {% if user.lastLogin %}
+                                    <i class="fa fa-calendar"></i> {{ user.lastLogin.format('d M, Y') }} &nbsp;&nbsp;
+                                    <i class="fa fa-clock-o"></i> {{ user.lastLogin.format('h:i a') }}
+                                {% else %}
+                                    Never!
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            {% if self %}
+            <div class="portlet light bg-inverse">
+                <div class="portlet-title">
+                    <div class="caption caption font-blue-hoki">
+                        <i class="fa fa-lock font-blue-hoki"></i>
+                        <span class="caption-subject bold uppercase">Change Password</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    {% include 'AppBundle::flash.html.twig' %}
+
+                    <form {{ form_enctype(form) }} method="POST" class="form-horizontal fos_user_change_password">
+                        {{ form_widget(form) }}
+                        <div class="form-group">
+                            <div class="col-md-9 col-md-offset-3">
+                                <input type="submit" value="{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-5 col-sm-12">
+            <div class="portlet light bg-inverse">
+                <div class="portlet-title">
+                    <div class="caption caption font-blue-hoki">
+                        <i class="fa fa-legal font-blue-hoki"></i>
+                        <span class="caption-subject bold uppercase">Roles</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <h4>The following roles are assigned to {{ user.name }}</h4>
+
+                    <ul class="list-unstyled">
+                        {% for role in user.roles %}
+                        <li><i class="fa fa-fw fa-user font-blue-hoki"></i> {{ role }}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+{% block closure %}
+    <script type="application/javascript">
+
+        $(document).ready(function() {
+            $('#email').on('blur', function(e) {
+                var email = $(this).val();
+                $('#username').val(email.substr(0, email.indexOf('@')));
+            });
+
+        });
+
+    </script>
+{% endblock %}

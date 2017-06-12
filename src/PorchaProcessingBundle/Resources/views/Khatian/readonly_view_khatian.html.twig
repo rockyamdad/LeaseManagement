@@ -1,0 +1,109 @@
+{% extends "preview.html.twig" %}
+
+{% block title %}{{ khatian.volume.survey.name ~' '~ 'Khatian No'|trans }}: {{ khatian.khatianNo|numberBanglaConvert }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.thana }}, {{ khatian.jlnumber.district }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ khatian.volume.survey.name ~ 'Khatian No'|trans }}: {{ khatian.khatianNo }}, {{ khatian.mouza.name }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.district }}</h1>{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12" id="template-view">
+            <div class="no-print">
+                <div class="pull-left">
+                   {# <a href="javascript:history.back()" class="btn grey">{{ 'Back'|trans }}</a>#}
+                    <a href="javascript:window.print()" class="btn blue">{{ 'Print'|trans }}</a>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                {% for page in pagination %}
+                    {% if (page['type'] == 'PAGE1' or page['type'] == 'PAGE1_ADDITIONAL') %}
+                    <button class="print-pagination btn-default btn{{ page['disabled'] ? ' disabled' : '' }}" rel="{{ page['id'] }}">{{ numberBanglaConvert(page['label']|trans) }}</button>
+                    {% endif %}
+                {% endfor %}
+                {% for page in pagination %}
+                    {% if (page['type'] == 'PAGE2' or page['type'] == 'PAGE2_ADDITIONAL') %}
+                    <button class="print-pagination btn-default btn{{ page['disabled'] ? ' disabled' : '' }}" rel="{{ page['id'] }}">{{ numberBanglaConvert(page['label']|trans) }}</button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="clearfix no-print"></div>
+            <hr class="no-print">
+
+            <div class="khatian-pages">
+
+                {% for id, khatianPage in khatianPages %}
+
+                    {% if (khatianPage.data) %}
+
+                    <div class="print-page" id="print-page-{{ khatianPage.data['id'] }}">
+
+                        {% if (non_deliverables is not empty) %}
+
+                            {{ placeholderReplaceWithData(non_deliverable_template|raw, khatianPages[0].data, []) }}
+
+                            <div id="non-delv">
+                                {{ 'This Khatian is non deliveral'|trans }} |
+                                {{ 'non delivery remark'|trans }} :<br/>
+                                <ol>
+                                    {% for ndm in non_deliverables %}
+                                        <li>{{ ndm.message }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+
+                        {% else %}
+
+                            {% set qp = (query_params is defined) ? query_params : [] %}
+                            {{ placeholderReplaceWithData(khatianPage.template.body, khatianPage.data, qp) }}
+
+                        {% endif %}
+
+
+                    </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ include('@PorchaProcessing/Khatian/khatian_signature_area.html.twig') }}
+            </div>
+
+            <div class="no-print">
+                {% if khatian_versions is defined %}
+                <hr/>
+                {{ 'Khatian'|trans ~ ' ' ~ 'versions'|trans }}
+                <table>
+                    {% set i = 1 %}
+                    {% for version in khatian_versions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('archived_khatian_version', {khatianVersion: version.id}) }}" target="_blank">
+                                <span class="{{ (this_version_id == version.id) ? 'label bg-grey' : '' }}">{{ 'version'|trans ~ ' - ' ~ i }}</span>
+                            </a>
+                        </td>
+                        {% set i = i + 1 %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <hr/>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/correction-message.js') }}"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/signature-area.js') }}"></script>
+{% endblock include_javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-print.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-print.css') }}"/>
+{% endblock %}

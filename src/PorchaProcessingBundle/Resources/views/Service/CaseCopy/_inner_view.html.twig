@@ -1,0 +1,34 @@
+<div class="portlet-title">
+    <div class="caption caption-md title-text-center">
+        <i class="icon-bar-chart theme-font hide"></i>
+        <span class="caption-subject theme-font bold uppercase">{{ "Case copy Detail Information"|trans }}</span>
+    </div>
+</div>
+<div class="portlet-body">
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-4 control-label">{{ 'Plaintiff defendant'|trans }} : </div>
+                <div class="col-sm-8 control-value">{{ row.plaintiffDefendant }}</div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-4 control-label">{{ 'Lawyer name'|trans }} : </div>
+                <div class="col-sm-8 control-value">{{ row.lawyerName }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 control-label">{{ 'Case no'|trans }} : </div>
+                <div class="col-sm-8 control-value">{{ row.caseNo }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 control-label">{{ 'Court name'|trans }} : </div>
+                <div class="col-sm-8 control-value">{{ row.courtName }}</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

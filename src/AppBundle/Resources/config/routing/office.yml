@@ -1,0 +1,45 @@
+office_list:
+    path:     /admin/office/list/{type}
+    defaults:
+        _controller: AppBundle:Office:officeList
+        type: 'dc'
+
+udc_office_list:
+    path:     /admin/udc-office/list
+    defaults:
+        _controller: AppBundle:Office:udcOfficeList
+
+create_dc_office:
+    path:     /admin/office/new-dc-office
+    defaults: { _controller: AppBundle:Office:updateDCOffice }
+
+update_dc_office:
+    path:     /admin/office/{id}/edit-dc-office
+    defaults: { _controller: AppBundle:Office:updateDCOffice }
+
+create_ac_land_office:
+    path:     /admin/office/new-ac-land
+    defaults: { _controller: AppBundle:Office:updateACLandOffice }
+
+update_ac_land_office:
+    path:     /admin/office/{id}/edit-ac-land
+    defaults: { _controller: AppBundle:Office:updateACLandOffice }
+
+enable_office:
+    path:     /admin/office/{id}/enable
+    defaults: { _controller: AppBundle:Office:enableOffice }
+
+office_upozilas:
+    path:     /admin/office/{id}/upozilas
+    defaults: { _controller: AppBundle:Office:officeUpozilas }
+    options:
+        expose: true
+
+office_status_change:
+    path:     /admin/office/status
+    defaults: { _controller: AppBundle:Office:officeStatus }
+    options:
+        expose: true
+
+
+

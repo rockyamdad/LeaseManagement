@@ -1,0 +1,75 @@
+lease:
+    resource: "@LeaseBundle/Resources/config/routing.yml"
+    prefix:   /
+
+procha_processing:
+    resource: "@PorchaProcessingBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+resources:
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+rbs_user:
+    resource: "@RbsUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+udc_api_login:
+    path:     /udc-api
+    defaults: { _controller: AppBundle:UDC:udcUserGetInformation }
+
+udc_api_login_respone:
+    path:     /udc-api-login-response
+    defaults: { _controller: AppBundle:UDC:udcApiUserLoginInfo }
+
+app_division_district_upzilla_list:
+    path:     /udc-division-district-upozila/list
+    defaults: { _controller: AppBundle:UDC:udcOfficeAndUserCreate }
+
+udc_api_response:
+    path:     /udc-respone-api
+    defaults: { _controller: AppBundle:UDC:udcUserCreate }
+
+udc_office_api_request:
+    path:     /udc-office-api
+    defaults: { _controller: AppBundle:UDC:udcOfficeGetInformation }
+
+udc_office_api_response:
+    path:     /udc-office-respone-api
+    defaults: { _controller: AppBundle:UDC:udcTypeOfficesCreate }
+
+udc_login:
+    path:     /udc-login
+    defaults: { _controller: AppBundle:UDC:udcLogin }
+
+file_read:
+    path:     /udc-file
+    defaults: { _controller: AppBundle:UDC:fileRead }
+
+udc_user_list:
+    path:     /udc-user/list
+    defaults: { _controller: AppBundle:UDC:udcUserList }
+
+udc_user_update_list:
+    path:     /udc-user/update/{id}
+    defaults: { _controller: AppBundle:UDC:udcUserUpdate }
+
+udc_user_enabled:
+    path:     /udc-user/enabled/{id}
+    defaults: { _controller: AppBundle:UDC:userEnabled }
+
+udc_user_status_change:
+    path:     /udc-user/status
+    defaults: { _controller: AppBundle:UDC:udcUserStatus }
+    options:
+        expose: true

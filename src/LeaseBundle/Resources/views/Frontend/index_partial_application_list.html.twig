@@ -1,0 +1,36 @@
+<div id="application_list" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width: 300px;">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h1 class="modal-title custom-color-caption"> আবেদন  সমূহ </h1>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:220px;" data-always-visible="1" data-rail-visible1="1">
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="btn green-meadow btn-block" href="{{ path('porcha_application') }}">খতিয়ান/পর্চা আবেদন </a>
+                        </li>
+                        <br/>
+                        <li>
+                            <a class="btn blue btn-block" href="{{ path('mouza_application') }}">মৌজা ম্যাপ  আবেদন </a>
+                        </li>
+                        <br/>
+                        <li>
+                            <a class="btn red btn-block" href="{{ path('information_application') }}">তথ্য স্লিপ  আবেদন </a>
+                        </li>
+                        <br/>
+                        <li>
+                            <a class="btn purple btn-block" href="{{ path('case_copy_application') }}">কেস কপি  আবেদন </a>
+                        </li>
+                        <br/>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">বাতিল </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(unions, 'Union'|trans, 'u.name') }}</th>
+            <th>{{ knp_pagination_sortable(unions, 'Geocode'|trans, 'u.geocode') }}</th>
+            <th width="120">{{ 'Upozila'|trans }}</th>
+            <th width="120">{{ 'Approved'|trans }}</th>
+            <th width="50"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if unions is not empty %}
+            {% for union in unions %}
+                <tr>
+                    <td>{{ union.name }}</td>
+                    <td>{{ union.geocode }}</td>
+                    <td>{{ union.upozila.name }}</td>
+                    <td>{{ union.approved ? 'Yes'|trans : 'Approval needed'|trans }}</td>
+                    <td>
+                        <a href="{{ path('app_update_union', {id: union.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="6">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% if (unions.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ unions.getTotalItemCount }}
+    </div>
+{% endif %}
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(unions) }}
+</div>

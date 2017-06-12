@@ -1,0 +1,17 @@
+lease_order_sheet_list:
+    path:     /lease/list/{type}
+    defaults: { _controller: LeaseBundle:OrderSheet:index }
+
+lease_wise_order_sheet_view:
+    path:     /lease_wise/view/{id}
+    defaults: { _controller: LeaseBundle:OrderSheet:LeaseWiseOrderSheetList }
+
+lease_gadget_order_sheet_list:
+    path:     /gadget/list
+    defaults: { _controller: LeaseBundle:OrderSheet:gadgetList }
+
+lease_order_sheet_view:
+    path:     /view/{id}
+    defaults: { _controller: LeaseBundle:OrderSheet:view }
+
+

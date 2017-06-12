@@ -1,0 +1,95 @@
+<div class="row list-separated">
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {{ "Till Today"|trans }}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Direct"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        {#<div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.WEB|numberBanglaConvert }}</div>
+        </div>#}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {% if "now"|date('Y-m-d') == app.request.query.get("ff[sr.createdAt]", null, true) %}
+                {{ "Today"|trans }}
+            {% else %}
+                {{ "On This Date"|trans }}
+            {% endif %}
+            <div class="font-grey-mint font-sm">
+                {{ app.request.query.get("ff[sr.createdAt]", "now"|date('Y-m-d'), true)|toBanglaDate }}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Direct"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        {#<div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.WEB|numberBanglaConvert }}</div>
+        </div>#}
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th width="20">{{ "Sl No."|trans }}</th>
+        <th width="100">{{ knp_pagination_sortable(serviceRequest, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="200">{{ knp_pagination_sortable(serviceRequest, 'Recipient'|trans, 'sr.name') }}</th>
+        <th width="200">{{ knp_pagination_sortable(serviceRequest, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="200">{{ knp_pagination_sortable(serviceRequest, 'Applicant Mobile'|trans, 'sr.contactNumber') }}</th>
+        <th width="100">{{ knp_pagination_sortable(serviceRequest, 'Copy Type'|trans, 's.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(serviceRequest, 'Upozila'|trans, 'u.name') }}</th>
+        <th>{{ knp_pagination_sortable(serviceRequest, 'Mouza'|trans, 'm.name') }}</th>
+        <th>{{ knp_pagination_sortable(serviceRequest, 'Jlno'|trans, 'p.jlNo') }}</th>
+        <th>{{ knp_pagination_sortable(serviceRequest, 'Khatian No'|trans, 'p.khatianNo') }}</th>
+        <th>{{ "Delivery method"|trans }}</th>
+        <th>{{ 'Applicatin Date'|trans }}</th>
+        <th>{{ 'Delivery Date'|trans }}</th>
+        <th>{{ "Court Fee"|trans }}</th>
+        <th>{{ 'Status'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for pr in serviceRequest %}
+            <tr id="row-{{ pr.id }}">
+                <td>{{ sl }}</td>
+                <td><span{% if pr.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ pr.serviceRequest.id }}</span></td>
+                <td>{{ pr.serviceRequest.createdBy.profile.fullNameEn }}</td>
+                <td>{{ pr.serviceRequest.name }}</td>
+                <td>{{ pr.serviceRequest.contactNumber }}</td>
+                <td>{{ pr.survey.name|trans }}</td>
+                <td>{{ pr.upozila.name }}</td>
+                <td>{{ pr.mouza.name }}</td>
+                <td>{{ pr.jlNo }}</td>
+                <td>{{ pr.khatianNo }}</td>
+                <td>{{ pr.serviceRequest.deliveryMethod|trans }}</td>
+                <td>{{ pr.serviceRequest.createdAt|date('Y-m-d') }}</td>
+                <td>{{ pr.serviceRequest.deliveredAt|date('Y-m-d') }}</td>
+                <td>{{ pr.serviceRequest.courtFee }}</td>
+                <td>{{ pr.khatian.status|default()|trans }}</td>
+            </tr>
+            {% set sl = sl + 1 %}
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

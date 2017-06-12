@@ -1,0 +1,48 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th><input type="checkbox" id="chk-all" /></th>
+        <th>{{ knp_pagination_sortable(users, 'Full Name'|trans, 'p.fullNameBn') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Udc User'|trans, 'u.username') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Email'|trans, 'u.email') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Office'|trans, 'o.name') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Upozila'|trans, 'o.upozila') }}</th>
+        <th>{{ knp_pagination_sortable(users, 'Status'|trans, 'u.enabled') }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if users is not empty %}
+        {% for user in users %}
+            <tr>
+                <td><input type="checkbox" class="chk" name="chk[{{ user.id }}]" value="1" /></td>
+                <td>{%  if user.isNessUser == true %} <span class="badge badge-success" title="{{ 'Ness User'|trans }}">N</span>{% endif %}{% if user.profile is not null %} {{ user.profile.fullNameBn }} {% endif %}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.office.name|default('') }}</td>
+                <td>{{ user.office.upozila.name|default('') }}</td>
+                <td><span class="badge badge-roundless badge-{{ user.enabled ? 'success' :  'danger' }}">{{ user.enabled ? 'Enable'|trans : 'Disable'|trans }}</span></td>
+                <td>
+                    {% if user.isNessUser == false %}
+                    <a title="{{ "Edit"|trans }}" class="btn blue btn-sm" href="{{ path('udc_user_update_list', {id: user.id}) }}"><i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    <a title="{{ user.enabled ? 'Disable'|trans : 'Enable'|trans }}" class="btn blue btn-sm" href="{{ path('udc_user_enabled', {id: user.id}) }}"><i class="fa fa-{{ user.enabled ? 'ban' : 'check-square-o' }}"></i></a>
+                    {#<a class=" btn blue btn-sm" href="{{ path('user_profile', {id: user.id}) }}" title="{{ "User Profile"|trans }}">
+                        <i class="fa fa-user"></i></a>#}
+                    {% if user.isNessUser %}
+                        <a class=" btn blue btn-sm" href="{{ path('assign_role_to_ness_user', {id: user.id}) }}" data-target="#ajaxAssignRoleNessUser" data-toggle="modal" title="{{ "Assign Role"|trans }}">
+                            <i class="fa fa-users"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="8">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(users) }}
+</div>

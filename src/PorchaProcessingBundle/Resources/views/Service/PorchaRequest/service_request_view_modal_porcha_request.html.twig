@@ -1,0 +1,32 @@
+<div class="portlet-title">
+    <div class="caption caption-md title-text-center">
+        <i class="icon-bar-chart theme-font hide"></i>
+        <span class="caption-subject theme-font bold uppercase">{{ "Details of Request Khatian"|trans }}</span>
+    </div>
+</div>
+<div class="portlet-body khatian-list">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{ "Survey"|trans }}</th>
+            <th>{{ "District"|trans }}</th>
+            <th>{{ "Upozila"|trans }}</th>
+            <th>{{ "Mouza"|trans }}</th>
+            <th>{{ "Jlno"|trans }}</th>
+            <th>{{ "Khatian No"|trans }}</th>
+        </tr>
+        </thead>
+        <tbody id="khatian-list">
+        {% for entity in detailEntities %}
+        <tr>
+            <td>{{ entity.survey.name }}</td>
+            <td>{{ entity.district.name }}</td>
+            <td>{{ entity.upozila.name }}</td>
+            <td>{{ entity.mouza.name }}</td>
+            <td>{{ entity.jlNo|numberBanglaConvert }}</td>
+            <td>{{ entity.khatianNo|numberBanglaConvert }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,168 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Add To Portal'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Add To Portal'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('gadget_list') }}">{{ 'Gadget List'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Add To Portal'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Add To Portal'|trans }} </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="col-md-9">
+                        <form class="form-horizontal">
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Gadget'|trans }}: </h4>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Case File Number'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.caseFileNo }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Original Owner Name'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.orginalOwnerName }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Govt Aquired Date'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.govtAquiredDate|date("m/d/Y") }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Address'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.address }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <br>
+                    <form class="form-horizontal" id="fileupload" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required col-md-5">{{ 'Fiscal Year'|trans }}</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium"
+                                         data-date-viewmode="years">
+                                        {{ form_widget(form.fiscalyear, {value: null }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Private Document'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="wrapper">
+                                        <div id="doc_upload1" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <label id="selected_doc_file1"  class="selectedFileClass"><ol>
+                                                {% for document in LeasePrivateDocuments %}
+                                                    <li><a href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                {% endfor %}
+                                            </ol></label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-offset-2">
+                                    <input name="private_caption" class="form-control input-small" placeholder="ক্যাপশন" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Public Document'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="wrapper">
+                                        <div id="doc_upload2" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <label id="selected_doc_file2" class="selectedFileClass"><ol>
+                                                {% for document in LeasePublicDocuments %}
+                                                    <li><a href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a><a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                {% endfor %}
+                                            </ol></label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-offset-2">
+                                    <input name="public_caption" class="form-control input-small" placeholder="ক্যাপশন" >
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+{% endblock %}
+
+

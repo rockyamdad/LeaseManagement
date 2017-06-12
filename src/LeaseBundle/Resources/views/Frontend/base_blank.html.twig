@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>সরকারি ভূমি জরিপ ও ইজারা ব্যবস্থাপনা</title>
+    <link rel="icon" type="image/ico" href="http://dcms.e-service.gov.bd/assets/templates/default/images/ico.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <script type="text/javascript">window.onloadQueue = window.onloadQueue || [];</script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- <link href="assets/global/css/components.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/style.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/style-responsive.css" rel="stylesheet">
+     <link href="assets/frontend/layout/css/themes/red.css" rel="stylesheet" id="style-color">
+     <link href="assets/frontend/layout/css/custom.css" rel="stylesheet">-->
+    <!-- Fonts START -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <!-- Fonts END -->
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite'
+        'assets/plugins/font-awesome/css/font-awesome.min.css'
+
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock  %}
+
+</head>
+<body>
+<div class="container">
+{% block body %}{% endblock %}
+{% block javascriptBlock %}
+    {% javascripts
+    'assets/plugins/jquery.min.js'
+    'assets/plugins/jquery-migrate.min.js'
+    'assets/plugins/bootstrap/js/bootstrap.min.js'
+    'assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js'
+    'assets/plugins/jquery.blockui.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        {% block documentReady %}
+
+        {% endblock %}
+    });
+</script>
+
+</div>
+</body>
+
+</html>

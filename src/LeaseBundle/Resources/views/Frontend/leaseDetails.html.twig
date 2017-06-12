@@ -1,0 +1,173 @@
+{% extends "::portal_base.html.twig" %}
+{% block body %}
+<div class="page-container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light tasks-widget">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <h2 class="caption-color"><span class="caption-helper">বিস্তারিত তথ্য </span></h2>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <form class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Type'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.type == 'WaterBody'?'জল মহল ' }}
+                                        {{ lease.type == 'Market'?'মার্কেট' }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Survey'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.khatian.volume.survey.name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Mouza'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.khatian.mouza.name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Khatian'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.khatian.khatianNo|numberBanglaConvert }}</p>
+                                </div>
+                            </div>
+                            {% if lease.waterBodyDetails and lease.type== 'WaterBody' %}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Name'|trans }} :</label>
+
+                                    <div class="col-md-9">
+                                        <p class="margin-top-10">{{ lease.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        <table class="table table-bordered table-striped table-condensed flip-content table-list" style="margin-bottom: 0;margin-left: 141px"  width="25%">
+                                            <thead>
+                                            <tr>
+                                                <th>{{'Khatian dag No'|trans }}</th>
+                                                <th>{{'Total Amount'|trans }}</th>
+                                                <th>{{'Proposed Amount'|trans }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="dag-list">
+
+                                            {% set khatianDags = lease.waterBodyDetails %}
+                                            {% for khatianDag in khatianDags %}
+                                                <tr>
+                                                    <td>
+                                                        {{ khatianDag.khatianDagNo |numberBanglaConvert }}
+                                                    </td>
+                                                    <td>
+                                                        {{ khatianDag.totalAmount |numberBanglaConvert }}
+                                                    </td>
+                                                    <td>
+                                                        {{ khatianDag.proposedAmount |numberBanglaConvert }}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if lease.marketDetail and lease.type == 'Market'%}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Khatian dag No'|trans }} :</label>
+
+                                    <div class="col-md-9">
+                                        <p class="margin-top-10">{{ lease.marketDetail.KhatianDagNo|numberBanglaConvert }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Market'|trans }} :</label>
+
+                                    <div class="col-md-9">
+                                        <p class="margin-top-10">{{ lease.marketDetail.market.marketName }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ 'Shop No'|trans }}  :</label>
+
+                                    <div class="col-md-9">
+                                        <p class="margin-top-10">{{ lease.marketDetail.KhatianDagNo|numberBanglaConvert }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Total'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.shotangso|numberBanglaConvert }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Lease Start Date'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.getBnStartDate }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Lease End Date'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.getBnEndDate }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Remarks'|trans }} :</label>
+
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ lease.remarks }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% if leaseDocx %}
+                        <div class="col-md-12">
+                            <form class="form-horizontal">
+                                <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Lease'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                                <div class="form-group">
+                                    {%  set index = 1  %}
+                                    {% for leaseDoc in leaseDocx %}
+                                     {% if leaseDoc.privacy == 'Public' %}
+
+                                        <div class="col-md-9 col-md-offset-2">
+                                            {{ index|numberBanglaConvert }}.  <a
+                                                    href="{{ asset('uploads') }}/{{ leaseDoc.path }}">{% if leaseDoc.type is not null  %}{{ leaseDoc.type }} {% else %} {{ leaseDoc.path }}{% endif %}</a>
+                                        </div>
+                                         {% set index = index + 1 %}
+                                     {% endif %}
+                                    {% endfor %}
+
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                   <div class="col-md-offset-2">
+                       {% if lease.status == 'ACTIVE' or (lease.tender == '1')  %}
+                           <a href="{{ path('citizen_lease_apply', {'id': lease.id, 'type':lease.type}) }}" class="btn btn-primary apply" id="apply" rel="{{ lease.type }}"  title="{{ 'apply for lease'|trans }}">আবেদন করুন</a>
+                       {% endif %}
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

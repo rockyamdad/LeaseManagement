@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ 'Login'|trans }} - {{ 'Keranigonj Record Room'|trans }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    {#<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>#}
+
+    {% stylesheets
+    'assets/plugins/font-awesome/css/font-awesome.min.css'
+    'assets/plugins/simple-line-icons/simple-line-icons.min.css'
+    'assets/plugins/bootstrap/css/bootstrap.min.css'
+    'assets/css/login.css'
+    'assets/plugins/icheck/skins/square/green.css'
+    'assets/css/components-rounded.css'
+    'assets/css/plugins.css'
+    'assets/layout3/css/layout.css'
+    'assets/layout3/css/themes/default.css'
+    'assets/layout3/css/custom.css'
+    'assets/css/style.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+<div class="wrap">
+<div class="menu-toggler sidebar-toggler">
+</div>
+<div class="container-fluid">
+    <a href="/">
+        <img class="logo-image" src="{{ asset('img/bd_gov.png') }}" alt="Bangladesh Govt."> &nbsp;&nbsp;
+    </a>
+    <h1 class="site-title">উপজেলা পর্যায়ে ভূমি ইজারা ও ব্যবস্থাপনা</h1>
+
+    {#<img src="{{ asset('img/a2i.png') }}" alt="Access To Information">#}
+</div>
+<hr style="border-top: 1px solid #ddd;">
+<!-- END SIDEBAR TOGGLER BUTTON -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+<!-- BEGIN LOGIN FORM -->
+<form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+
+    {#<p class="text-center clearfix">
+        <img src="{{ asset('img/bd_gov.png') }}" alt="Bangladesh Govt."> &nbsp;&nbsp;
+        <img src="{{ asset('img/a2i.png') }}" alt="Access To Information">
+    </p>
+
+    <hr style="border-top: 1px solid #ddd;">#}
+    {% if error %}
+        <div class="alert alert-danger">
+            <strong>{{ 'Error'|trans }}!</strong> {{ error.messageKey|trans(error.messageData, 'messages') }}
+        </div>
+    {% endif %}
+
+    <h3 class="form-title">{{ 'Sign In'|trans }}</h3>
+    <div class="alert alert-danger display-hide">
+        <button class="close" data-close="alert"></button>
+			<span> {{ 'Enter username and password'|trans }}. </span>
+    </div>
+    <div class="form-group">
+        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+        <label class="control-label visible-ie8 visible-ie9">{{ 'Username'|trans }}</label>
+        <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="{{ 'Username'|trans }}" name="_username"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">{{ 'Password'|trans }}</label>
+        <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="{{ 'Password'|trans }}" name="_password"/>
+    </div>
+    <div class="form-actions">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <button type="submit" name="_submit" class="btn green uppercase">{{ 'Login'|trans }}</button>
+
+        {#<a href="javascript:;" id="forget-password" class="forget-password">{{ 'Forgot Password'|trans }}?</a>#}
+    </div>
+    <br/>
+    {#<a href="{{ asset('UserManualELRSV4.1.pdf') }}">{{ 'User Manual'|trans }}</a><br/>#}
+    <a href="{{ asset('assets/font/NikoshBAN.ttf') }}">{{ 'bangla font download'|trans }}</a>
+</form>
+<!-- END LOGIN FORM -->
+<!-- BEGIN FORGOT PASSWORD FORM -->
+<form class="forget-form" action="index.html" method="post">
+    <h3>{{ 'Forgot Password'|trans }} ?</h3>
+    <p>
+        {{ 'Enter your e-mail address below to reset your password'|trans }}.
+    </p>
+    <div class="form-group">
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email"/>
+    </div>
+    <div class="form-actions">
+        <button type="button" id="back-btn" class="btn btn-default">{{ 'Back'|trans }}</button>
+        <button type="submit" class="btn btn-success uppercase pull-right">{{ 'Submit'|trans }}</button>
+    </div>
+</form>
+<!-- END FORGOT PASSWORD FORM -->
+</div>
+</div>
+<hr style="border-top: 1px solid #ddd;">
+<div class="footer">
+<div class="copyright">
+    <div class="row">
+        <div class="col-md-6">
+            {{ 'DRR'|trans }}<br/>
+            বাস্তবায়নে : ভূমি মন্ত্রণালয়
+        </div>
+
+        <div class="col-md-5 small text-right">
+            পরিকল্পনায়:&nbsp;<a href="http://www.a2i.pmo.gov.bd" target="_blank">একসেস টু ইনফরমেশন প্রোগ্রাম</a><br/>
+            কারিগরী সহায়তায়:&nbsp;<a href="http://devnetlimited.com/devnet/" target="_blank" title="Devnet">ডেভনেট লিমিটেড</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+    {% javascripts
+    'assets/plugins/jquery.min.js'
+    'assets/plugins/jquery-migrate.min.js'
+    'assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js'
+    'assets/plugins/bootstrap/js/bootstrap.min.js'
+    'assets/plugins/jquery.cokie.min.js'
+    'assets/plugins/icheck/icheck.min.js'
+    'assets/layout3/js/metronic.js'
+    'assets/layout3/js/layout.js'
+    'assets/js/login.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!--[if lt IE 9]>
+    {% javascripts
+    'assets/plugins/excanvas.min.js'
+    'assets/plugins/respond.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <![endif]-->
+
+<script>
+    jQuery(document).ready(function() {
+        //Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

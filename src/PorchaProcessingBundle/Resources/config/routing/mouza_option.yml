@@ -1,0 +1,118 @@
+mouza_list:
+    path:     /option/mouza/list
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:mouzaList }
+    options:
+        expose: true
+
+mouza_list_thana:
+    path:     /option/mouza/list/thana
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:mouzaListThana }
+    options:
+        expose: true
+
+mouza_create:
+    path:     /option/mouza/new
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateMouza }
+
+mouza_update:
+    path:     /option/mouza/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateMouza }
+
+mouza_delete:
+    path:     /option/mouza/delete/{id}
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:deleteMouza }
+
+upozila_list:
+    path:     /option/upozila/list
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:upozilaList }
+    options:
+        expose: true
+
+upozila_create:
+    path:     /option/upozila/new
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateUpozila }
+
+upozila_update:
+    path:     /option/upozila/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateUpozila }
+
+thana_list:
+    path:     /option/thana/list
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:thanaList }
+    options:
+        expose: true
+
+thana_create:
+    path:     /option/thana/new
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateThana }
+
+thana_update:
+    path:     /option/thana/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateThana }
+
+combo_thana:
+    path:     /option/combo/thana/{districtId}/
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:comboThana }
+    options:
+        expose: true
+
+combo_upozila:
+    path:     /option/combo/upozila/{districtId}/
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:comboUpozila }
+    options:
+        expose: true
+
+combo_mouza:
+    path:     /option/combo/mouza/{type}/{id}/
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:comboMouza }
+    options:
+        expose: true
+
+combo_mouza_jl:
+    path:     /option/combo/mouza-jl/{upozilaId}/{surveyId}
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:comboMouzaJl }
+    options:
+        expose: true
+
+mouza_volumes:
+    path:     /option/combo/volumes/{mouzaId}/
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:mouzaVolumes }
+    options:
+        expose: true
+
+jlnumber_by_mouza:
+    path:     /option/jlnumber/{mouzaId}/{surveyType}
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:jlnumberByMouza }
+    options:
+        expose: true
+
+district_list:
+    path:     /option/district/list
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:districtList }
+
+district_create:
+    path:     /option/district/new
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateDistrict }
+
+district_update:
+    path:     /option/district/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:updateDistrict}
+
+past_mouza_info:
+    path:     /option/mouza/{surveyType}/{mouzaId}/past-info
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:mouzaPastInfo}
+
+
+combo_jl:
+    path:     /option/jl/{surveyId}/{mouzaId}
+    defaults: { _controller: PorchaProcessingBundle:MouzaOption:comboJlNo}
+    options:
+        expose: true
+
+mouza_map_request_create:
+    path:     /udc/mouza-map/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:porchaRequestCreate, serviceType:mouza_map }
+
+mouza_map_udc_request_list:
+    path:     /udc/mouza-map-list/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestList,serviceType:mouza_map }

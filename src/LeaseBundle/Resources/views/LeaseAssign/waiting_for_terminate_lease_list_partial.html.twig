@@ -1,0 +1,92 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    {% if leases is not empty %}
+    <tr class="uppercase">
+        {% if leases[0].type == 'Market'  %}
+            <th>{{  'Market Body'|trans }}</th>
+        {% else %}
+            <th>{{  'Lease Type'|trans }}</th>
+            <th>{{  'Name'|trans }}</th>
+        {% endif %}
+        {% if leases[0].type != 'Gadget'  %}
+            <th>{{  'Khatian'|trans  }}</th>
+        {% endif %}
+
+        {% if leases[0].type == 'Market'  %}
+            <th>{{  'Shop No'|trans}}</th>
+            <th>{{  'Amount'|trans}} (বর্গ ফুট) </th>
+        {% elseif leases[0].type == 'WaterBody' %}
+            <th>{{  'Shotangso'|trans}}</th>
+        {% else %}
+
+        {% endif %}
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th width="140"></th>
+    </tr>
+    {% endif %}
+    </thead>
+    <tbody>
+    {% if leases is not empty %}
+        {% for lease in leases %}
+            <tr>
+                {% if lease.type == 'Market'  %}
+                    <td>{{ lease.marketDetail.market.marketName }}</td>
+                {% else %}
+                    <td>{{ lease.Bntype }}</td>
+                    <td>{{ lease.name }}</td>
+                {% endif %}
+                {% if lease.khatian.khatianNo is defined and lease.type != 'Gadget' %}
+                    <td>{{ lease.khatian.khatianNo|numberBanglaConvert }}</td>
+                {% else %}
+
+                {% endif %}
+
+                {% if lease.type == 'Market'  %}
+                    <td>{{ lease.marketDetail.shopNo|numberBanglaConvert }}</td>
+                    <td>{{ lease.shotangso|numberBanglaConvert }}</td>
+                {% elseif lease.type == 'WaterBody' %}
+                    <td>{{ lease.shotangso|numberBanglaConvert }}</td>
+                {% else %}
+
+                {% endif %}
+
+                <td>{{ lease.getBnStartDate }}</td>
+                <td>{{ lease.getBnEndDate }}</td>
+
+                <td>
+                    {% if is_granted('ROLE_WAITING_FOR_TERMINATE_LEASE_STATUS_CHANGE') and (lease.status == 'WAITING_FOR_TERMINATE') %}
+                        <a href="{{ path('waiting_for_terminate_lease_status_change',{'id': lease.id,'status': 'Cancel'}) }}" class="btn btn-lg"  title="{{ 'Cancel'|trans }}">
+                            <i class="fa fa-cut" style="color: red"></i>
+                        </a>
+                        <a href="{{ path('waiting_for_terminate_lease_status_change', {'id': lease.id,'status': 'Approve'}) }}" class="btn btn-lg"  title="{{ 'Approval'|trans }}">
+                            <i class="fa fa-check" style="color: green"></i>
+                        </a>
+                    {% endif %}
+                    {% if lease.type == 'Gadget' %}
+                        <a href="{{ path('gadget_view',{'id':lease.gadget.id}) }}"  class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                    {% if lease.type != 'Gadget' %}
+                        <a href="{{ path('lease_view', {'id': lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+                </td>
+
+
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(leases) }}
+</div>

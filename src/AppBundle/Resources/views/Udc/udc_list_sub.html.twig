@@ -1,0 +1,40 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(udcLists, 'Udc name'|trans, 'u.udcName ') }}</th>
+            <th>{{ knp_pagination_sortable(udcLists, 'Us name List'|trans, 'u.usName') }}</th>
+            <th width="50">{{ 'District'|trans }}</th>
+            <th width="50">{{ 'Upozila'|trans }}</th>
+            <th width="50">{{ 'Union'|trans }}</th>
+            <th width="120">{{ 'Approved'|trans }}</th>
+            {#<th width="50"></th>#}
+        </tr>
+        </thead>
+        <tbody>
+        {% if udcLists is not empty %}
+            {% for udcList in udcLists %}
+
+                <tr>
+                    <td>{{ udcList.udcName }}</td>
+                    <td>{{ udcList.usName }}</td>
+                    <td>{{ udcList.district.name }}</td>
+                    <td>{{ udcList.upozila.name }}</td>
+                    <td>{{ udcList.union.name }}</td>
+                    <td>{{ udcList.status == 'APPROVED' ? 'Yes'|trans : 'Approval needed'|trans }}</td>
+                    <td>
+                        <a href="{{ path('update_udc_office', {id: udcList.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="6">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(udcLists) }}
+</div>

@@ -1,0 +1,59 @@
+{% macro pagination(paginator, options) %}
+    {% if paginator.haveToPaginate()|default(false) %}
+        {{ pagerfanta(paginator, 'twitter_bootstrap3_translated', options|default({})) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro checkIfChecked(current, value, default) %}
+    {% if current is empty and value == default %}checked
+    {% elseif value == current %}checked
+    {% endif %}
+{% endmacro %}
+
+{% macro printDoc(audit, doc) %}
+    {% if audit.status == constant('AppBundle\\Entity\\Audit::STATUS_SUBMITTED') %}
+        {% for page in doc.exportedPages %}
+            <img src="{{ page }}" class="doc-page">
+            <div class="page-break"></div>
+        {% endfor %}
+    {% else %}
+
+        Open <a href="{{ doc.url }}" target="_blank">uploaded document</a>.<br />
+        <span class="font-grey-silver">This document will be embedded in published report.</span>
+    {% endif %}
+{% endmacro %}
+
+{% macro documentStats(document) %}
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <td>
+                    <i class="fa fa-fw fa-paperclip font-blue-hoki"></i>
+                    Document attached
+                </td>
+                <td class="text-right"><span class="theme-font">Yes</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-fw fa-save font-blue-hoki"></i>
+                    Size
+                </td>
+                <td class="text-right"><span class="theme-font">{{ (document.size/1000)|round }}KB</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-fw fa-clock-o font-blue-hoki"></i>
+                    Last updated at
+                </td>
+                <td class="text-right"><span class="theme-font">{{ document.updatedAt|date('H:i M d, y') }}</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-fw fa-user font-blue-hoki"></i>
+                    Last updated by
+                </td>
+                <td class="text-right"><span class="theme-font">{{ document.updatedBy.name }}</span></td>
+            </tr>
+        </tbody>
+    </table>
+{% endmacro %}

@@ -1,0 +1,98 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'List of Templates'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'List of Templates'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'List of Templates'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'List of Templates'|trans }}</span>
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('template_new_template') }}" class="btn green">
+                            <i class="fa fa-plus"></i> {{ 'Create New'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                            <form id="form-search" class="form-horizontal" role="form" method="post" action="">
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    {% if districts is defined %}
+                                                        <select class="form-control select2" name="ff[d.geocode]" id="survey" placeholder="{{ 'All Templates'|trans }}">
+                                                            <option value=""></option>
+                                                            {% for value,name in districts %}
+                                                                <option value="{{ value }}">{{ name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <input type="text" name="ss[t.name]" class="form-control" placeholder="{{ 'Template'|trans ~ ' ' ~ 'Name'|trans }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <select class="form-control select2" name="ff[t.approved]" id="approved" placeholder="{{ 'Status'|trans }}">
+                                                        <option value=""></option>
+                                                        <option value="1">{{ 'Approved'|trans }}</option>
+                                                        <option value="0">{{ 'Approval needed'|trans }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <button class="btn green" id="btn-search" data-url="{{ search_url }}" type="button">{{ 'Search'|trans }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <hr/>
+
+                    <div class='table-data'>
+                        {% include 'PorchaProcessingBundle:Template:template_list_sub.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/template.js') }}" type="text/javascript"></script>
+{% endblock %}
+

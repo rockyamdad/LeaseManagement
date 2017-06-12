@@ -1,0 +1,68 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans  }}</th>
+        <th>{{  'Case File Number'|trans  }}</th>
+        <th>{{  'Leasee Name'|trans}}</th>
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'Gadget'|trans}} {{  'Status'|trans}}</th>
+        <th>{{  'Lease'|trans}} {{  'Status'|trans}}</th>
+        <th width="170"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gadgets is not empty %}
+        {% for index,gadget in gadgets %}
+            <tr>
+                <td>{{ ((gadgets.getCurrentPageNumber - 1) * gadgets.getItemNumberPerPage + index + 1)|numberBanglaConvert }}</td>
+                <td>{{ gadget.caseFileNo }}</td>
+                <td>
+                   {{ gadget.name }}
+                </td>
+                <td>{{ gadget.startDate|convertToBnDate }}</td>
+                <td>{{ gadget.endDate|convertToBnDate }}</td>
+                <td>
+                    {% if (gadget.status == 'WAITING_FOR_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% elseif(gadget.status == 'APPROVED') %}
+                        <span class="label label-success">{{ 'Approved'|trans }}</span>
+                    {% elseif(gadget.status == 'CORRECTION') %}
+                        <span class="label label-warning">{{ 'Correction'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+
+                    {% if(gadget.leaseStatus == 'CLOSED') %}
+                        <span class="label label-primary">{{ 'Assigned'|trans }}</span>
+                    {% elseif(gadget.leaseStatus == 'SUSPEND') %}
+                        <span class="label label-warning">{{ 'Suspend'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ((is_granted('ROLE_LEASE_STATUS_CHANGE')) and (gadget.leaseStatus == 'CLOSED')) or ((is_granted('ROLE_LEASE_STATUS_CHANGE')) and (gadget.leaseStatus == 'SUSPEND'))  %}
+                        <a href="{{ path('lease_status_change', {'id': gadget.applicationId}) }}" class="btn btn-lg"  title="{{ 'Status'|trans }}">
+                            <i class="fa fa-flag"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_GADGET_VIEW') %}
+                        <a href="{{ path('gadget_view',{'id':gadget.id}) }}"  class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(gadgets) }}
+</div>

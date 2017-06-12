@@ -1,0 +1,27 @@
+{% extends "RbsUserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} : {{ 'User Details'|trans }} {% endblock %}
+
+{% block body %}
+
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'Users'|trans }}</li>
+    </ul>
+
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-8">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-body">
+                    <div class='table-data'>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

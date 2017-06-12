@@ -1,0 +1,40 @@
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        {#<th width="20">{{ "Sl No."|trans }}</th>#}
+        <th width="100">{{ 'Request ID'|trans }}</th>
+        <th width="100">{{ 'Applicatin Date'|trans }}</th>
+        <th width="200">{{  'Recipient'|trans }}</th>
+        <th width="200">{{ 'Applicant Name'|trans }}</th>
+        <th width="200">{{ 'Applicant Mobile'|trans }}</th>
+        <th width="100">{{  'Delivery method'|trans }}</th>
+        <th width="100">{{ 'Delivery Date'|trans }}</th>
+        <th width="100">{{ "Court Fee"|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for sr in serviceRequest %}
+            <tr>
+                <td><span{% if sr.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ sr.id }}</span></td>
+                <td>{{ sr.createdAt|date('Y-m-d') }}</td>
+                <td>{{ sr.createdBy|default('N/A') }}</td>
+                <td>{{ sr.name }}</td>
+                <td>{{ sr.contactNumber }}</td>
+                <td>{{ sr.deliveryMethod|trans }}</td>
+                <td>{{ sr.deliveredAt|date('Y-m-d') }}</td>
+                <td>{{ sr.courtFee|default('') }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

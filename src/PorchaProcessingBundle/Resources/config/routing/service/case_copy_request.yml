@@ -1,0 +1,31 @@
+case_copy_create:
+    path:     /service/case-copy
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:create, serviceType:case_copy }
+
+case_copy_edit:
+    path:     /service/case-copy/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:edit }
+    requirements:
+        id: \d+
+
+case_copy_list:
+    path:     /service/case-copy/list
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:list, serviceType:case_copy }
+
+case_copy_request_address_print:
+    path:     /service/case-copy/address/list/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:addressPrint,serviceType:case_copy }
+    options:
+            expose: true
+
+case_copy_view:
+    path:     /service/case-copy/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:view }
+
+case_copy_print:
+    path:     /service/case-copy/{id}/print
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:print }
+
+case_copy_update_delivery_status:
+    path:     /service/case-copy/{id}/update-delivery-status
+    defaults: { _controller: PorchaProcessingBundle:Service/CaseCopyRequest:updateDeliveryStatus }

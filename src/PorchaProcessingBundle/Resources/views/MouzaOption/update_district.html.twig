@@ -1,0 +1,119 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ mode == 'edit' ? 'Update'|trans : 'Add'|trans }} District | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Update'|trans }} {{ 'District'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('district_list') }}">{{ 'Districts'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ mode == 'edit' ? 'Update'|trans : 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+
+        <div class="col-md-8 col-sm-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ mode == 'edit' ? 'Update'|trans : 'Add'|trans }} {{ 'district'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" role="form" method="post" action="{{ form_action }}">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'District'|trans }} {{ 'Name'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                            {% if (mode == 'edit') %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'Delete'|trans }}</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <label>
+                                            {{ form_widget(form.deleted) }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn green">{{ 'Submit'|trans }}</button>
+                                    <a class="btn default" href="{{ path('district_list') }}">{{ 'Cancel'|trans }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Import'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" role="form" method="post">
+
+
+                        <div class="form-group">
+
+                            <div class="col-md-9">
+                                <input type="file" id="exampleInputFile1">
+                                <p class="help-block"> {{ 'Import CSV file'|trans }} </p>
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <button type="submit" class="btn green">{{ 'Submit'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-option.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/mouza-options.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    MouzaOption.init();
+{% endblock %}
+

@@ -1,0 +1,59 @@
+{% extends '@Lease/Frontend/base_blank.html.twig' %}
+ {% block stylesheets %}
+     {% stylesheets filter='cssrewrite'
+     'assets/css/template-style.css'
+     'assets/css/bootstrap-print.css'
+     'assets/css/custom-print.css'
+     %}
+     <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block body %}
+    <style>
+        body{
+            margin: 10px 20px;
+        }
+        #non-delv {
+            background-color: #c1d6e7;
+            padding: 10px 10px;
+        }
+        .clearfix{
+            clear: both;
+        }
+        @media screen {
+            .print-page{
+                display: none;
+            }
+            div.khatian-pages > div:first-child{
+                display: block;
+            }
+
+        }
+        @media print {
+            .print-page{
+                display: block !important;
+                page-break-after: always;
+                margin-top: 5px;
+            }
+            .print-page:last-of-type {
+                page-break-after: avoid;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+{{ content|raw }}
+{% endblock %}
+{% block javascriptBlock %}
+    {% javascripts
+    'assets/plugins/jquery.min.js'
+    'assets/plugins/jquery-migrate.min.js'
+    'assets/plugins/bootstrap/js/bootstrap.min.js'
+    'assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js'
+    '@LeaseBundle/Resources/public/js/correction-message.js'
+    '@LeaseBundle/Resources/public/js/signature-area.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascriptBlock %}

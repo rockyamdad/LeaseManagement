@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% block title %}{{ 'DRR'|trans }}{% endblock %}</title>
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+        {% endblock %}
+        <style>
+            .visible-print {
+                display: block !important;
+            }
+            .hidden-print{
+                display: none;
+            }
+            a{
+                text-decoration: none;
+                color: black;
+                cursor: default;
+            }
+            table{
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        {% block include_javascripts %}
+            {% javascripts
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock include_javascripts %}
+
+        <!-- START IN PAGE JAVASCRIPTS -->
+        {% block closure %}
+            <script>
+                print();
+            </script>
+        {% endblock %}
+        <!-- END IN PAGE JAVASCRIPTS -->
+    </body>
+</html>

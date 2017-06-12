@@ -1,0 +1,98 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th width="20">{{ "Sl No."|trans }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Copy Type'|trans, 'p.survey.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Upozila'|trans, 'p.upozila.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Mouza'|trans, 'p.mouza.name') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Jlno'|trans, 'p.jlNo') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Khatian No'|trans, 'p.khatianNo') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Delivery Type'|trans, '') }}</th>
+        <th width="200">{{ knp_pagination_sortable(requests, 'Applicatin Date'|trans, '') }}</th>
+        <th width="100">{{ knp_pagination_sortable(requests, 'Delivery Date'|trans, 'sr.deliveredAt') }}</th>
+        <th>{{ 'Time Duration'|trans }}</th>
+        <th>{{ 'Entry Operator'|trans }}</th>
+        <th>{{ 'Verifier'|trans }}</th>
+        <th>{{ 'Comparer'|trans }}</th>
+        <th>{{ 'Approver'|trans }}</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% if requests is not empty %}
+        {% set sl = 1 %}
+        {% for request in requests %}
+        <tr>
+            <td>{{ sl }}</td>
+            <td><span{% if request.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ request.serviceRequest.id }}</span></td>
+            <td>{{ request.serviceRequest.name }}</td>
+            <td>{{ request.survey.name|trans }}</td>
+            <td>{{ request.upozila.name }}</td>
+            <td>{{ request.mouza.name }}</td>
+            <td>{{ request.jlNo }}</td>
+            <td>{{ request.khatianNo }}</td>
+            <td>{{ request.serviceRequest.urgency|default('NORMAL'|trans) }}</td>
+            <td>{{ request.serviceRequest.createdAt|date('d-m-Y') }}</td>
+            <td>{{ request.serviceRequest.estimateDeliveryAt|date('d-m-Y') }}</td>
+            <td></td>
+            <td>
+                {% if (request.khatianLog and request.khatianLog.entryOperator) %}
+                    <a id="" class="btn popoverData" href="{{ path('user_tooltip_info', {id: request.khatianLog.entryOperator.id}) }}" data-poload=""
+                       data-content="" data-extra="{{ numberBanglaConvert(request.khatianLog.entryAt|date('d/m/Y')) }}"
+                       rel="popover" data-placement="bottom" data-trigger="hover">
+                        <img src="{{ asset('assets/layout3/img/entryoperator_icon.png') }}" width="25">
+                    </a>
+                {% else %}
+                    {{ '-' }}
+                {% endif %}
+            </td>
+            <td>
+                {% if (request.khatianLog and request.khatianLog.verifier) %}
+                    <a id="" class="btn popoverData" href="{{ path('user_tooltip_info', {id: request.khatianLog.verifier.id}) }}" data-poload=""
+                       data-content="" data-extra="{{ numberBanglaConvert(request.khatianLog.verifiedAt|date('d/m/Y')) }}"
+                       rel="popover" data-placement="bottom" data-trigger="hover">
+                        <img src="{{ asset('assets/layout3/img/verifier_icon.png') }}" width="25">
+                    </a>
+                {% else %}
+                    {{ '-' }}
+                {% endif %}
+            </td>
+            <td>
+                {% if (request.khatianLog and request.khatianLog.comparer) %}
+                    <a id="" class="btn popoverData" href="{{ path('user_tooltip_info', {id: request.khatianLog.comparer.id}) }}" data-poload=""
+                       data-content="" data-extra="{{ numberBanglaConvert(request.khatianLog.comparedAt|date('d/m/Y')) }}"
+                       rel="popover" data-placement="bottom" data-trigger="hover">
+                        <img src="{{ asset('assets/layout3/img/compare_icon.png') }}" width="25">
+                    </a>
+                {% else %}
+                    {{ '-' }}
+                {% endif %}
+            </td>
+            <td>
+                {% if (request.khatianLog and request.khatianLog.approver) %}
+                    <a id="" class="btn popoverData" href="{{ path('user_tooltip_info', {id: request.khatianLog.approver.id}) }}" data-poload=""
+                       data-content="" data-extra="{{ numberBanglaConvert(request.khatianLog.approvedAt|date('d/m/Y')) }}"
+                       rel="popover" data-placement="bottom" data-trigger="hover">
+                        <img src="{{ asset('assets/layout3/img/approver_icon.png') }}" width="25">
+                    </a>
+                {% else %}
+                    {{ '-' }}
+                {% endif %}
+            </td>
+
+            {% set sl = sl + 1 %}
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(requests) }}
+</div>

@@ -1,0 +1,69 @@
+{% block body %}
+    <style>
+        h2, h3{
+            text-align: center;
+            margin: 0;
+        }
+
+    </style>
+    <h2>{% if app.user.office %}
+            {{ app.user.office.name }}
+            {% if app.user.office.type|upper == 'DC' %}
+                - {{ 'DC Office'|trans }},
+                {{ (app.user.office is defined) ? app.user.office.district.name : '' }}
+            {% elseif app.user.office.type|upper == 'AC_LAND' %}
+                - {{ 'AC Land Office'|trans }},
+                {{ (app.user.office is defined) ? app.user.office.upozila.name : '' }},
+                {{ (app.user.office is defined) ? app.user.office.district.name : '' }}
+            {% elseif app.user.office.type|upper == 'MINISTRY' %}
+                - {{ 'TYPE_MINISTRY'|trans }}
+            {% endif %}
+        {% endif %}</h2>
+    <h2>{{ "Court Fee Register"|trans }}</h2>
+    <h2>{{ app.request.query.get('ff[sr.requestFrom]', '', true)|trans }}</h2>
+    <h3>{{ 'Request No'|trans }} : {{ serviceRequest|length }}</h3>
+    <h2>{{ 'Date'|trans }}: {{ app.request.query.get('ff[sr.createdAt]', '', true)|toBanglaDate }}</h2>
+
+    <table class="table table-bordered table-striped table-condensed flip-content table-list" border="1" cellpadding="5" style="border-collapse: collapse">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ "Sl No."|trans }}</th>
+            <th>{{ 'Request ID'|trans }}</th>
+            <th>{{ 'Recipient'|trans }}</th>
+            <th>{{ 'Applicant Name'|trans }}</th>
+            <th>{{ 'Applicant Mobile'|trans }}</th>
+            <th>{{ 'Copy Type'|trans }}</th>
+            <th>{{ 'Upozila'|trans }}</th>
+            <th>{{ 'Mouza'|trans }}</th>
+            <th>{{ 'Jlno'|trans }}</th>
+            <th>{{ 'Khatian No'|trans }}</th>
+            <th>{{ "Court Fee"|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if serviceRequest is not empty %}
+            {% for pr in serviceRequest %}
+                <tr id="row-{{ pr.id }}">
+                    <td>{{ sl }}</td>
+                    <td><span{% if pr.serviceRequest.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ pr.serviceRequest.id }}</span></td>
+                    <td>{{ pr.serviceRequest.createdBy.profile.fullNameEn }}</td>
+                    <td>{{ pr.serviceRequest.name }}</td>
+                    <td>{{ pr.serviceRequest.contactNumber }}</td>
+                    <td>{{ pr.survey.name|trans }}</td>
+                    <td>{{ pr.upozila.name }}</td>
+                    <td>{{ pr.mouza.name }}</td>
+                    <td>{{ pr.jlNo }}</td>
+                    <td>{{ pr.khatianNo }}</td>
+                    <td>{{ pr.serviceRequest.courtFee }}</td>
+                </tr>
+                {% set sl = sl + 1 %}
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="16">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

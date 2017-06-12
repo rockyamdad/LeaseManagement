@@ -1,0 +1,129 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Market Body'|trans }} {{ 'Renew'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Market Body'|trans }} {{ 'Renew'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+
+        <li class="active">
+            {{ 'Market Body'|trans }} {{ 'Renew'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Market Body'|trans }} {{ 'Renew'|trans }} </span>
+                    </div>
+                </div>
+                    <div class="col-md-6">
+                        <form class="form-horizontal">
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}: </h4>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{ 'Name'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ lease.application.applicant.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{ 'Nid'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ lease.application.applicant.nid }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{ 'Dob'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ lease.application.applicant.dob|date("m/d/Y") }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{ 'Address'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ lease.application.applicant.address }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{ 'Cellphone'|trans }} :</label>
+                                    <div class="col-md-8">
+                                        <p class="margin-top-10">{{ lease.application.applicant.phoneNo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                <div class="portlet-body">
+                    <br>
+                    <form class="form-horizontal" action="{{ path('market_body_lease_renew', {'id': lease.id}) }}"  role="form" method="post" novalidate="novalidate">
+                        <div class="form-body">
+
+                            <div  class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                    <div class="col-md-9">
+                                        <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+{% endblock %}
+
+

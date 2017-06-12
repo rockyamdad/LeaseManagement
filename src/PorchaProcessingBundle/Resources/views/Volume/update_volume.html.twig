@@ -1,0 +1,182 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Volume'|trans }} {{ volume.id ? 'Edit'|trans : 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ volume.id ? 'Edit'|trans : 'Create'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('volume_list') }}">{{ 'List of Volumes'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-update-page">
+
+        <div class="col-md-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Volume'|trans }} {{ volume.id ? 'Edit'|trans : 'Create'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <div id="page-msg"></div>
+                    <form class="form-horizontal" id="form-add-volume" role="form" method="post" action="{{ form_action }}">
+                        <div class="form-body">
+
+                            <div class="block-group">
+                                <div class="form-group {{ form_errors(form.survey) != '' ? 'has-error' : '' }}">
+                                    <label class="col-md-2 control-label required">{{ 'Survey'|trans }}</label>
+                                    <div class="col-md-9">
+                                        {{ form_widget(form.survey) }}
+                                        <span class="help-block">{{ form_errors(form.survey) }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group {{ form_errors(form.district) != '' ? 'has-error' : '' }}">
+                                    <label class="col-md-2 control-label required">{{ 'District'|trans }}</label>
+                                    <div class="col-md-9">
+                                        {{ form_widget(form.district, { 'attr': {'class': 'input-large select2'}}) }}
+                                        <span class="help-block">{{ form_errors(form.district) }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required">{{ 'Current Upozila'|trans }}</label>
+                                    <div class="col-md-3">
+                                        <div class="input-group input-medium">
+                                            {{ form_widget(form.upozila, { 'attr': {'class': 'input-large '}}) }}
+                                            <span class="help-block">{{ form_errors(form.upozila) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="button" id="add-mouza" class="btn green {{ (alreadyApproved) ? 'disabled' : '' }}"  value="{{ 'attach mouza'|trans }}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                <div class="col-md-8">
+                                    <table class="table table-bordered table-striped table-condensed flip-content table-list" style="margin-bottom: 0" width="50%" id="row-clone" data-prototype="
+                                        {% filter escape %}
+                                         {{ include('PorchaProcessingBundle:Volume:volumeMouzaDataPrototype.html.twig', { 'form': form.volumeMouzas.vars.prototype }) }}
+                                        {% endfilter %}">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ 'Mouza'|trans }} - {{ 'J. L. No'|trans }}</th>
+                                                <th>{{ 'first'|trans ~ ' ' ~ 'Khatian No'|trans }}</th>
+                                                <th>{{ 'last'|trans ~ ' ' ~ 'Khatian No'|trans }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mouza-list">
+                                        {% for tag in form.volumeMouzas %}
+                                            <tr>
+                                                <td>
+                                                    {{ form_widget(tag.mouza) }}
+                                                    {{ form_widget(tag.id) }}
+                                                </td>
+                                                <td>{{ form_widget(tag.startKhatianNo) }}</td>
+                                                <td>{{ form_widget(tag.endKhatianNo) }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                            <br/>
+                            <div class="form-group {{ form_errors(form.pargana) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label">{{ 'Pargona'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.pargana) }}
+                                    <span class="help-block">{{ form_errors(form.pargana) }}</span>
+                                </div>
+                            </div>
+
+                            {% if form.volumeNo is defined %}
+                                <div class="form-group {{ form_errors(form.volumeNo) != '' ? 'has-error' : '' }}">
+                                    <label class="col-md-2 control-label required">{{ 'Volume No'|trans }}</label>
+                                    <div class="col-md-9">
+                                        {{ form_widget(form.volumeNo) }}
+                                        <span class="help-block">{{ form_errors(form.volumeNo) }}</span>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required">{{ 'Volume No'|trans }}</label>
+                                    <div class="col-md-9">
+                                        {% if volume is defined %}
+                                            <p class="form-control-static">{{ volume.volumeNo }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Sub Khatian Nos'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.subKhatianNos) }}
+                                    <span class="help-block">{{ form_errors(form.subKhatianNos) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Missing Khatian Nos'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.missingKhatianNos) }}
+                                    <span class="help-block">{{ form_errors(form.missingKhatianNos) }}</span>
+                                </div>
+                            </div>
+                            {% if form.approved is defined %}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"></label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.approved) }}
+                                    <span class="help-block">{{ form_errors(form.approved) }}</span>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <input type="hidden" name="volumeId" value="{{ volume is defined ? volume.id : '' }}" />
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <a class="btn default" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                    {% if hideSubmit %}
+                                    <button type="submit" class="btn green">{{ 'Edit'|trans }}</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+
+{% block include_javascripts %}
+
+    {{ parent() }}
+    <script type="text/javascript">
+        var rowCount = '{{ (form.volumeMouzas is defined) ? form.volumeMouzas|length : 0 }}'
+        var alreadyApproved = '{{ (alreadyApproved is defined) ? alreadyApproved : 0 }}'
+    </script>
+    <script src="{{ asset('bundles/porchaprocessing/js/volume.js') }}" type="text/javascript"></script>
+
+{% endblock include_javascripts %}
+

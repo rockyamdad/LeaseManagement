@@ -1,0 +1,37 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans }}</th>
+        <th>{{  'Market'|trans  }} {{  'Name'|trans  }}</th>
+        <th width="80"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if markets is not empty %}
+        {% for index,market in markets %}
+            <tr>
+                <td>
+                    {{ ((markets.getCurrentPageNumber - 1) * markets.getItemNumberPerPage + index + 1)|numberBanglaConvert }}
+                </td>
+                <td>
+                    {{ market.marketName }}
+                </td>
+
+                <td>
+                    <a href="{{ path('market_edit', {'id': market.id}) }}" class="btn btn-lg"  title="{{ 'Edit'|trans }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(markets) }}
+</div>

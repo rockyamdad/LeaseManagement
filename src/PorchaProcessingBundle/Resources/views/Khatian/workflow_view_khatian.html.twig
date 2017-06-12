@@ -1,0 +1,104 @@
+{% extends "preview.html.twig" %}
+
+{% block title %}{{ khatian.volume.survey.name ~' '~ 'Khatian No'|trans }}: {{ khatian.khatianNo|numberBanglaConvert }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.thana }}, {{ khatian.jlnumber.district }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ khatian.volume.survey.name ~' '~ 'Khatian No'|trans }}: {{ khatian.khatianNo|numberBanglaConvert }}, {{ khatian.mouza.name }}, {{ khatian.jlnumber.thana }}, {{ khatian.jlnumber.district }}</h1>{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    {{ form_start(workflowForm, {'action': path('khatian_workflow_action', {id: khatianLog.id})}) }}
+    <div class="row">
+        <div class="col-sm-12" id="template-view">
+            <div class="no-print">
+                <div class="pull-left">
+                    <a href="javascript:history.back()" class="btn grey">{{ 'Back'|trans }}</a>
+                    <a href="javascript:window.print()" class="btn blue">{{ 'Print'|trans }}</a>
+                    <a href="#" id="correction-message" class="btn yellow">{{ "Write Correction Message"|trans }}</a>
+                </div>
+                <div class="pull-right">
+                    {% if (workflowForm.back is defined) %}
+                        {{ form_widget(workflowForm.back) }}
+                    {% endif %}
+                    {% set formardLabel = 'Forward'|trans %}
+                    {% if khatianLog.khatianStatus == 'READY_FOR_APPROVAL' %}
+                        {% set formardLabel = khatianLog.batch ? 'Archive'|trans : 'Ready For Delivery'|trans %}
+                    {% endif %}
+                    {{ form_widget(workflowForm.forward, {label: formardLabel}) }}
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                {% for page in pagination %}
+                    {% if (page['type'] == 'PAGE1' or page['type'] == 'PAGE1_ADDITIONAL') %}
+                        <button class="print-pagination btn-default btn{{ page['disabled'] ? ' disabled' : '' }}" rel="{{ page['id'] }}">{{ numberBanglaConvert(page['label']|trans) }}</button>
+                    {% endif %}
+                {% endfor %}
+                {% for page in pagination %}
+                    {% if (page['type'] == 'PAGE2' or page['type'] == 'PAGE2_ADDITIONAL') %}
+                        <button class="print-pagination btn-default btn{{ page['disabled'] ? ' disabled' : '' }}" rel="{{ page['id'] }}">{{ numberBanglaConvert(page['label']|trans) }}</button>
+                    {% endif %}
+                {% endfor %}
+
+                {% if (non_deliverables is not empty) %}
+                    <div id="non-delv">
+                        {{ 'This Khatian is non deliveral'|trans }} |
+                        {{ 'non delivery remark'|trans }} :<br/>
+                        <ol>
+                            {% for ndm in non_deliverables %}
+                                <li>{{ ndm.message }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                {% endif %}
+                <hr>
+            </div>
+            <div style="clear: both"></div>
+
+            <div class="khatian-pages">
+                {% for id, khatianPage in khatianPages %}
+
+                    {% if (khatianPage.data) %}
+                        <div class="print-page" id="print-page-{{ khatianPage.data['id'] }}">
+
+                            {{ placeholderReplaceWithData(khatianPage.template.body, khatianPage.data) }}
+
+                            {% if workflowForm.correctionMessages[id] is defined %}
+
+                                <div class="correction-form" style="display: none; cursor: default">
+
+                                    {{ form_widget(workflowForm.correctionMessages[id].message) }}
+                                    <div style="margin-top: 10px">
+                                        <input type="button" rel="{{ workflowForm.correctionMessages[id].message.vars.id }}" class="close" value="{{ 'Close'|trans }}" />
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ include('@PorchaProcessing/Khatian/khatian_signature_area.html.twig') }}
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+    <div style="display: none">{{ form_rest(workflowForm) }}</div>
+    {{ form_end(workflowForm) }}
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/correction-message.js') }}"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/signature-area.js') }}"></script>
+{% endblock include_javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-print.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-print.css') }}"/>
+{% endblock %}

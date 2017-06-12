@@ -1,0 +1,11 @@
+'This username is already in use.': 'এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যাবহার করা হচ্ছে'
+'This email is already in use.': 'এই ইমেইলটি ইতিমধ্যেই ব্যাবহার করা হচ্ছে'
+'fos_user.password.mismatch': 'প্রবেশ পাসওয়ার্ড মিলছে না'
+'This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.': 'এই মান খুব ছোট. এটা {{ limit }} অক্ষর বা তার বেশি থাকতে হবে'
+'Username should not be blank': 'এই তথ্যটি আবশ্যক।'
+'Password should not be blank': 'এই তথ্যটি আবশ্যক।'
+'This value is not a valid email address.': 'অনুগ্রহ করে একটি সঠিক মেইল ঠিকানা লিখুন।'
+This value should be the user's current password.: পাসওয়ার্ড ব্যবহারকারীর বর্তমান পাসওয়ার্ড হওয়া উচিত.
+'This value should not be blank.': 'এই তথ্যটি আবশ্যক।'
+'Bangla digits only': "শুধুমাত্র বাংলা সংখ্যা আবশ্যক "
+'atleast one person required': "কমপক্ষে একজন আবশ্যক"

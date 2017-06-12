@@ -1,0 +1,84 @@
+<div id="porcha_search" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h1 class="modal-title custom-color-caption">খতিয়ান/পর্চা অনুসন্ধান</h1>
+            </div>
+            <form class="form-horizontal"  id="application" method="post" action="{{ path('porcha_search') }}">
+            <div class="modal-body">
+                <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <div class="col-md-11">
+                                    <select name="survey" class="select2me form-control survey" data-placeholder="সার্ভে নির্বাচন করুন">
+                                        <option></option>
+                                        {% for  survey in surveys %}
+                                            <option value="{{ survey.id }}">{{ survey.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <div class="col-md-11">
+                                    <select name="division" id="division" class="select2me form-control po-division" data-placeholder="বিভাগ নির্বাচন করুন">
+                                        <option></option>
+                                        {% for  division in divisions %}
+                                            <option value="{{ division.id }}">{{ division.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-11">
+                                    <input type="text" id="district" name="district" class="form-control po-district" placeholder="জেলা নির্বাচন করুন" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <div class="col-md-11">
+                                    <input type="hidden" id="upozila" name="upozila" class="form-control po-upozila" placeholder="উপজেলা নির্বাচন করুন" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-11 ">
+                                    <input type="hidden" id="mouza" name="mouza" class="form-control po-mouza" placeholder="মৌজা নির্বাচন করুন" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-11">
+                                    <input type="text" class="form-control" name="porchaNo" placeholder="খতিয়ান/পর্চা  নং ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                </div>
+                <br/>
+
+            </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-danger">বাতিল </button>
+            <button id="khatianSearch" class="btn green" type="submit">অনুসন্ধান</button>
+
+        </div>
+        </form>
+    </div>
+</div>
+</div>

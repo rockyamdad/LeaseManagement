@@ -1,0 +1,44 @@
+gadget_list:
+    path:     /list
+    defaults: { _controller: LeaseBundle:Gadget:index }
+
+gadget_open_list:
+    path:     /open-list
+    defaults: { _controller: LeaseBundle:Gadget:allOpenGadget }
+
+gadget_create:
+    path:     /create
+    defaults: { _controller: LeaseBundle:Gadget:create }
+
+gadget_view:
+    path:     /view/{id}
+    defaults: { _controller: LeaseBundle:Gadget:view }
+
+gadget_renew:
+    path:     /renew/{id}
+    defaults: { _controller: LeaseBundle:Gadget:renew }
+
+gadget_add_portal:
+    path:     /add-portal/{id}
+    defaults: { _controller: LeaseBundle:Gadget:addToPortal }
+
+gadget_update:
+    path:     /edit/{id}
+    defaults: { _controller: LeaseBundle:Gadget:update }
+
+
+gadget_details_delete:
+    path:     /details/{id}
+    defaults: { _controller: LeaseBundle:Gadget:gadgetDetailsDelete }
+    options:
+                expose: true
+
+applicant_details_delete:
+    path:     /applicant_details/{id}
+    defaults: { _controller: LeaseBundle:Gadget:applicantDetailsDelete }
+    options:
+                expose: true
+
+gadget_status_change:
+    path:     /{id}/{status}
+    defaults: { _controller: LeaseBundle:Gadget:statusChange }

@@ -1,0 +1,659 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Lease'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1 xmlns="http://www.w3.org/1999/html">{{ 'Lease'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+
+        <li class="active">
+            {{ 'Water Body'|trans }} {{ 'Lease view'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ lease.bnType}} {{ 'Lease view'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    {% if lease.type == 'Gadget' %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'Case File Number'|trans }}
+                                                :</label>
+
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ lease.gadget.caseFileNo|numberBanglaConvert }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'Original Owner Name'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ lease.gadget.orginalOwnerName }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'Father Name'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ lease.gadget.fatherName }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'সরকার অর্জিত তারিখ' }} :</label>
+
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ lease.gadget.govtAquiredDate|date("m/d/Y")|toBanglaDate }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'Khatian Information'|trans }} :</label>
+                                            <div class="col-md-8">
+                                                <table class="table table-bordered table-striped table-condensed flip-content"
+                                                       style="margin-bottom: 10px;width:850px ">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{ 'SA Khatian No'|trans }}</th>
+                                                        <th>{{ 'SA Khatian Dag No'|trans }}</th>
+                                                        <th>{{ 'RS Khatian No'|trans }}</th>
+                                                        <th>{{ 'RS Khatian Dag No'|trans }}</th>
+                                                        <th>{{ 'Total Amount'|trans }}</th>
+                                                        <th>{{ 'Proposed Amount'|trans }}</th>
+                                                        <th>{{ 'Property Type'|trans }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="dag-list">
+
+                                                    {% for gadgetDetails in lease.gadget.gadgetDetails %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if gadgetDetails.saKhatianNo.khatianNo is defined %}
+                                                                    {{ gadgetDetails.saKhatianNo.khatianNo|numberBanglaConvert }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.saDagNo|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {% if gadgetDetails.rsKhatianNo.khatianNo is defined %}
+                                                                    {{ gadgetDetails.rsKhatianNo.khatianNo|numberBanglaConvert }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.rsDagNo|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.totalAmount|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.proposedAmount|numberBanglaConvert }}
+                                                            </td>
+                                                            <td>
+                                                                {{ gadgetDetails.propertyType }}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    {% elseif lease.type == 'WaterBody' or lease.type == 'Market'  %}
+                    <div class="row">
+                       <div class="form-horizontal">
+                           <div class="form-body">
+                               {% if lease.waterBodyDetails and lease.type== 'WaterBody' %}
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Type'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.bnType}}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Name'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.name}}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Survey'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.khatian.volume.survey.name }}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Mouza'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.khatian.mouza.name }}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Khatian'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.khatian.khatianNo }}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Khatian Information'|trans }} :</label>
+                                       <div class="col-md-6">
+                                       <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;"  width="25%">
+                                       <thead>
+                                       <tr>
+                                           <th>{{'Khatian dag No'|trans }}</th>
+                                           <th>{{'Total Amount'|trans }}</th>
+                                           <th>{{'Proposed Amount'|trans }}</th>
+                                       </tr>
+
+                                       </thead>
+                                       <tbody id="dag-list">
+
+                                       {% set khatianDags = lease.waterBodyDetails %}
+                                       {% for khatianDag in khatianDags %}
+                                           <tr>
+                                               <td>
+                                                   {{ khatianDag.khatianDagNo }}
+                                               </td>
+                                               <td>
+                                                   {{ khatianDag.totalAmount }}
+                                               </td>
+                                               <td>
+                                                   {{ khatianDag.proposedAmount }}
+                                               </td>
+                                           </tr>
+                                       {% endfor %}
+                                           <tr>
+                                               <td></td>
+                                               <td>{{ 'Total'|trans }} {{ 'Shotangso'|trans }} -</td>
+                                               <td>{{ lease.shotangso }}</td>
+                                           </tr>
+                                       </tbody>
+                                       </table>
+                                   </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Lease Start Date'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.getStartDate|convertToBnDate }}</p>
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-2 control-label">{{ 'Lease End Date'|trans }} :</label>
+
+                                       <div class="col-md-9">
+                                           <p class="margin-top-10">{{ lease.getEndDate|convertToBnDate }}</p>
+                                       </div>
+                                   </div>
+                                   {% if lease.remarks %}
+                                       <div class="form-group">
+                                           <label class="col-md-2 control-label">{{ 'Remarks'|trans }} :</label>
+
+                                           <div class="col-md-9">
+                                               <p class="margin-top-10">{{ lease.remarks }}</p>
+                                           </div>
+                                       </div>
+                                   {% endif %}
+                               {% endif %}
+
+                               {% if lease.marketDetail and lease.type == 'Market'%}
+                                   <div class="row">
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Type'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.bnType}}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Survey'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.khatian.volume.survey.name }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Mouza'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.khatian.mouza.name }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Khatian'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.khatian.khatianNo }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Khatian dag No'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.marketDetail.KhatianDagNo }}</p>
+                                               </div>
+                                           </div>
+                                           {% if lease.remarks %}
+                                               <div class="form-group">
+                                                   <label class="col-md-3 control-label">{{ 'Remarks'|trans }} :</label>
+
+                                                   <div class="col-md-9">
+                                                       <p class="margin-top-10">{{ lease.remarks }}</p>
+                                                   </div>
+                                               </div>
+                                           {% endif %}
+                                       </div>
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Market'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.marketDetail.market.marketName }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Shop No'|trans }}  :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.marketDetail.shopNo }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Total'|trans }} {{ 'Shotangso'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.shotangso }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Lease Start Date'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.getStartDate|convertToBnDate }}</p>
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="col-md-3 control-label">{{ 'Lease End Date'|trans }} :</label>
+
+                                               <div class="col-md-9">
+                                                   <p class="margin-top-10">{{ lease.getEndDate|convertToBnDate }}</p>
+                                               </div>
+                                           </div>
+                                       </div>
+
+                                   </div>
+
+                               {% endif %}
+
+                           </div>
+                       </div>
+                       <div class="col-md-12">
+                               <div class="form-horizontal">
+                                   <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Lease'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                                   <div class="form-group">
+
+                                       <div class="col-md-6">
+                                           <label class="col-md-3 control-label">{{ 'Private Document'|trans }} :</label>
+                                           <div class="col-md-9">
+                                               {% for document in LeasePrivateDocuments %}
+                                                   <p class="margin-top-10">
+
+                                                       {{ loop.index|numberBanglaConvert }} <a
+                                                               href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a>
+                                                   </p>
+                                               {% endfor %}
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                           <label class="col-md-3 control-label">{{ 'Public Document'|trans }} :</label>
+                                           <div class="col-md-9">
+                                               {% for document in LeasePublicDocuments %}
+                                               <p class="margin-top-10">
+                                                  {{ loop.index|numberBanglaConvert }} <a
+                                                          href="{{ asset('uploads') }}/{{ document.path }}">{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}</a>
+                                               </p>
+                                               {% endfor %}
+                                           </div>
+                                       </div>
+
+                                   </div>
+                               </div>
+                       </div>
+                    </div>
+                    {% endif %}
+
+                    {% if(applicant) %}
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}</h4>
+
+                                    <div class="form-body">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Name'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.name }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Father Name'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.fatherName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Mother Name'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.motherName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Spouse Name'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.spouseName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Gender'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.bnGender }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Nid'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.nid }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Dob'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.dob|date("m/d/Y") }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Email'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Address'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ applicant.address }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">{{ 'Cellphone'|trans }} :</label>
+
+                                                <div class="col-md-8">
+                                                    <p class="margin-top-10">{{ lease.application.phoneNo }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% if applicationDocx %}
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'application'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} :</h4>
+                            <div class="form-group">
+
+                                <div class="col-md-9 col-md-offset-2">
+
+                                    {#<label class="col-md-2 control-label">{{ 'Document'|trans }} :</label>#}
+                                    {% for applicationDoc in applicationDocx %}
+                                        {% if applicationDoc.type == 'Nid' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'National Id'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Photo' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Photo'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Resulation' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Resulation Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Audit' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Audit Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Nibondhon' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Nibondhon Copy'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% if applicationDoc.type == 'Trade' %}
+                                            <div class="col-md-9">
+                                                <a href="{{ asset('uploads') }}/{{ applicationDoc.path }}">{{ 'Trade License'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-12">
+                         <div class="form-horizontal">
+                           <div class="form-body">
+                        {% if(registerSix) %}
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Register View'|trans }}</h4>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Demand Fee'|trans }} :</label>
+                                <div class="col-md-9">
+                                    <p class="margin-top-10">{{ registerSix[0].applications.totalAmount }}</p>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                 <label class="col-md-2 control-label">{{ 'Register'|trans }} :</label>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered table-striped table-condensed flip-content" style="margin-bottom: 0;"  width="25%">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'chalanNo'|trans }}</th>
+                                                <th>{{'chalanDate'|trans }}</th>
+                                                <th>{{'chalanAmount'|trans }}</th>
+                                                <th>{{'nothiNo'|trans }}</th>
+                                                <th>{{'bank'|trans }}</th>
+                                                <th>{{'branch'|trans }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dag-list">
+                                            {% for registerSix in registerSix %}
+                                                <tr>
+                                                    <td>
+                                                        {{ registerSix.chalanNo }}
+                                                    </td>
+                                                    <td>
+                                                        {{ registerSix.chalanDate|date("m/d/Y") }}
+                                                    </td>
+                                                    <td>
+                                                        {{ registerSix.chalanAmount }}
+                                                    </td>
+                                                    <td>
+                                                        {{ registerSix.nothiNo }}
+                                                    </td>
+                                                    <td>
+                                                        {{ registerSix.bank }}
+                                                    </td>
+                                                    <td>
+                                                        {{ registerSix.branch }}
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {% if leaseRegisterSixDocs %}
+                                {% for RegisterSixDocs in leaseRegisterSixDocs %}
+                                    {% if RegisterSixDocs %}
+                                    <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Register'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }} : {{ loop.index|trans }}</h4>
+                                    <div class="form-horizontal">
+                                        {#<label class="col-md-2 control-label">{{ 'Document'|trans }} :</label>#}
+                                        {% for leaseRegisterSixDoc in RegisterSixDocs %}
+                                            <div class="form-group">
+                                                    <div class="col-md-9 col-md-offset-2">
+                                                        {{ loop.index|numberBanglaConvert }} <a href="{{ asset('uploads') }}/{{ leaseRegisterSixDoc.path }}">{% if leaseRegisterSixDoc.type is not null  %}{{ leaseRegisterSixDoc.type }} {% else %} {{ leaseRegisterSixDoc.path }}{% endif %}</a>
+                                                    </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                               {% if(leaseComment and lease.status != 'CLOSED') %}
+                                   <div class="form-group">
+                                       <div class="col-md-12">
+                                           <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                           <div class="note note-info col-md-9">
+                                               <p>
+                                                   {{ leaseComment.message }}
+                                               </p>
+                                           </div>
+                                       </div>
+                                   </div>
+                               {% endif %}
+                               {% if(applicationComment and lease.status != 'CLOSED') %}
+                                   <div class="form-group">
+                                       <div class="col-md-12">
+                                           <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                           <div class="note note-info col-md-9">
+                                               <p>
+                                                   {{ applicationComment.message }}
+                                               </p>
+                                           </div>
+                                       </div>
+                                   </div>
+                               {% endif %}
+                        </div>
+                        </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                    {% if (lease.status == 'ACTIVE') and registerSix != ''  and (is_granted('ROLE_PREVIOUS_LEASE_APPROVED')) and ((registerSix[0].status == 'APPROVED'))  %}
+                        <form class="form-horizontal" action="{{ path('status_change', {'id': lease.id, 'status': 'CORRECTION'}) }}"  role="form" method="post" novalidate="novalidate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                    <div class="col-md-9">
+                                        <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                    </div>
+                                </div>
+                    {% elseif (lease.status == 'ACTIVE') and registerSix != ''  and (is_granted('ROLE_PREVIOUS_LEASE_APPROVED')) and ((registerSix[0].status == 'APPROVED'))  %}
+                        <form class="form-horizontal" action="{{ path('status_change', {'id': lease.id, 'status': 'APPROVED'}) }}"  role="form" method="post" novalidate="novalidate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{ 'Comment'|trans }} :</label>
+                                    <div class="col-md-9">
+                                        <textarea class="margin-top-10 form-control" name="comment" rows="5" ></textarea>
+                                    </div>
+                                </div>
+                    {% endif %}
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <a class="btn purple btn-sm col-md-offset-2" href="javascript: window.history.go(-1)">{{ 'Back'|trans }}</a>
+                                            {% if (lease.status == 'ACTIVE') and registerSix != ''  and (is_granted('ROLE_PREVIOUS_LEASE_APPROVED')) and ((registerSix[0].status == 'APPROVED'))  %}
+                                                <button type="submit" class="btn green" name="correction" value="co"> {{ 'Correction'|trans }}</button>
+                                            {% endif %}
+                                            {% if (lease.status == 'ACTIVE') and registerSix != ''  and (is_granted('ROLE_PREVIOUS_LEASE_APPROVED')) and ((registerSix[0].status == 'APPROVED'))  %}
+                                                <button type="submit" class="btn blue" name="approval" value="ap"> {{ 'Approval'|trans }}</button>
+                                            {% endif %}
+                                            {% if (lease.status == 'WAITING_FOR_RENEW_APPROVAL') and (is_granted('ROLE_RENEW_APPROVAL_ACCEPT')) %}
+                                                <a class="btn blue" href="{{ path('renew_approval_accept', {'id': lease.id})  }}">{{ 'Approval'|trans }}</a>
+                                            {% endif %}
+
+                                            {% if is_granted('ROLE_WAITING_FOR_TERMINATE_LEASE_STATUS_CHANGE') and (lease.status == 'WAITING_FOR_TERMINATE') %}
+                                                <a class="btn red btn-sm" href="{{ path('waiting_for_terminate_lease_status_change',{'id': lease.id,'status': 'Cancel'}) }}" class="btn btn-lg"  title="{{ 'Cancel'|trans }}">
+                                                    বাতিল রিজেক্ট
+                                                </a>
+                                                <a class="btn green btn-sm" href="{{ path('waiting_for_terminate_lease_status_change', {'id': lease.id,'status': 'Approve'}) }}" class="btn btn-lg"  title="{{ 'Approval'|trans }}">
+                                                    বাতিল অনুমোদন
+                                                </a>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                     </div>
+                </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+    </div>
+{% endblock %}
+
+
+

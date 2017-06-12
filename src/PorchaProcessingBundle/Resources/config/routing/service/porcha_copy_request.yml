@@ -1,0 +1,27 @@
+porcha_copy_request_create:
+    path:     /service/porcha-copy-request
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:create}
+
+porcha_copy_request_create_dc:
+    path:     /service/porcha-copy-request-dc
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:createDc}
+
+porcha_copy_request_list:
+    path:     /service/porcha-copy-request/list
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:requestList}
+
+porcha_copy_response_list:
+    path:     /service/porcha-copy-response/list
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:responseList}
+
+porcha_copy_reply:
+    path:     /service/porcha-copy-reply/{id}/reply
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:reply}
+    requirements:
+            id: \d+
+porcha_copy_view:
+    path:     /service/porcha-copy-view/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCopyRequest:view}
+    requirements:
+            id: \d+
+

@@ -1,0 +1,90 @@
+approved_lease_list:
+    path:     /approved_list/{type}
+    defaults: { _controller: LeaseBundle:Lease:approvedLeaseList }
+
+waiting_for_approval_lease_list:
+    path:     /waiting_for_approval_lease_list/
+    defaults: { _controller: LeaseBundle:Lease:waitingForApprovalLeaseList }
+
+renew_approval_accept:
+    path:     /renew_approval_accept/{id}
+    defaults: { _controller: LeaseBundle:Lease:renewApprovalAccept }
+
+open_lease_list:
+    path:     /open-list
+    defaults: { _controller: LeaseBundle:Lease:openLeaseList }
+
+water_body_lease_create:
+    path:     /water/body_create
+    defaults: { _controller: LeaseBundle:Lease:create }
+
+market_body_lease_create:
+    path:     /market-body-create
+    defaults: { _controller: LeaseBundle:Lease:marketBodyCreate }
+
+market_open_lease_list:
+    path:     /market-open-list
+    defaults: { _controller: LeaseBundle:Lease:marketLeaseList }
+
+waiting_lease_list:
+    path:     /waiting-list
+    defaults: { _controller: LeaseBundle:Lease:waitingLeaseList }
+
+previous_market_body_lease_create:
+    path:     /market/previous-create
+    defaults: { _controller: LeaseBundle:Lease:createPreviousMarketData }
+
+previous_water_body_lease_create:
+    path:     /water/previous-create
+    defaults: { _controller: LeaseBundle:Lease:createPreviousWaterBody }
+
+previous_water_body_lease_update:
+    path:     /water/previous-update/{id}
+    defaults: { _controller: LeaseBundle:Lease:updatePreviousWaterBody }
+
+lease_view:
+    path:     /view/{id}
+    defaults: { _controller: LeaseBundle:Lease:view }
+
+lease_update:
+    path:     /edit/{id}
+    defaults: { _controller: LeaseBundle:Lease:update }
+
+market_lease_update:
+    path:     /edit-market-lease/{id}
+    defaults: { _controller: LeaseBundle:Lease:updateMarketLease }
+
+previous_market_body_lease_update:
+    path:     /market/previous-edit/{id}
+    defaults: { _controller: LeaseBundle:Lease:PreviousMarketDataUpdate }
+
+lease_document_delete:
+    path:     /lease/document/{id}
+    defaults: { _controller: LeaseBundle:Lease:documentDelete }
+    options:
+                expose: true
+
+lease_details_delete:
+    path:     /lease/details/{id}
+    defaults: { _controller: LeaseBundle:Lease:detailsDelete }
+    options:
+                expose: true
+
+lease_add_portal:
+    path:     /add-portal/{id}
+    defaults: { _controller: LeaseBundle:Lease:addToPortal }
+
+status_change:
+    path:     /change-status/{id}
+    defaults: { _controller: LeaseBundle:Lease:statusChange }
+
+gadget_khatian_load:
+    path:     /gadget-khatian-load/{id}
+    defaults: { _controller: LeaseBundle:Lease:gadgetKhatianLoad }
+    options:
+                expose: true
+khatian_load:
+    path:     /khatian-load/{id}
+    defaults: { _controller: LeaseBundle:Lease:khatianLoad }
+    options:
+                expose: true

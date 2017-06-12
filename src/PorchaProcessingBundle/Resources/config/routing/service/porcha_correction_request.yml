@@ -1,0 +1,15 @@
+porcha_request_correction_create:
+    path:     /service/porcha-correction-request
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCorrectionRequest:create}
+
+porcha_request_correction_ac_land_create:
+    path:     /service/porcha-correction-request-ac-land
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCorrectionRequest:CreatePorchCorrectionFormAcLand}
+
+porcha_correction_request_list:
+    path:     /service/porcha-correction-request/list
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCorrectionRequest:list}
+
+porcha_correction_request_ac_land_list:
+    path:     /service/porcha-correction-request-ac-land/list
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaCorrectionRequest:acLandPorchaCorrectionList}

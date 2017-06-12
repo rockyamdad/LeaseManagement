@@ -1,0 +1,115 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Volume list of khatian'|trans  }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Volume list of khatian'|trans  }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Volume list of khatian'|trans  }}</span>
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('volume_create', {'type': 'service'}) }}" class="btn green">
+                            <i class="fa fa-plus"></i> {{ 'Create new volume'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class='table-data'>
+                        <table class="table table-bordered table-striped table-condensed flip-content table-list">
+                            <thead>
+                            <tr class="uppercase">
+                                <th>{{ 'Survey'|trans }}</th>
+                                <th>{{ 'District'|trans ~ ' - ' ~ 'Thana'|trans ~ '/' ~ 'Upozila'|trans ~ ' - ' }} {{  'Mouza'|trans }} {{ ' - ' ~ 'J. L'|trans }}</th>
+                                <th>{{ 'Volume No'|trans }}</th>
+                                <th>{{ 'Khatian'|trans ~ ' ' ~ 'range'|trans }}</th>
+                                <th>{{ 'Approved Khatian Count'|trans }}</th>
+                                <th>{{ 'No Entry Khatian Count'|trans }}</th>
+                                <th width="120">{{ "Approved"|trans }}</th>
+                                <th width="120"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if volumes is not empty %}
+                                {% for volume in volumes %}
+                                    <tr>
+                                        <td>{{ volume.survey.name }}</td>
+                                        {% set volumeMouzas = volume.volumeMouzas %}
+                                        <td>
+                                            {% if volumeMouzas %}
+                                                {% for volumeMouza in volumeMouzas %}
+                                                    {% set jlno = jlnumberBySurveyType(volumeMouza.mouza, volume.survey.type)  %}
+                                                    {{ jlno['district'] }} -
+                                                    {{ jlno['thana'] }} -
+                                                    {{ volumeMouza.mouza.name }} -
+                                                    {{ jlno['name'] }} <br>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ volume.volumeNo }}</td>
+                                        <td>
+                                            {% if volumeMouzas %}
+                                                {% for volumeMouza in volumeMouzas %}
+                                                    {{ volumeMouza.startKhatianNo }} - {{ volumeMouza.endKhatianNo }} <br>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ approvedKhatianCountByVolume(volume)|numberBanglaConvert }}</td>
+                                        <td>
+                                            <a data-toggle="modal" data-target="#ajax" href="{{ path('volume_no_entry_khatians', {id: volume.id}) }}" >
+                                                {{ volume.noEntryKhatianCount|numberBanglaConvert }} </a>
+
+                                        </td>
+                                        <td>
+                                            {% if volume.approved %}
+                                                <i class="fa fa-check font-green"> </i>
+                                            {% else %}
+                                                {{ 'Approval needed'|trans }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if volume.approved %}
+                                                <a href="{{ path('volume_khatian_list', {'id': volume.id}) }}" class="btn blue btn-sm" title="{{ 'Khatians'|trans }}">
+                                                    <i class="fa fa-list"></i>
+                                                </a>
+                                            {% endif %}
+                                            {% if is_granted('ROLE_VOLUME_BOOK_UPDATE') %}
+                                                <a class=" btn blue btn-sm" href="{{ path('volume_update', {id: volume.id}) }}" title="{{ 'Edit'|trans }}" >
+                                                    <i class="fa fa-edit"></i></a>
+                                            {% endif %}
+                                            {% if is_granted('ROLE_VOLUME_BOOK_DELETE') %}
+                                                {% if isVolumeDeletable(volume)  %}
+                                                    <a href="{{ path('volume_delete', {'id': volume.id}) }}" class="btn red btn-sm" onclick="return confirm('{{ 'Are you sure ?'|trans }}')" title="{{ 'Delete'|trans }}">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="ta-center">
+                                    <td colspan="15">{{ 'No record found'|trans }}</td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+
+{% endblock %}
+
+
+
+
+

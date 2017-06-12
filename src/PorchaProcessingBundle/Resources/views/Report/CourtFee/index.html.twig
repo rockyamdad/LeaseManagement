@@ -1,0 +1,97 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Service Request'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Service Request'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'কোর্ট ফি রেজিস্টার'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+
+            <div class="portlet light">
+                <div class="portlet-body">
+
+                    <form id="form-search" class="form-inline" role="form" method="post" action="">
+                        <div class="form-body">
+
+                            {#<div class="form-group">
+                                <input type="text" name="ff[sr.id]" id="service-request-id" placeholder="{{ 'Service Request Id'|trans }}" class="form-control input-small">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="ff[sr.name]" id="applicant-name" placeholder="{{ 'Applicant Name'|trans }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <select name="ff[sr.type]" id="service-type" placeholder="{{ 'Serivce Type'|trans }}" class="form-control">
+                                    <option value="">{{ 'Serivce Type'|trans }}</option>
+                                    <option value="PORCHA_REQUEST">{{ 'Porcha Request'|trans }}</option>
+                                    <option value="INFORMATION_SLIP">{{ 'Information Slip'|trans }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ff[sr.deliveryMethod]" id="delivery-type" placeholder="{{ 'Delivery method'|trans }}" class="form-control">
+                                    <option value="">{{ 'Delivery method'|trans }}</option>
+                                    <option value="DIRECT">{{ 'Direct'|trans }}</option>
+                                    <option value="POSTAL">{{ 'Postal'|trans }}</option>
+                                </select>
+                            </div>#}
+                            <div class="form-group">
+                                <select name="ff[sr.requestFrom]" id="delivery-type" placeholder="{{ 'Request From'|trans }}" class="form-control">
+                                    <option value="">{{ 'Request From'|trans }}</option>
+                                    <option value="DIRECT">{{ 'Direct'|trans }}</option>
+                                    {#<option value="WEB">{{ 'Web'|trans }}</option>#}
+                                    <option value="UDC">{{ 'UDC'|trans }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input value="{{ "now"|date("d-m-Y") }}" name="ff[sr.createdAt]" class="form-control date-picker" data-date-format="yyyy-mm-dd" placeholder="{{ "Request Date"|trans }}">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button class="btn green" id="btn-search" data-url="{{ path('report_court_fee') }}" type="button">{{ 'Search'|trans }}</button>
+                                    <button class="btn green" id="btn-print" data-url="{{ path('report_court_fee') }}" type="button" style="display: none">{{ 'Print'|trans }}</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <hr/>
+
+                    <div class='table-data'>
+                        {% include 'PorchaProcessingBundle:Report/CourtFee:list_sub.html.twig' %}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+
+    <div class="modal fade" id="request-detail" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('assets/layout3/img/loading-spinner-grey.gif') }}" alt="" class="loading">
+                    <span> &nbsp;&nbsp;Loading... </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.bn.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/service-request-list.js') }}" type="text/javascript"></script>
+{% endblock %}

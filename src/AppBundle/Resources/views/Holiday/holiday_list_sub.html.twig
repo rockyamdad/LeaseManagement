@@ -1,0 +1,62 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'SL. NO'|trans }}</th>
+        <th>{{ 'Date of Holiday'|trans }}</th>
+        <th>{{ 'Type of Holiday'|trans }}</th>
+        <th>{{ 'Name of Holiday'|trans }}</th>
+        <th>{{ 'Name of Day'|trans }}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if holidays is not empty %}
+
+        {% for holiday in holidays %}
+            <tr>
+                <td>{{ loop.index |numberBanglaConvert }}</td>
+                <td>{{ holiday.date| date("d-m-Y")|numberBanglaConvert }}</td>
+                <td>
+                    {% if holiday.type == 'WEEK_LEAVE' %}
+                        <span class="label bg-green">{{ 'Week Leave'|trans }}</span>
+                    {% elseif holiday.type == 'GOV_LEAVE' %}
+                        <span class="label bg-yellow">{{ 'Govt Leave'|trans }}</span>
+                    {% elseif holiday.type == 'CEO_LEAVE' %}
+                        <span class="label bg-purple">{{ 'CEO Leave'|trans }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if holiday.title == 'WEEK_LEAVE' %}
+                        {{ 'Week Leave'|trans }}
+                    {% else %}
+                        {{ holiday.title }}
+                    {% endif %}
+                </td>
+                <td>{{ holiday.date| date("l")|trans }}</td>
+                <td>
+                    {% if 'now'|date('Y-m-d') < holiday.date| date("Y-m-d") %}
+                        {% if(holiday.office is not null) %}
+                            {% if current_user_office.id == holiday.office.id%}
+                                <a href="{{ path('delete_holiday', {id: holiday.id}) }}"
+                                   class="btn btn-danger btn-sm" title="{{ 'Delete'|trans }}"><i class="fa fa-times"></i></a>
+                            {% endif %}
+                        {% else %}
+                           {%  if current_user_office.type|upper == 'MINISTRY'%}
+                            <a href="{{ path('delete_holiday', {id: holiday.id}) }}"
+                               class="btn btn-danger btn-sm" title="{{ 'Delete'|trans }}"><i class="fa fa-times"></i></a>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(holidays) }}
+</div>

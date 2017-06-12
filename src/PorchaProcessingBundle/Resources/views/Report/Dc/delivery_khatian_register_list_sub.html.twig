@@ -1,0 +1,53 @@
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th width="20">{{ "Sl No."|trans }}</th>
+        <th width="100">{{ 'Application ID'|trans }}</th>
+        <th width="100">{{ 'Application Date'|trans }}</th>
+       <th width="200">{{  'Applicant Name'|trans }}</th>
+        <th width="200">{{ 'District'|trans }}</th>
+         <th width="200">{{ 'Upozila'|trans }}</th>
+         <th width="200">{{ 'Mouza'|trans }}</th>
+        <th width="200">{{ 'J. L. No'|trans }}</th>
+        <th width="200">{{ 'Copy Type'|trans }}</th>
+        <th width="200">{{ 'Khatian No'|trans }}</th>
+        <th width="200">{{ 'Delivery Type'|trans }}</th>
+        <th width="200">{{ 'Probably Delivery Date'|trans }}</th>
+      <th width="200">{{ 'Delivery Date'|trans }}</th>
+        {#
+      <th width="200">{{ 'Delivery Date Duration'|trans }}</th>&#35;&#125;#}
+    </tr>
+    </thead>
+    <tbody>
+    {% if deliveryKhatianRegisters is not empty %}
+        {% for index , deliveryKhatianRegister in deliveryKhatianRegisters %}
+            <tr>
+                <td>{{ index + 1 }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.id }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.createdAt|date('Y-m-d') }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.name|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.district.name|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.upozila.name|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.mouza.name|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.jlNo|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.survey.name|default('N/A') }}</td>
+                <td>{{ deliveryKhatianRegister.khatianNo|default('') }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.DeliveryMethod|trans }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.estimateDeliveryAt|date('Y-m-d') }}</td>
+                <td>{{ deliveryKhatianRegister.serviceRequest.deliveredAt|date('Y-m-d') }}</td>
+                {#<td>{{ 'now'|date('Y-m-d') - (deliveryKhatianRegister.serviceRequest.deliveredAt|date('Y-m-d')) }}</td>#}
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(deliveryKhatianRegisters) }}
+</div>

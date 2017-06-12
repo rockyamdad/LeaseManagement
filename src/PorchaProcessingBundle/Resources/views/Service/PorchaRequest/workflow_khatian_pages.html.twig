@@ -1,0 +1,79 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Khatian Entry'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Khatian Entry'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">{{ 'Khatian Entry'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase"></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'Pages'|trans }}</th>
+                            <th class="text-center" width="100px">{{ 'Message'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for page in khatian_pages %}
+                            <tr class=" item-box">
+                                <td><a href="{{ path('workflow_khatian_page', {id: page.id}) }}">{{ page.type|trans }}</a></td>
+                                <td class="text-center"><i class="fontSize22 {{ page.correctionLog ? 'icon-envelope-open' : '' }}"></i></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <form action="{{ path('khatian_workflow_action', {id: khatian.id}) }}" method="post">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="workflow-action" name="workflowAction" />
+                        <button class="btn red" id="back-action" name="backAction" data-action="ACTION_BACK" type="submit">
+                            {{ 'Correction Required'|trans }}
+                        </button>
+                        <button class="btn green" id="forward-action" name="forwardAction" data-action="ACTION_FORWARD" type="submit">
+                            {{  is_granted("ROLE_KHATIAN_APPROVAL") ? 'Approve'|trans : 'Forward'|trans  }}
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block document_ready %}
+
+    $('#forward-action, #back-action').click(function(){
+        var that = $(this);
+        bootbox.confirm("আপনি কি নিশ্চিত ?", function(result) {
+            if (result) {
+                $('#workflow-action').val(that.attr('data-action')).parents('form').submit();
+            }
+        });
+        return false;
+    });
+
+{% endblock %}

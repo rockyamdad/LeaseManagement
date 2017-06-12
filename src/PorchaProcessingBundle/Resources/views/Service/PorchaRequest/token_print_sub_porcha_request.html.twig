@@ -1,0 +1,22 @@
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        <th style="width: 100px">{{ "Survey"|trans }}</th>
+        <th style="width: 100px">{{ "Upozila"|trans }}</th>
+        <th style="width: 100px">{{ "Mouza"|trans }}</th>
+        <th style="width: 100px">{{ "Jlno"|trans }}</th>
+        <th style="width: 100px">{{ "Khatian No"|trans }}</th>
+        <th style="width: 100px">{{ "Delivery Date"|trans }}</th>
+    </tr>
+
+    {% for row in detailEntities %}
+    <tr>
+        <td>{{ row.survey.name }}</td>
+        <td>{{ row.upozila.name }}</td>
+        <td>{{ row.mouza.name }}</td>
+        <td>{{ row.jlNo|numberBanglaConvert }}</td>
+        <td>{{ row.khatianNo|numberBanglaConvert }}</td>
+        <td>{{ serviceRequest.estimateDeliveryAt|date('d-m-Y') }}</td>
+    </tr>
+    {% endfor %}
+
+</table>

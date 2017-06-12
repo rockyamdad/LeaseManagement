@@ -1,0 +1,44 @@
+{% block body %}
+    <html>
+    <head>
+        <style>
+            h2, h3{
+                text-align: center;
+                margin: 0;
+            }
+            .header{
+                height: 50px;
+                border: 0 !important;
+            }
+
+            .table-list{
+                margin: auto;
+            }
+            .table-list tbody{
+                margin-bottom: 50px;
+            }
+
+            .table-list td, .table-list th {
+                border-top: 1px solid black;
+                border-left: 1px solid black;
+                padding: 2px;
+            }
+            .table-list td:last-child, .table-list th:last-child  {
+                border-right: 1px solid black;
+            }
+
+            .table-list tr:last-child td  {
+                border-bottom: 1px solid black;
+            }
+            .table-list .empty-cell{
+                border: 0 !important;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+    {{ include('PorchaProcessingBundle:Report/TopSheet:list.html.twig') }}
+
+    </body>
+    </html>
+{% endblock %}

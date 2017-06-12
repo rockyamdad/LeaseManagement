@@ -1,0 +1,77 @@
+{% extends "metronic.html.twig" %}
+{% block title %}{{ 'SMS Setting List'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'SMS Setting List'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> {{ 'SMS Setting List'|trans }}</li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="sms-setting-list-page">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'List of SMS Setting'|trans  }}</span>
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('create_sms_setting') }}" class="btn green">
+                            <i class="fa fa-plus"></i> {{ 'Create new SMS Setting'|trans }}</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <form id="form-search" class="form-horizontal" role="form" method="post" action="" >
+                        <div class="form-body">
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <select id="month" class="form-control select2" name="ff[s.applicationType]" placeholder="{{ 'Application type'|trans }}">
+                                                {% for key,applicationType in applicationTypes %}
+                                                    <option value="{{ key }}" {{ key==appType ? 'selected':'' }}>{{ applicationType|trans }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button class="btn green" id="btn-search" data-url="{{ (search_url is defined) ? search_url : '' }}" type="button">{{ 'Search'|trans }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                    <div class='table-data'>
+                        {% include 'AppBundle:SmsSetting:sms_list_sub.html.twig' %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/office.js') }}" type="text/javascript"></script>
+{% endblock %}

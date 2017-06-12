@@ -1,0 +1,34 @@
+<div class="portlet-body">
+    <h4 class="text-center">{{ 'Khatian Entry Statistics'|trans }}</h4>
+    <table class="table table-bordered" style="margin-bottom: 5px">
+        <thead>
+        <tr>
+            <th rowspan="2" class="bg-color-1 text-center">{{ "Total"|trans }}</th>
+            <th colspan="2" class="bg-color-2 text-center">{{ "DELIVERED"|trans }}</th>
+            <th colspan="2" class="bg-color-3 text-center">{{ "PENDING"|trans }}</th>
+
+        </tr>
+        <tr>
+            <th rowspan="2" class="bg-color-1 text-center">{{ "Porcha Request"|trans }}</th>
+            <th colspan="2" class="bg-color-2 text-center">{{ "Mouza Map"|trans }}</th>
+            <th colspan="2" class="bg-color-3 text-center">{{ "Case copy"|trans }}</th>
+            <th colspan="2" class="bg-color-4 text-center">{{ "Information Slip"|trans }}</th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        {% for  type, row in serviceRequestData %}
+        <tr>
+            <td class="bg-color-1">{{ row['total']|numberBanglaConvert }}</td>
+
+          {#  <td class="bg-color-1">{{ row[type].in7Days|numberBanglaConvert }}</td>
+            <td class="bg-color-2">{{ row[type].in14Days|numberBanglaConvert }}</td>
+            <td class="bg-color-3">{{ row[type].over2Weeks|numberBanglaConvert }}</td>
+            <td class="bg-color-4">{{ row[type].total|numberBanglaConvert }}</td>#}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

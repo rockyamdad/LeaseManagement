@@ -1,0 +1,55 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th><input type="checkbox" id="chk-all" /></th>
+        <th>{{ 'No.'|trans }}</th>
+        <th>{{ 'Upozila'|trans ~ '/' ~ 'Thana'|trans }}</th>
+        <th>{{ knp_pagination_sortable(khatians, 'Mouza'|trans, 'k.mouza') }}</th>
+        <th>{{ 'J. L. No'|trans }}</th>
+        <th>{{ knp_pagination_sortable(khatians, 'Khatian No'|trans, 'k.canonicalKhatianNo') }}</th>
+        <th>{{ knp_pagination_sortable(khatians, 'Survey'|trans, 'v.survey') }}</th>
+        <th>{{ knp_pagination_sortable(khatians, 'Volume No'|trans, 'v.canonicalvolumeNo') }}</th>
+        <th>{{ 'Restricted'|trans }}</th>
+        <th> </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if khatians is not empty %}
+        {% set sl = 1 %}
+        {% for khatian in khatians %}
+            <tr>
+                <td><input type="checkbox" class="chk" name="restricted[{{ khatian.id }}]" value="1" /></td>
+                <td>{{ numberBanglaConvert(sl) }}</td>
+                <td>{{ khatian.volume.upozila.name }}</td>
+                <td>{{ khatian.mouza.name }}</td>
+                <td>{{ khatian.jlnumber.name }}</td>
+                <td>
+                    {% if khatian.reCorrection %}
+                        <i title="{{ 'sent for recorrection'|trans }}" class="fa fa-retweet font-blue"> </i>
+                    {% endif %}
+                    {{ khatian.khatianNo }}
+                </td>
+                <td>{{ khatian.volume.survey.name }}</td>
+                <td>{{ khatian.volume.volumeNo }}</td>
+                <td>
+                    {% if khatian.displayRestricted %}
+                        <a href="#" class="" title="{{ 'Non Viewable'|trans }}"> <i class="fa fa-eye-slash"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('archived_khatian', {id: khatian.id}) }}{{ '?' ~  query_params }}" class="btn blue btn-sm" title="{{ 'View'|trans }}" ><i class="fa fa-file-o"></i></a>
+                </td>
+                {% set sl = sl + 1 %}
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(khatians) }}
+</div>

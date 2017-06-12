@@ -1,0 +1,19 @@
+{% extends 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block form_help -%}
+
+    {% for attrname, attrvalue in attr %}
+        {% if attrname == 'data-help' %}
+            <span class="help-block">{{ attrvalue|raw }}</span>
+        {% endif %}
+    {% endfor %}
+
+{%- endblock form_help %}
+
+{% block form_errors -%}
+    {{ parent() }}
+    {{- block('form_help') -}}
+{%- endblock form_errors %}
+
+{% block form_label_class -%} col-sm-3 {%- endblock form_label_class %}
+{% block form_group_class -%} col-sm-9 {%- endblock form_group_class %}

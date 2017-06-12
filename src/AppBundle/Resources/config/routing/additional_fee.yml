@@ -1,0 +1,13 @@
+create_additionalfee:
+    path:     /additionalfee/new
+    defaults: { _controller: AppBundle:Settings:createAdditionalFee }
+
+additionalfee_list:
+    path:     /additionalfee/list/{appType}
+    defaults:
+        _controller: AppBundle:Settings:additionalFeeList
+        appType: 'PORCHA'
+
+update_additionalfee:
+    path:     /additionalfee/update/{id}
+    defaults: { _controller: AppBundle:Settings:createAdditionalFee }

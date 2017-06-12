@@ -1,0 +1,51 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'SL. NO'|trans }}</th>
+        {% if (appType == 'PORCHA') or (appType == 'MOUZA_MAP') %}
+            <th>{{ 'Survey Name'|trans }}</th>
+        {% endif %}
+        <th>{{ 'Fee Type'|trans }} {{ '1'|trans }}</th>
+        <th>{{ 'Fee Amount'|trans }} {{ '1'|trans }}({{ 'Tk'|trans }})</th>
+        <th>{{ 'Fee Type'|trans }} {{ '2'|trans }}</th>
+        <th>{{ 'Fee Amount'|trans }} {{ '2'|trans }}({{ 'Tk'|trans }})</th>
+        <th>{{ 'Fee Type'|trans }} {{ '3'|trans }}</th>
+        <th>{{ 'Fee Amount'|trans }} {{ '3'|trans }}({{ 'Tk'|trans }})</th>
+        <th>{{ 'Date'|trans }}</th>
+        <th>{{ 'Status'|trans }}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if additionalfees is not empty %}
+
+        {% for additionalfee in additionalfees %}
+            <tr>
+                <td>{{ loop.index |numberBanglaConvert }}</td>
+                {% if (appType == 'PORCHA') or (appType == 'MOUZA_MAP') %}
+                    <td>{{ additionalfee.survey }}</td>
+                {% endif %}
+                <td>{{ additionalfee.feeTypeKey1 }}</td>
+                <td>{{ additionalfee.feeTypeValue1 }}</td>
+                <td>{{ additionalfee.feeTypeKey2 }}</td>
+                <td>{{ additionalfee.feeTypeValue2 }}</td>
+                <td>{{ additionalfee.feeTypeKey3 }}</td>
+                <td>{{ additionalfee.feeTypeValue3 }}</td>
+                <td>{{ additionalfee.createdAt| date("d-m-Y")|trans }}</td>
+                <td><span class="badge badge-roundless badge-{{ additionalfee.active ? 'success' :  'danger' }}">{{ additionalfee.active ? 'Enable'|trans : 'Disable'|trans }}</span></td>
+                <td>
+                    <a href="{{ path('update_additionalfee', {id: additionalfee.id}) }}"
+                       class="btn btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(additionalfees) }}
+</div>

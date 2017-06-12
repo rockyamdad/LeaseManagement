@@ -1,0 +1,159 @@
+{% extends "::portal_base.html.twig" %}
+{% block body %}
+    <div class="page-container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <!-- BEGIN PORTLET-->
+                <div class="portlet light tasks-widget">
+                    <div class="portlet-title">
+                        <div class="caption caption-md">
+                            <h2 class="caption-color"><span class="caption-helper">বিস্তারিত তথ্য </span></h2>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'Case File Number'|trans }}
+                                                :</label>
+
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.caseFileNo|numberBanglaConvert }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Original Owner Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.orginalOwnerName }}</p>
+                                        </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="col-md-3 control-label">{{ 'Father Name'|trans }} :</label>
+                                        <div class="col-md-8">
+                                        <p class="margin-top-10">{{ gadget.fatherName }}</p>
+                                        </div>
+                                        </div>
+                                        {#<div class="form-group">#}
+                                        {#<label class="col-md-3 control-label">{{ 'Status'|trans }} :</label>#}
+                                        {#<div class="col-md-8">#}
+                                        {#<p class="margin-top-10">#}
+                                        {#{% if (gadget.status == 'Pending') %}#}
+                                        {#{{ 'Pending'|trans }}#}
+                                        {#{% elseif(gadget.status == 'WAITING_FOR_APPROVAL') %}#}
+                                        {#{{ 'Waiting for approval'|trans }}#}
+                                        {#{% elseif(gadget.status == 'APPROVED') %}#}
+                                        {#{{ 'Approved'|trans }}#}
+                                        {#{% else%}#}
+                                        {#{{ 'CANCELED'|trans }}#}
+                                        {#{% endif %}#}
+                                        {#</p>#}
+                                        {#</div>#}
+                                        {#</div>#}
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">{{ 'সরকার অর্জিত তারিখ' }} :</label>
+
+                                            <div class="col-md-8">
+                                                <p class="margin-top-10">{{ gadget.govtAquiredDate|date("m/d/Y")|toBanglaDate }}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-5">
+                                    <table class="table table-bordered table-striped table-condensed flip-content table-list"
+                                           style="margin-bottom: 0;margin-left: 141px; width:850px ">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ 'SA Khatian No'|trans }}</th>
+                                            <th>{{ 'SA Khatian Dag No'|trans }}</th>
+                                            <th>{{ 'RS Khatian No'|trans }}</th>
+                                            <th>{{ 'RS Khatian Dag No'|trans }}</th>
+                                            <th>{{ 'Total Amount'|trans }}</th>
+                                            <th>{{ 'Proposed Amount'|trans }}</th>
+                                            <th>{{ 'Property Type'|trans }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="dag-list">
+
+                                             {% for gadgetDetails in gadget.gadgetDetails %}
+                                            <tr>
+                                                <td>
+                                                    {% if gadgetDetails.saKhatianNo.khatianNo is defined %}
+                                                        {{ gadgetDetails.saKhatianNo.khatianNo|numberBanglaConvert }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {{ gadgetDetails.saDagNo|numberBanglaConvert }}
+                                                </td>
+                                                <td>
+                                                    {% if gadgetDetails.rsKhatianNo.khatianNo is defined %}
+                                                        {{ gadgetDetails.rsKhatianNo.khatianNo|numberBanglaConvert }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {{ gadgetDetails.rsDagNo|numberBanglaConvert }}
+                                                </td>
+                                                <td>
+                                                    {{ gadgetDetails.totalAmount|numberBanglaConvert }}
+                                                </td>
+                                                <td>
+                                                    {{ gadgetDetails.proposedAmount|numberBanglaConvert }}
+                                                </td>
+                                                <td>
+                                                    {{ gadgetDetails.propertyType }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                {% if gadgetDocx %}
+                                    <form class="form-horizontal">
+                                        <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Gadget'|trans }} {{ 'Document'|trans }} {{ 'List'|trans }}
+                                            :</h4>
+
+                                        <div class="form-group">
+
+                                            {%  set index = 1  %}
+                                            {% for gadgetDoc in gadgetDocx %}
+                                                {% if gadgetDoc.privacy == 'Public' %}
+
+                                                    <div class="col-md-9 col-md-offset-2">
+                                                        {{ index|numberBanglaConvert }}.  <a
+                                                                href="{{ asset('uploads') }}/{{ gadgetDoc.path }}">{% if gadgetDoc.type is not null  %}{{ gadgetDoc.type }} {% else %} {{ gadgetDoc.path }}{% endif %}</a>
+                                                    </div>
+                                                    {% set index = index + 1 %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-offset-2">
+                            {% if lease.status == 'ACTIVE' and lease.application == null %}
+                                <a href="{{ path('citizen_lease_apply', {'id': lease.id, 'type':lease.type}) }}" class="btn btn-primary apply" id="apply" rel="{{ lease.type }}"  title="{{ 'apply for lease'|trans }}">আবেদন করুন</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

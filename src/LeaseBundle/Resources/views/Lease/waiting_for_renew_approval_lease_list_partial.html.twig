@@ -1,0 +1,88 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'Lease Type'|trans }}</th>
+        <th>{{  'Khatian'|trans  }}</th>
+        <th>{{  'Shotangso'|trans}}</th>
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'Status'|trans}}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if leases is not empty %}
+        {% for lease in leases %}
+            <tr>
+                <td>{{  lease.bntype}}
+                </td>
+                {% if lease.khatian.khatianNo is defined%}
+                <td>{{ lease.khatian.khatianNo }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                {# WaterBody Section start  #}
+                    {#{% if lease.waterBodyDetails  %}#}
+                        {#{% set khatianDags = lease.waterBodyDetails %}#}
+                        {#<td>#}
+                            {#{% if khatianDags %}#}
+                                {#{% for khatianDag in khatianDags %}#}
+                                    {#{{ khatianDag.khatianDagNo }}{% if not loop.last %},{% endif %}#}
+                                {#{% endfor %}#}
+                            {#{% endif %}#}
+                        {#</td>#}
+                    {#{% endif %}#}
+                {# WaterBody Section End  #}
+
+                {# Market Section start  #}
+                    {#{% if lease.leaseDetails  %}#}
+                        {#{% set khatianDags = lease.waterBodyDetails %}#}
+                        {#<td>#}
+                            {#{% if khatianDags %}#}
+                                {#{% for khatianDag in khatianDags %}#}
+                                    {#{{ khatianDag.khatianDagNo }}{% if not loop.last %},{% endif %}#}
+                                {#{% endfor %}#}
+                            {#{% endif %}#}
+                        {#</td>#}
+                    {#{% endif %}#}
+                {# Market Section End  #}
+
+                <td>{{ lease.shotangso }}</td>
+                <td>{{ lease.getBnStartDate }}</td>
+                <td>{{ lease.getBnEndDate }}</td>
+                <td>
+                    {% if (lease.status == 'TERMINATED') %}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% elseif(lease.status == 'CLOSED') %}
+                        <span class="label label-primary">{{ 'Assigned'|trans }}</span>
+                    {% elseif(lease.status == 'ACTIVE') %}
+                        <span class="label label-success">{{ 'Enable'|trans }}</span>
+                    {% elseif(lease.status == 'SUSPEND') %}
+                        <span class="label label-warning">{{ 'Suspend'|trans }}</span>
+                    {% elseif(lease.status == 'WAITING_FOR_RENEW_APPROVAL') %}
+                        <span class="label label-warning">{{ 'Waiting for approval'|trans }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    {% if is_granted('ROLE_LEASE_VIEW') %}
+                            <a href="{{ path('lease_view', {'id': lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                                <i class="fa fa-list"></i>
+                            </a>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(leases) }}
+</div>

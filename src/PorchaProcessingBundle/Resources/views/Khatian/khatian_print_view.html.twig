@@ -1,0 +1,55 @@
+<!-- BEGIN PAGE CONTENT INNER -->
+<div class="row">
+    <div class="col-sm-12" id="template-view">
+
+        <div class="khatian-pages">
+
+            {% for id, khatianPage in khatianPages %}
+
+                {% if (khatianPage.data) %}
+
+                    <div class="print-page" id="print-page-{{ khatianPage.data['id'] }}">
+
+                        {% if (non_deliverables is not empty) %}
+
+                            {{ placeholderReplaceWithData(non_deliverable_template|raw, khatianPages[0].data, []) }}
+
+                            <div id="non-delv">
+                                {{ 'This Khatian is non deliveral'|trans }} |
+                                {{ 'non delivery remark'|trans }} :<br/>
+                                <ol>
+                                    {% for ndm in non_deliverables %}
+                                        <li>{{ ndm.message }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+
+                        {% else %}
+
+                            {% set qp = (query_params is defined) ? query_params : [] %}
+                            {{ placeholderReplaceWithData(khatianPage.template.body, khatianPage.data, qp) }}
+
+                        {% endif %}
+
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+            <table class="signature_area" cellpadding="5" cellspacing="5">
+
+                <tr>
+                    <td width="25%" align="center" style="font-family:nikoshBAN">নকলকারী</td>
+                    <td width="25%" align="center" style="font-family:nikoshBAN">যাচাইকারী</td>
+                    <td width="25%" align="center" style="font-family:nikoshBAN">তুলনাকারী</td>
+                    <td width="25%" align="center" style="font-family:nikoshBAN">অনুমোদনকারী</td>
+                </tr>
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<!-- END PAGE CONTENT INNER -->

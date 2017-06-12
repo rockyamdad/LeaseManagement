@@ -1,0 +1,157 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+{% block title %}{{ 'Lease assign'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Lease assign'|trans }}</h1>{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Lease assign'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="fileupload" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+
+                            <div class="form-group {{ form_errors(form.chalanNo) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'chalanNo'|trans }}</label>
+                                <div class="col-md-3">
+                                    {{ form_widget(form.chalanNo) }}
+                                    <span class="help-block">{{ form_errors(form.chalanNo) }}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required col-md-5">{{ 'chalanDate'|trans }}</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium"
+                                         data-date-viewmode="years">
+                                        {{ form_widget(form.chalanDate,{'attr':{'class':'date2','readonly':'readonly'}} ) }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group {{ form_errors(form.chalanAmount) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'chalanAmount'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.chalanAmount) }}
+                                    <span class="help-block">{{ form_errors(form.chalanAmount) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.nothiNo) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'nothiNo'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.nothiNo) }}
+                                    <span class="help-block">{{ form_errors(form.nothiNo) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.bank) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'bank'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.bank) }}
+                                    <span class="help-block">{{ form_errors(form.bank) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.branch) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label required">{{ 'branch'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.branch) }}
+                                    <span class="help-block">{{ form_errors(form.branch) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ form_errors(form.remarks) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label ">{{ 'Remarks'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.remarks) }}
+                                    <span class="help-block">{{ form_errors(form.remarks) }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Document'|trans }}</label>
+                                <div class="col-md-9">
+                                        <div class="wrapper">
+                                            <div id="register" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                        </div>
+                                        <div class="wrapper"><br>
+                                                <label id="selected_doc_file3" class="selectedFileClass"><ol>
+                                                        {% for document in documents %}
+                                                            <li>{% if document.type is not null  %}{{ document.type }} {% else %} {{ document.path }}{% endif %}<a class="remove remove-old" ref="{{ document.id }}"><span>x</span></a></li>
+                                                        {% endfor %}
+                                                    </ol></label>
+                                            <br>
+                                        </div>
+
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple btn-sm col-md-offset-2" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/leaseAssign.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+{% endblock %}
+
+

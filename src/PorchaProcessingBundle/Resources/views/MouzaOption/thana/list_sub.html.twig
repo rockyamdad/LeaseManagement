@@ -1,0 +1,33 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(thanas, 'Name'|trans, 't.name') }}</th>
+            <th>{{ knp_pagination_sortable(thanas, 'District'|trans, 'd.name') }}</th>
+            <th width="120">{{ 'Approved'|trans }}</th>
+            <th width="50"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if thanas is not empty %}
+            {% for thana in thanas %}
+                <tr>
+                    <td>{{ thana.name }}</td>
+                    <td>{{ thana.district.name }}</td>
+                    <td>{{ thana.approved ? 'Yes'|trans : 'Approval needed'|trans }}</td>
+                    <td>
+                        <a href="{{ path('thana_update', {id: thana.id}) }}" class="btn blue btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="6">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(thanas) }}
+</div>

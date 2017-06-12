@@ -1,0 +1,7 @@
+{#{% extends '::base-login.html.twig' %}#}
+
+{% block title %}{{ 'User Password Reset'|trans }} {% endblock %}
+
+{% block fos_user_content %}
+    {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock fos_user_content %}

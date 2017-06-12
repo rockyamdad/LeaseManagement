@@ -1,0 +1,167 @@
+{% extends "preview.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+
+    <style>
+        body{
+            font-size: 12px;
+            line-height: 14px;
+        }
+
+        td{
+            vertical-align: top;
+        }
+
+        /*table.table td, table.table th {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            padding: 2px;
+        }
+        table.table td:last-child, table.table th:last-child  {
+            border-right: 1px solid black;
+        }
+
+        table.table tr:last-child td  {
+            border-bottom: 1px solid black;
+        }*/
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table" cellspacing="0" cellpadding="0" style="width: 600px; border-top: 1px black solid; border-bottom: 1px black solid">
+        <tr>
+            <td colspan="4" style="text-align: center; border-bottom: black 1px solid">
+                <strong>জেলাজেলা প্রশাসকের কার্যালয়, {{ office.name }}</strong> <br>
+                <span style="text-decoration: underline;">আবেদনের গ্রহণ রশিদ</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="50%" valign="top">
+                <table width="100%">
+                    <tr>
+                        <td width="50%">গ্রহণ কাউন্টার :</td><td width="50%">{{ serviceRequest.office.type == 'UDC' ? serviceRequest.office.name : serviceRequest.requestFrom|trans }}</td>
+                    </tr>
+                    <tr>
+                        <td>আবেদন নং :</td><td>{{ serviceRequest.id }}</td>
+                    </tr>
+                    <tr>
+                        <td>আবেদনের তারিখ :</td><td>{{ serviceRequest.createdAt|toBanglaDate }}</td>
+                    </tr>
+                    <tr>
+                        <td>আবেদনের ধরন :</td><td>{{ serviceRequest.type|trans }}</td>
+                    </tr>
+                    {% if serviceRequest.type in ['PORCHA_REQUEST', 'MOUZA_MAP'] %}
+                        <tr>
+                            <td>{{ "Serivce Type"|trans }} :</td><td>{{ detail.survey.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "District"|trans }} :</td><td>{{ detail.district.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Upozila"|trans }} :</td><td>{{ detail.upozila.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Mouza"|trans }} :</td><td>{{ detail.mouza.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "J. L. No"|trans }}</td><td>{{ detail.jlNo|numberBanglaConvert }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if serviceRequest.type == 'PORCHA_REQUEST' %}
+                        <tr>
+                            <td>{{ "Khatian No"|trans }} :</td><td>{{ detail.khatianNo|numberBanglaConvert }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if serviceRequest.type == 'MOUZA_MAP' %}
+                        <tr>
+                            <td>{{ "Sheet No"|trans }} :</td><td>{{ detail.sheetNo|numberBanglaConvert }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Dager Number"|trans }} :</td><td>{{ detail.dagNo|numberBanglaConvert }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if serviceRequest.type == 'CASE_COPY' %}
+                        <tr>
+                            <td>{{ "Plaintiff defendant"|trans }} :</td><td>{{ detail.plaintiffDefendant }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Lawyer name"|trans }} :</td><td>{{ detail.lawyerName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Case no"|trans }} :</td><td>{{ detail.caseNo }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Court name"|trans }} :</td><td>{{ detail.courtName }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if serviceRequest.type == 'INFORMATION_SLIP' %}
+                        <tr>
+                            <td>বিস্তারিত</td><td>{{ serviceRequest.description|nl2br }}</td>
+                        </tr>
+                    {% endif %}
+
+                </table>
+            </td>
+            <td width="50%" valign="top">
+                <table width="100%">
+                    <tr>
+                        <td width="50%">বিতরনের তারিখ</td><td width="50%">{{ serviceRequest.estimateDeliveryAt|toBanglaDate }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Applicant Name"|trans }} :</td><td>{{ serviceRequest.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Applicant Mobile"|trans }} :</td><td>{{ serviceRequest.contactNumber }}</td>
+                    </tr>
+                    {% if serviceRequest.nid is not empty %}
+                    <tr>
+                        <td>{{ "Nid"|trans }} :</td><td>{{ serviceRequest.nid }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if serviceRequest.email is not empty %}
+                    <tr>
+                        <td>ইমেইল </td><td>{{ serviceRequest.email }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{{ "Fee Amount"|trans }}</strong></td><td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Court Fee"|trans }} :</td><td>{{ serviceRequest.courtFee|numberBanglaConvert }}</td>
+                    </tr>
+                    {% if serviceRequest.deliveryMethod == 'POSTAL' %}
+                    <tr>
+                        <td>{{ "Delivery Fee"|trans }} :</td><td>{{ serviceRequest.deliveryFee|numberBanglaConvert }}</td>
+                    </tr>
+                    {% endif %}
+                    {% for fee in additionalFee %}
+                        <tr>
+                            <td>{{ fee.name }} :</td><td>{{ fee.amount|numberBanglaConvert }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><strong>{{ "Total"|trans }}</strong></td><td>{{ serviceRequest.totalFee|numberBanglaConvert }}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        {#<tr><td style="width: 100px">{{ "Applicant Name"|trans }}</td><td>{{ serviceRequest.name }}</td></tr>
+        <tr><td>{{ "Request ID"|trans }}</td><td>{{ serviceRequest.id }}</td></tr>
+        <tr><td>{{ "Delivery Type"|trans }}</td><td>{{ serviceRequest.urgency|trans }}</td></tr>
+        <tr><td>{{ "Survey"|trans }}</td><td>{{ porcha.survey.name }}</td></tr>
+        <tr><td>{{ "Upozila"|trans }}</td><td>{{ porcha.upozila.name }}</td></tr>
+        <tr><td>{{ "Mouza"|trans }}</td><td>{{ porcha.mouza.name }}</td></tr>
+        <tr><td>{{ "Jlno"|trans }}</td><td>{{ porcha.jlNo|numberBanglaConvert }}</td></tr>
+        <tr><td>{{ "Khatian No"|trans }}</td><td>{{ porcha.khatianNo|numberBanglaConvert }}</td></tr>
+        <tr><td height="50">{{ "Token Provider <br>and Signature"|trans|raw }}</td><td></td></tr>#}
+    </table>
+
+{% endblock %}

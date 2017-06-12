@@ -1,0 +1,180 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header">
+    <thead>
+    <tr class="uppercase">
+        {% if hide_checkbox is not defined  %}
+            <th><input type="checkbox" id="chk-all" /></th>
+        {% endif %}
+        <th>{{ 'No.'|trans }}</th>
+        <th>
+            {{ knp_pagination_sortable(khatianLogs, 'Thana'|trans, 'u.name') }}/
+            {{ knp_pagination_sortable(khatianLogs, 'Upozila'|trans, 'u.name') }}
+        </th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Mouza'|trans, 'm.name') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'J. L'|trans, 'j.name') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Khatian No'|trans, 'k.canonicalKhatianNo') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Survey'|trans, 's.name') }}</th>
+        <th>{{ knp_pagination_sortable(khatianLogs, 'Volume No'|trans, 'v.canonicalvolumeNo') }}</th>
+
+        {% if tab == 'SENT_KHATIANS' %}
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        {% if tab == 'RE_ASSIGNED_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        {% if tab == 'VERIFY_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+        {% endif %}
+        {% if tab == 'COMPARE_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+        {% endif %}
+        {% if tab == 'APPROVE_NEW_KHATIANS' %}
+            <th>{{ 'Entry Operator'|trans }}</th>
+            <th>{{ 'Verifier'|trans }}</th>
+            <th>{{ 'Comparer'|trans }}</th>
+        {% endif %}
+        <th style="width: 200px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if khatianLogs is not empty %}
+
+        {% for index, log in khatianLogs %}
+        <tr>
+            {% if hide_checkbox is not defined  %}
+                <td><input type="checkbox" class="chk" name="chk[{{ log.id }}]" value="1" /></td>
+            {% endif %}
+            <td>{{ numberBanglaConvert((khatianLogs.getCurrentPageNumber - 1) * khatianLogs.getItemNumberPerPage + index + 1) }}</td>
+            <td>{{ (log.khatianVersion.khatian.volume.thana) ? log.khatianVersion.khatian.volume.thana.name : (log.khatianVersion.khatian.volume.upozila) ? log.khatianVersion.khatian.volume.upozila.name : 'N/A'|trans }}</td>
+            <td>{{ log.khatianVersion.khatian.mouza ? log.khatianVersion.khatian.mouza.name : 'N/A' }}</td>
+            <td>{{ log.khatianVersion.khatian.jlnumber ? log.khatianVersion.khatian.jlnumber.name : 'N/A' }}</td>
+            <td>
+                {% if log.khatianVersion.khatian.reCorrection %}
+                    <i title="{{ 'sent for recorrection'|trans }}" class="fa fa-retweet font-blue"> </i>
+                {% endif %}
+                {{ log.khatianVersion.khatian.khatianNo }}
+            </td>
+            <td>{{ log.khatianVersion.khatian.volume.survey.name }}</td>
+            <td>{{ log.khatianVersion.khatian.volume.volumeNo }}</td>
+            {% if tab == 'SENT_KHATIANS' %}
+                <td>{{ log.khatianStatusView }}</td>
+                <td>
+                    {% if (log.verifier) %}
+                        {{ log.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.comparer) %}
+                        {{ log.comparer.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'RE_ASSIGNED_KHATIANS' %}
+                <td>
+                    {% if (log.entryOperator) %}
+                        {{ ((current_user == log.entryOperator) ? 'Self'|trans : log.entryOperator.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(log.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.verifier) %}
+                        {{ ((current_user == log.verifier) ? 'Self'|trans : log.verifier.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(log.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.comparer) %}
+                        {{ ((current_user == log.comparer) ? 'Self'|trans : log.comparer.profile.fullNameEn) }}
+                        <br/>{{ numberBanglaConvert(log.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'VERIFY_NEW_KHATIANS' %}
+                <td>
+                    {% if (log.entryOperator) %}
+                        {{ log.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'COMPARE_NEW_KHATIANS' %}
+                <td>
+                    {% if (log.entryOperator) %}
+                        {{ log.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.verifier) %}
+                        {{ log.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if tab == 'APPROVE_NEW_KHATIANS' %}
+                <td>
+                    {% if (log.entryOperator) %}
+                        {{ log.entryOperator.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.entryAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.verifier) %}
+                        {{ log.verifier.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.verifiedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if (log.comparer) %}
+                        {{ log.comparer.profile.fullNameEn }}
+                        <br/>{{ numberBanglaConvert(log.comparedAt|date('d/m/Y')) }}
+                    {% else %}
+                        {{ '-' }}
+                    {% endif %}
+                </td>
+            {% endif %}
+            <td style="text-align: left">
+                <div class="btn-group">
+                    {{ menu.render(log)|raw }}
+                </div>
+            </td>
+
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="15">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(khatianLogs) }}
+</div>

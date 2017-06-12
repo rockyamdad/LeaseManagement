@@ -1,0 +1,36 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ knp_pagination_sortable(groups, 'Name'|trans, 'g.name') }}</th>
+        <th>{{ 'Description'|trans }}</th>
+        <th width="100px">{{ 'Action'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if groups is not empty %}
+        {% for group in groups %}
+            <tr>
+                <td>{{ group.name }}</td>
+                <td>{{ group.description }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn blue btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{ 'Action'|trans }} <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ path('group_update', {id: group.id}) }}">{{ 'Edit'|trans }}</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="2">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(groups) }}
+</div>

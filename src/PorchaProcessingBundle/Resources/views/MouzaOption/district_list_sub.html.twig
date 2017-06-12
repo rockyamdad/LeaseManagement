@@ -1,0 +1,32 @@
+<div class=""><br/>
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(districts, 'District'|trans, 'd.name') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if districts is not empty %}
+            {% for district in districts %}
+                <tr>
+                    <td>{{ district.name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="1">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% if (districts.getTotalItemCount) %}
+    <div class="count">
+        {{ 'Total Record Count'|trans ~ ' : ' ~ districts.getTotalItemCount }}
+    </div>
+{% endif %}
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(districts) }}
+</div>

@@ -1,0 +1,145 @@
+<div class="visible-print">
+{% if app.user.office %}
+    <div class="text-center">
+        <h4>{{ app.user.office.name }}, {{ app.user.office.district.name }}</h4>
+        <h4>{{ 'Application Receive Register'|trans }}</h4>
+        <h4>{{ app.user.office.getOfficeTypeName|trans }}</h4>
+
+    </div>
+{% endif %}
+{{ 'No of Application'|trans }} : {{ serviceRequest.getTotalItemCount|numberBanglaConvert }}
+{% if app.request.get('ff[sr.createdAt]', '', true) %}
+    <div class="text-center">
+        <h4>{{ "Date"|trans }} : {{ app.request.get('ff[sr.createdAt]', '', true)|toBanglaDate }}</h4>
+
+    </div>
+{% endif %}
+</div>
+<div class="row list-separated hidden-print">
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {{ "Till Today"|trans }}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.WEB|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.total.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            {% if "now"|date('Y-m-d') == app.request.query.get("ff[sr.createdAt]", null, true) %}
+                {{ "Today"|trans }}
+            {% else %}
+                {{ "On This Date"|trans }}
+            {% endif %}
+            <div class="font-grey-mint font-sm">
+                {{ app.request.query.get("ff[sr.createdAt]", "now"|date('Y-m-d'), true)|toBanglaDate }}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Office Counter"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.DIRECT|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "Web"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.WEB|numberBanglaConvert }}</div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="font-grey-mint font-sm">{{ "UDC"|trans }}</div>
+            <div class="uppercase font-hg font-blue-sharp">{{ statistics.today.UDC|numberBanglaConvert }}</div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped table-condensed flip-content table-list sticky-header" border="1" style="margin-bottom: 0" width="100%">
+    <thead>
+    <tr class="uppercase">
+        <th width="20%">{{ "Sl No."|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Request ID'|trans, 'sr.id') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Recipient'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Applicant Name'|trans, 'sr.name') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Applicant Mobile'|trans, 'sr.contactNumber') }}</th>
+        <th width="50%">{{ "Plaintiff defendant"|trans }}</th>
+        <th width="50%">{{ "Case no"|trans }}</th>
+        <th width="50%">{{ "Delivery method"|trans }}</th>
+        <th width="50%">{{ "Court Fee"|trans }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Applicatin Date'|trans, 'sr.createdAt') }}</th>
+        <th width="50%">{{ knp_pagination_sortable(serviceRequest, 'Delivery Date'|trans, 'sr.estimateDeliveryAt') }}</th>
+        <th width="50%">{{ 'Status'|trans }}</th>
+        <th width="65%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if serviceRequest is not empty %}
+        {% for index, cp in serviceRequest %}
+            {% set sr = cp.serviceRequest %}
+            <tr id="row-{{ sr.id }}">
+                <td>{{ numberBanglaConvert((serviceRequest.getCurrentPageNumber - 1) * serviceRequest.getItemNumberPerPage + index + 1) }}</td>
+                <td><span{% if sr.urgency == 'URGENT' %} class="fa fa-star" title="{{ 'Urgent'|trans }}"{% endif %}>{{ sr.id|numberBanglaConvert }}</span></td>
+                <td>
+                    {% if sr.requestFrom|upper == 'WEB' %}
+                        {{ 'Web'|trans }}
+                    {% elseif sr.requestFrom|upper == 'UDC' %}
+                        {{ sr.office.name }}<br/>
+                        {% if sr.createdBy.profile is defined %}{{ sr.createdBy.profile.fullNameBn }}{% endif %}
+                    {% else %}
+                        {% if sr.createdBy.profile is defined %}{{ sr.createdBy.profile.fullNameBn }}{% endif %}
+                    {% endif %}
+                </td>
+                <td>{{ sr.name }}</td>
+                <td>{{ sr.contactNumber }}</td>
+                <td>{{ cp.plaintiffDefendant|nl2br }}</td>
+                <td>{{ cp.caseNo }}</td>
+                <td>{{ sr.deliveryMethod|trans }}</td>
+                <td>{{ sr.courtFee }}</td>
+                <td>{{ sr.createdAt|date('d/m/Y')|numberBanglaConvert }}</td>
+                <td>{{ sr.estimateDeliveryAt ? sr.estimateDeliveryAt|date('d/m/Y')|numberBanglaConvert : '' }}</td>
+                <td><span class="label {{ sr.statusLabelColor }}">{{ sr.status|trans }}</span></td>
+                <td>
+                    <div class="width90px">
+                        <a class="btn blue btn-sm compact-btn" href="{{ path('case_copy_view', {id: sr.id}) }}" title="{{ 'application'|trans }} {{ 'View'|trans }}"><i class="fa fa-file"></i></a>
+                        {% if sr.status == 'PENDING' %}
+                            <a class="btn blue btn-sm compact-btn" href="{{ path('case_copy_edit', {id: sr.id}) }}" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                        {% endif %}
+                        {% if sr.status == 'PENDING' and is_granted('ROLE_START_SERVICE_REQUEST') %}
+                            <a class="btn blue btn-sm compact-btn processing-confirmation" href="{{ path('case_copy_update_delivery_status', {id: sr.id}) }}" title="{{ 'Start Processing'|trans }}">
+                                <i class="fa fa-play-circle"></i>
+                            </a>
+                        {% endif %}
+                        {% if this_office is defined and this_office.type|upper == 'DC' %}
+                            {% if sr.status == 'PROCESSING' and is_granted('ROLE_COMPLETE_SERVICE_REQUEST') %}
+                                <a class="btn blue btn-sm compact-btn ready-for-delivery" href="{{ path('case_copy_update_delivery_status', {id: sr.id}) }}" title="{{ 'Processing Complete'|trans }}">
+                                    <i class="fa fa-check-circle"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        {% if sr.status == 'READY_FOR_DELIVERY' and is_granted('ROLE_DELIVER_SERVICE_REQUEST') %}
+                            <a class="btn blue btn-sm compact-btn delivery-confirmation" data-app-id="{{ sr.id }}" data-app-name="{{ sr.name }}" href="{{ path('case_copy_update_delivery_status', {id: sr.id}) }}" title="{{ 'Ready For Delivery'|trans }}">
+                                <i class="fa fa-paper-plane"></i>
+                            </a>
+                        {% endif %}
+                        <a target="_blank" class="btn blue btn-sm compact-btn" href="{{ path('case_copy_print', {id: sr.id}) }}" title="{{ 'delivery slip'|trans }}"><i class="fa fa-ticket"></i></a>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="16">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(serviceRequest) }}
+</div>

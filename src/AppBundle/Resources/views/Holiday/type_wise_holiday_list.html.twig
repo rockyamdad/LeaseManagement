@@ -1,0 +1,52 @@
+{% extends "modal.html.twig" %}
+
+{% block modal_title %}
+    {{ 'Govt Leave'|trans }}
+{% endblock %}
+
+{% block modal_content %}
+   {#{{ dump(holidays) }}#}
+    <table class="table table-bordered table-striped table-condensed flip-content table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ 'SL. NO'|trans }}</th>
+            <th>{{ 'Date of Holiday'|trans }}</th>
+            <th>{{ 'Type of Holiday'|trans }}</th>
+            <th>{{ 'Name of Holiday'|trans }}</th>
+            <th>{{ 'Name of Day'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if holidays is not empty %}
+
+            {% for holiday in holidays %}
+                <tr>
+                    <td>{{ loop.index |numberBanglaConvert }}</td>
+                    <td>{{ holiday.date| date("d-m-Y")|numberBanglaConvert }}</td>
+                    <td>
+                        {% if holiday.type == 'WEEK_LEAVE' %}
+                            <span class="label bg-green">{{ 'Week Leave'|trans }}</span>
+                        {% elseif holiday.type == 'GOV_LEAVE' %}
+                            <span class="label bg-yellow">{{ 'Govt Leave'|trans }}</span>
+                        {% elseif holiday.type == 'CEO_LEAVE' %}
+                            <span class="label bg-purple">{{ 'CEO Leave'|trans }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if holiday.title == 'WEEK_LEAVE' %}
+                            {{ 'Week Leave'|trans }}
+                        {% else %}
+                            {{ holiday.title }}
+                        {% endif %}
+                    </td>
+                    <td>{{ holiday.date| date("l")|trans }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="9">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

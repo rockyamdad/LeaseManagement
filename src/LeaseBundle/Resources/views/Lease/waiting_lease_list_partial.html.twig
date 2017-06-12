@@ -1,0 +1,97 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    <tr class="uppercase">
+        <th>{{  'Lease Type'|trans }}</th>
+        <th>{{  'Khatian'|trans }}</th>
+        <th>{{  'Khatian dag No'|trans }}</th>
+        <th>{{  'Mouza'|trans }}</th>
+        <th>{{  'Lease Start Date'|trans}}</th>
+        <th>{{  'Lease End Date'|trans}}</th>
+        <th>{{  'Status'|trans}}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if leases is not empty %}
+        {% for lease in leases %}
+            <tr>
+                <td>{{ lease.Bntype }}</td>
+                <td>{{ lease.khatian.khatianNo }}</td>
+
+                    {% if lease.marketDetail %}
+                        <td>{{ lease.marketDetail.khatianDagNo }}</td>
+                    {% elseif lease.waterBodyDetails %}
+                        <td>
+                            {% for waterBodyDetail in lease.waterBodyDetails %}
+                                {{ waterBodyDetail.khatianDagNo }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endif %}
+
+                <td>{{ lease.khatian.mouza }}</td>
+                <td>{{ lease.getBnStartDate }}</td>
+                <td>{{ lease.getBnEndDate }}</td>
+                <td>
+                    {% if (lease.status == 'TERMINATED') %}
+                        <span class="label label-danger">{{ 'CANCELED'|trans }}</span>
+                    {% elseif(lease.status == 'CLOSED') %}
+                        <span class="label label-primary">{{ 'Assigned'|trans }}</span>
+                    {% elseif(lease.status == 'ACTIVE') %}
+                        <span class="label label-success">{{ 'Enable'|trans }}</span>
+                    {% elseif(lease.status == 'SUSPEND') %}
+                        <span class="label label-warning">{{ 'Suspend'|trans }}</span>
+                    {% elseif(lease.status == 'CORRECTION') %}
+                        <span class="label label-warning">{{ 'Correction'|trans }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% set currentPath = path(app.request.attributes.get('_route'),
+                    app.request.attributes.get('_route_params')) %}
+                    {% if is_granted('ROLE_PREVIOUS_LEASE_EDIT') and currentPath == '/lease/waiting-list'  and lease.type !='WaterBody' %}
+                        <a class="btn btn-lg" href="{{ path('previous_market_body_lease_update', {id: lease.id}) }}" title="{{ 'Edit'|trans }}" >
+                            <i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_PREVIOUS_LEASE_EDIT') and currentPath == '/lease/waiting-list' and lease.type =='WaterBody' %}
+                        <a class="btn btn-lg" href="{{ path('previous_water_body_lease_update', {id: lease.id}) }}" title="{{ 'Edit'|trans }}" >
+                            <i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_LEASE_EDIT') and lease.applicationStatus() == 0 and currentPath == '/lease/open-list' %}
+                        <a class="btn btn-lg" href="{{ path('lease_update', {id: lease.id}) }}" title="{{ 'Edit'|trans }}" >
+                            <i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_MARKET_LEASE_EDIT') and lease.applicationStatus() == 0 and currentPath == '/lease/market-open-list' %}
+                        <a class="btn btn-lg" href="{{ path('market_lease_update', {id: lease.id}) }}" title="{{ 'Edit'|trans }}" >
+                            <i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_LEASE_ADD_TO_PORTAL') and lease.status == 'TERMINATED' %}
+                        <a href="{{ path('lease_add_portal', {'id': lease.id}) }}" class="btn btn-lg"  title="{{ 'Add To Portal'|trans }}">
+                            <i class="fa fa-send"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_LEASE_VIEW') %}
+                        {% if(currentPath == '/lease/waiting-list') %}
+                            <a href="{{ path('lease_view', {'id': lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('lease_view', {'id': lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(leases) }}
+</div>

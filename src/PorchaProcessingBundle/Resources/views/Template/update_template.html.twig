@@ -1,0 +1,155 @@
+{% extends "PorchaProcessingBundle::layout.html.twig" %}
+
+{% block title %}{{ 'Khatian Templates'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Khatian Templates'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('template_dc_office_template_list') }}">{{ 'List of Templates'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        {% if template.id %}
+            <li class="active"> {{ 'Edit'|trans }} </li>
+        {% else %}
+            <li class="active"> {{ 'Create'|trans }} </li>
+        {% endif %}
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Khatian Entry Template'|trans }} {{ template.id ? 'Edit'|trans : 'Create'|trans }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class="row">
+                        <div class="col-md-12" id="template-view">
+                            <form id="form-update-template" class="form-horizontal" role="form" method="post" action="{{ form_action }}">
+                                <div class="form-body">
+                                    <div class="form-group {{ form_errors(form.survey) != '' ? 'has-error' : '' }}">
+                                        <label class="col-md-2 control-label">{{ 'Survey Name'|trans }} <span aria-required="true" class="required"> * </span></label>
+                                        <div class="col-md-5">
+                                            {{ form_widget(form.survey) }}
+                                            <span class="help-block">{{ form_errors(form.survey) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{ 'Template Type'|trans }}</label>
+                                        <div class="col-md-5">
+                                            {{ form_widget(form.type) }}
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group {{ form_errors(form.name) != '' ? 'has-error' : '' }}">
+                                        <label class="col-md-2 control-label">{{ 'Template Name'|trans }} <span aria-required="true" class="required"> * </span></label>
+                                        <div class="col-md-5">
+                                            {{ form_widget(form.name) }}
+                                            <span class="help-block">{{ form_errors(form.name) }}</span>
+                                        </div>
+                                    </div>
+                                    {% if template.id %}
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                            <a href="{{ path('template_preview_template', {'id': template.id}) }}" target="_blank">{{ 'Print view Template'|trans }}</a> |
+                                            <a href="{{ path('template_view_template', {id: template.id}) }}" target="_blank">{{ 'Entry view Template'|trans }}</a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="form-group">
+                                        {{ form_widget(form.body, { 'id': 'editorContent'}) }}
+                                    </div>
+                                    {{ form_row(form._token) }}
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">{{ 'Template Reference'|trans }}</label>
+                                        <div class="col-md-5">
+                                            <button style="width: 50%; background-color:#adadad;color: #fff"  class="btn default" id="fileinput-new">{{ 'Select'|trans }}</button>
+                                            <div id="selected_doc_file1"></div>
+                                        </div>
+                                    </div>
+                                    {% if(template.templateReference) %}
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2"></label>
+                                        <div class="col-md-5">
+                                            <a target="_blank" href="/{{ template.uploadDir }}/{{ template.templateReference }}">{{ 'Template Reference'|trans }} {{ 'View'|trans}} </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.approved is defined %}
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">{{ 'Approved'|trans }}</label>
+                                            <div class="col-md-5">
+                                                {{ form_widget(form.approved) }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="form-actions right">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {% if template.id is null %}
+                                                    <button class="btn green" type="submit">{{ 'New'|trans }} {{ 'Create'|trans }}</button>
+                                                {% else %}
+                                                    {% if is_editable %}
+                                                        <button class="btn green" type="submit">{{ 'Edit'|trans }}</button>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <hr/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/rajax.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/placeholder.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/porchaprocessing/js/template.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/template-style.css') }}"/>
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    CKEDITOR.replace( 'editorContent', {
+
+        contentsCss: '/assets/ckeditor/custom.css',
+        height: '500px'
+    });
+    Placeholder.init({{ getPlaceHolders()|json_encode|raw }});
+
+    new SFileInput('doc_file',{
+    button:'fileinput-new',
+    allowedType:'image|document|archive',
+    selectedFileLabel:'selected_doc_file1',
+    multipleFile:false,
+    {#maximum: 2,#}
+    selectedFileClass:'selectedFileClass',
+    });
+{% endblock %}

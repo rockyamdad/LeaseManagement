@@ -1,0 +1,79 @@
+{% extends '::modal.html.twig' %}
+
+{% block modal_content %}
+    <!-- BEGIN FORM-->
+    <div class="form">
+        <form action="{{ form_action }}" id="modal-form" method="post" class="form-horizontal">
+            {% if form_errors(form) is not empty %}
+                {{ form_errors(form) }}
+            {% endif %}
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'Khatian No'|trans }}: </label>
+                    <div class="col-md-6">
+                        {{ form_widget(form.khatianNo) }}
+                        <span class="help-block">{{ form_errors(form.khatianNo) }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'District'|trans }}: </label>
+                    <div class="col-md-6">
+                        <p class="form-control-static">
+                            {{ volume.district.name }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'Upozila'|trans }}: </label>
+                    <div class="col-md-6">
+                        <p class="form-control-static">
+                            {{ (volume.upozila) ? volume.upozila.name : 'N/A' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'Thana'|trans }}: </label>
+                    <div class="col-md-6">
+                        <p class="form-control-static">
+                            {{ (volume.thana) ? volume.thana.name : 'N/A' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'Mouza'|trans }}: </label>
+                    <div class="col-md-6">
+                        {{ form_widget(form.mouza) }}
+                        <span class="help-block">{{ form_errors(form.mouza) }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'J. L. No'|trans }}: </label>
+                    <div class="col-md-6">
+                        {{ form_widget(form.jlnumber) }}
+                        <span class="help-block">{{ form_errors(form.jlnumber) }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ 'Additional Page'|trans }}: </label>
+                    <div class="col-md-6">
+                        {{ form_widget(form.page1Additional) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_row(form.volume) }}
+            {{ form_row(form._token) }}
+        </form>
+    </div>
+    <!-- END FORM-->
+
+{% endblock %}
+
+{% block modal_title %}
+    {{ 'New Khatian'|trans }}
+{% endblock %}
+
+{% block modal_button %}
+    {{ parent() }}
+    <button type="submit" class="btn green" id="btn-new-khatian-submit" data-url="">{{ 'Submit'|trans }}</button>
+{% endblock %}
+

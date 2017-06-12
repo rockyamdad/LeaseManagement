@@ -1,0 +1,41 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'SL. NO'|trans }}</th>
+
+        <th>{{ 'New Application'|trans }}</th>
+        <th>{{ 'Delivery Date Change'|trans }}</th>
+        <th>{{ 'Date'|trans }}</th>
+        <th>{{ 'Status'|trans }}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if smssettings is not empty %}
+
+        {% for smssetting in smssettings %}
+            <tr>
+                <td>{{ loop.index |numberBanglaConvert }}</td>
+
+                <td>{{ smssetting.newApplicationMessage }}</td>
+                <td>{{ smssetting.deliveryChangeMessage }}</td>
+                <td>{{ smssetting.createdAt| date("Y-m-d")|trans }}</td>
+                <td><span class="badge badge-roundless badge-{{ smssetting.active ? 'success' :  'danger' }}">{{ smssetting.active ? 'Enable'|trans : 'Disable'|trans }}</span></td>
+                <td>
+                    <a href="{{ path('update_sms_setting', {id: smssetting.id}) }}"
+                       class="btn btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    {#<a href="{{ path('delete_smssetting', {id: smssetting.id}) }}"
+                    class="btn btn-sm" title="{{ 'Delete'|trans }}"><i class="fa fa-times"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(smssettings) }}
+</div>

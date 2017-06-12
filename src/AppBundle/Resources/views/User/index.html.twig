@@ -1,0 +1,111 @@
+{% extends "metronic.html.twig" %}
+{% import 'macros.html.twig' as macro %}
+
+{% set filter = app.request.get('role') ? app.request.get('role') : false %}
+
+{% block title %}{{ filter ? (filter ~ 's')|capitalize : 'Users' }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>Users List</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">Dashboard</a><i class="fa fa-circle"></i>
+        </li>
+        {% if filter %}
+        <li>
+            <a href="{{ path('users_list_all') }}">Users</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ filter|title }}
+        </li>
+        {% else %}
+        <li class="active"> Users</li>
+        {% endif %}
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">List of {{ filter ? filter ~ 's' : 'users' }}</span>
+
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="javascript:;" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user"></i> Filter <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{{ path('users_list_by_role', {'role': 'dc_admin'}) }}"> <i class="fa fa-user font-blue-hoki"></i> DC Admin </a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('users_list_all') }}"> <i class="fa fa-ban"></i> Remove filter </a></li>
+                            </ul>
+                        </div>
+                        <a href="{{ path('admin_user_create') }}" class="btn btn-circle red-sunglo">
+                            <i class="fa fa-plus"></i> Create User</a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase text-center">
+                                    <th>{{ sylius_resource_sort('username', 'Username') }}</th>
+                                    <th>{{ sylius_resource_sort('firstName', 'Name') }}</th>
+                                    <th>{{ sylius_resource_sort('designation', 'Designation') }}</th>
+                                    <th>Type</th>
+                                    <th class="text-center">Enabled</th>
+                                    <th>{{ sylius_resource_sort('lastLogin', 'Last login') }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.firstName }} {{ user.lastName }}</td>
+                                    <td>{{ user.designation }}</td>
+                                    <td>
+                                        {% if 'ROLE_SUPER_ADMIN' in user.roles %}
+                                        <span class="label bg-blue-hoki"> SUPER </span>
+                                        {% elseif 'ROLE_DC_ADMIN' in user.roles %}
+                                        <span class="label bg-blue-madison"> DC </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if user.enabled %}
+                                            <i class="fa fa-check font-green-meadow"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.lastLogin ? user.lastLogin.format('H:i d M, Y ') : 'Never!' }}</td>
+                                    <td class="text-right">
+                                            <a href="{{ path('user_profile', {'id': user.id}) }}" class="btn btn-sm btn-default">
+                                                <i class="fa fa-pencil"></i> Profile</a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3">
+                                            <span class="font-red-sunglo">No {{ filter ? filter ~ 's' : 'user' }} so far!</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div class="text-center margin-top-20 margin-bottom-20">
+                            {{ macro.pagination(users, {}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

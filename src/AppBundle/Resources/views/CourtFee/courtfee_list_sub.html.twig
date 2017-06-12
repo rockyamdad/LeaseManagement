@@ -1,0 +1,45 @@
+<table class="table table-bordered table-striped table-condensed flip-content table-list">
+    <thead>
+    <tr class="uppercase">
+        <th>{{ 'SL. NO'|trans }}</th>
+        {% if (appType == 'PORCHA') or (appType == 'MOUZA_MAP') %}
+            <th>{{ 'Survey Name'|trans }}</th>
+        {% endif %}
+        <th>{{ 'NORMAL'|trans }}</th>
+        <th>{{ 'VERY URGENT'|trans }}</th>
+        <th>{{ 'Date'|trans }}</th>
+        <th>{{ 'Status'|trans }}</th>
+        <th width="120"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if courtfees is not empty %}
+
+        {% for courtfee in courtfees %}
+            <tr>
+                <td>{{ loop.index |numberBanglaConvert }}</td>
+                {% if (appType == 'PORCHA') or (appType == 'MOUZA_MAP') %}
+                    <td>{{ courtfee.survey }}</td>
+                {% endif %}
+                <td>{{ courtfee.normalCourtFee }}</td>
+                <td>{{ courtfee.emergencyCourtFee }}</td>
+                <td>{{ courtfee.createdAt| date("d-m-Y")|numberBanglaConvert }}</td>
+                <td><span class="badge badge-roundless badge-{{ courtfee.active ? 'success' :  'danger' }}">{{ courtfee.active ? 'Enable'|trans : 'Disable'|trans }}</span></td>
+                <td>
+                    <a href="{{ path('update_courtfee', {id: courtfee.id}) }}"
+                       class="btn btn-sm" title="{{ 'Edit'|trans }}"><i class="fa fa-edit"></i></a>
+                    {#<a href="{{ path('delete_courtfee', {id: courtfee.id}) }}"
+                    class="btn btn-sm" title="{{ 'Delete'|trans }}"><i class="fa fa-times"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(courtfees) }}
+</div>

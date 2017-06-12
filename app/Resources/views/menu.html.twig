@@ -1,0 +1,444 @@
+
+<div class="hor-menu ">
+    <ul class="nav navbar-nav">
+        {#<li>#}
+            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                {#<a href="{{ path('dashboard') }}">{{ 'Dashboard'|trans }}</a>#}
+            {#{% endif %}#}
+        {#</li>#}
+        {% if app.user.office %}
+            {% if is_granted("ROLE_MENU_ITEM_TEMPLATE") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Template'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('template_ministry_template_list') }}">{{ 'List'|trans }}</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('template_new_template') }}">{{ 'Create'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_VOLUME") %}
+            <li class="menu-dropdown classic-menu-dropdown ">
+                <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                    {{ 'Volume'|trans }} <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li class="">
+                        <a href="{{ path('volume_list') }}">{{ 'List'|trans }}</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('volume_create') }}">{{ 'Create'|trans }}</a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_MENU_ITEM_KHATIAN") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Khatian'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        {% if is_granted("ROLE_MENU_ITEM_BATCH_KHATIAN") %}
+                            <li class=" dropdown-submenu">
+                            <a href=javascript:;>{{ 'Batch based'|trans }}</a>
+                            <ul class="dropdown-menu">
+
+                                {% if is_granted("ROLE_KHATIAN_ENTRY") %}
+                                    <li class="">
+                                        <a href="{{ path('khatian_draft_khatians') }}">{{ 'Draft Khatians'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('khatian_sent_khatian_list') }}">{{ 'Sent Khatians'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('khatian_re_assigned_khatian_list') }}">{{ 'Correction Required'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('batch_khatian_search') }}">{{ 'Khatian Search'|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_KHATIAN_VERIFICATION") %}
+                                    <li class="">
+                                        <a href="{{ path('khatian_verify_new_khatian_list') }}">{{ 'Verify New Khatians'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('khatian_re_assigned_khatian_list') }}">{{ 'Re-Verification'|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_KHATIAN_COMPARISON") %}
+                                    <li class="">
+                                        <a href="{{ path('khatian_compare_new_khatian_list') }}">{{ 'Compare New Khatians'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('khatian_re_assigned_khatian_list') }}">{{ 'Re-Comparison'|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_KHATIAN_APPROVAL") %}
+                                    <li class="">
+                                        <a href="{{ path('khatian_approve_new_khatian_list') }}">{{ 'Approve New Khatians'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('khatian_re_assigned_khatian_list') }}">{{ 'Re-Approve'|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_MENU_ITEM_ARCHIVE") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Archive'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('archive_browse_list') }}">{{ 'Volume'|trans }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('archive_search_khatian') }}">{{ 'Khatian Search'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_MENU_ITEM_MOUZA_OPTION") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Mouza Option'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('mouza_list') }}">{{ 'Mouza'|trans }}</a>
+                        </li>
+                        {#<li class="">#}
+                            {#<a href="{{ path('upozila_list') }}">{{ 'Upozila'|trans }}</a>#}
+                        {#</li>#}
+                        {#<li class="">#}
+                            {#<a href="{{ path('district_list') }}">{{ 'District'|trans }}</a>#}
+                        {#</li>#}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_LEASE") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Lease'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class=" dropdown-submenu">
+                            <a href=javascript:;>{{ 'Water Body'|trans }}</a>
+                            <ul class="dropdown-menu">
+                                    {% if is_granted("ROLE_OPEN_WATER_BODY_LEASE_LIST") %}
+                                        <li class="">
+                                            <a href="{{ path('open_lease_list') }}">{{ 'Water Body'|trans }} {{ 'Lease Of List'|trans }}</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if is_granted("ROLE_WATER_BODY_LEASE_CREATE") %}
+
+                                        <li class="">
+                                            <a href="{{ path('water_body_lease_create') }}">{{ 'Water Body'|trans }} {{ 'Lease Create'|trans }}</a>
+                                        </li>
+                                    {% endif %}
+                            </ul>
+                        </li>
+                        <li class=" dropdown-submenu">
+                            <a href=javascript:;>{{ 'Market Body'|trans }}</a>
+                            <ul class="dropdown-menu">
+                                {% if is_granted("ROLE_OPEN_MARKET_BODY_LEASE_LIST") %}
+                                    <li class="">
+                                        <a href="{{ path('market_open_lease_list') }}">{{ 'Market Body'|trans }} {{ 'Lease Of List'|trans }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted("ROLE_MARKET_BODY_LEASE_CREATE") %}
+                                    <li class="">
+                                        <a href="{{ path('market_body_lease_create') }}">{{ 'Market Body'|trans }} {{ 'Lease Create'|trans }}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        {#<li class="">#}
+                            {#<a href="{{ path('open_lease_list') }}">{{ 'Lease Of List'|trans }}</a>#}
+                        {#</li>#}
+                    {% if is_granted("ROLE_PREVIOUS_LEASE_CREATE") %}
+
+                        <li class=" dropdown-submenu">
+                            <a href=javascript:;>{{ 'Previous Lease Create'|trans }}</a>
+                            <ul class="dropdown-menu">
+
+                                <li class="">
+                                    <a href="{{ path('previous_water_body_lease_create') }}">{{ 'Water Body'|trans }}</a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ path('previous_market_body_lease_create') }}">{{ 'Market Body'|trans }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                        {% if is_granted("ROLE_APPROVED_LEASE_LIST") %}
+                        <li class=" dropdown-submenu">
+                            <a href=javascript:;>{{ 'Lease Running List'|trans }}</a>
+                            <ul class="dropdown-menu">
+
+                                <li class="">
+                                    <a href="{{ path('approved_lease_list',{'type':'WaterBody'}) }}">{{ 'Water Body'|trans }}</a>
+                                </li>
+
+                                <li class="">
+                                    <a href="{{ path('approved_lease_list',{'type':'Market'}) }}">{{ 'Market Body'|trans }}</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        {% endif %}
+
+                        {% if is_granted("ROLE_WAITING_FOR_TERMINATE_LEASE_LIST") %}
+                            <li class=" dropdown-submenu">
+                                <a href=javascript:;>{{ 'Wating For Terminate Lease List'|trans }}</a>
+                                <ul class="dropdown-menu">
+
+                                    <li class="">
+                                        <a href="{{ path('waiting_for_terminate_lease_list',{'type':'WaterBody'}) }}">{{ 'Water Body'|trans }}</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="{{ path('waiting_for_terminate_lease_list',{'type':'Market'}) }}">{{ 'Market Body'|trans }}</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('waiting_for_terminate_lease_list',{'type':'Gadget'}) }}">{{ 'Gadget'|trans }}</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li class="">
+                            <a href="{{ path('waiting_lease_list') }}">{{ 'Waiting Lease List'|trans }}</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('waiting_for_approval_lease_list') }}">{{ 'Waiting for approval lease list'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_APPLICATION") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Lease Application'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                     {% if is_granted("ROLE_APPROVED_APPLICATION_LIST") %}
+
+                         <li class=" dropdown-submenu">
+                             <a href=javascript:;>{{ 'Approved'|trans }} {{ 'List of Lease Application'|trans }}</a>
+                             <ul class="dropdown-menu">
+
+                                 <li class="">
+                                     <a href="{{ path('approved_lease_application_list', {'type': 'WaterBody'}) }}">{{ 'Water Body'|trans }}</a>
+                                 </li>
+                                 <li class="">
+                                     <a href="{{ path('approved_lease_application_list', {'type': 'Market'}) }}"> {{ 'Market Body'|trans }}</a>
+                                 </li>
+                                 <li class="">
+                                     <a href="{{ path('approved_lease_application_list', {'type': 'Gadget'}) }}">{{ 'Gadget'|trans }} </a>
+                                 </li>
+                             </ul>
+                         </li>
+
+                     {% endif %}
+                     {% if is_granted("ROLE_APPLICATION_LIST") %}
+
+                         <li class=" dropdown-submenu">
+                             <a href=javascript:;>{{ 'List of Lease Application'|trans }}</a>
+                             <ul class="dropdown-menu">
+                                 <li class="">
+                                     <a href="{{ path('lease_waterbody_application_list') }}">{{ 'Water Body'|trans }} </a>
+                                 </li>
+                                 <li class="">
+                                     <a href="{{ path('lease_market_application_list') }}">{{ 'Market Body'|trans }} </a>
+                                 </li>
+                                 <li class="">
+                                     <a href="{{ path('lease_gadget_application_list') }}">{{ 'Gadget'|trans }}</a>
+                                 </li>
+                             </ul>
+                         </li>
+
+                     {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_ORDER_SHEET") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Order Sheet'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('lease_order_sheet_list', {'type': 'WaterBody'}) }}">{{ 'Water Body'|trans }} {{ 'Lease Of List'|trans }}</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('lease_order_sheet_list', {'type': 'Market'}) }}">{{ 'Market Body'|trans }} {{ 'Lease Of List'|trans }}</a>
+                        </li>
+
+                        <li class="">
+                            <a href="{{ path('lease_gadget_order_sheet_list') }}">{{ 'Gadget List'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+        {% if is_granted("ROLE_MENU_ITEM_MARKET_LIST") %}
+            <li class="menu-dropdown classic-menu-dropdown ">
+                <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                    {{ 'Market'|trans }} <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                {% if is_granted("ROLE_MENU_ITEM_MARKET_LIST") %}
+                    <li class="">
+                        <a href="{{ path('market_list') }}">{{ 'Market List'|trans }}</a>
+                    </li>
+                {% endif %}
+                {% if is_granted("ROLE_MENU_ITEM_MARKET_CREATE") %}
+                    <li class="">
+                        <a href="{{ path('market_create') }}">{{ 'Market Create'|trans }}</a>
+                    </li>
+                {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_LEASE_ASSIGN") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Lease assign'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('lease_assign_list') }}">{{ 'List of Assign Lease'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_MENU_ITEM_GADGET_MANAGEMENT") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Gadget'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('gadget_list') }}">{{ 'Running List'|trans }}</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('gadget_open_list') }}">{{ 'List'|trans }}</a>
+                        </li>
+                    {% if is_granted("ROLE_GADGET_CREATE") %}
+                        <li class="">
+                            <a href="{{ path('gadget_create') }}">{{ 'Create'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_MENU_ITEM_USER") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        {{ 'Office User'|trans }} <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li class="">
+                            <a href="{{ path('users_home') }}">{{ 'List'|trans }}</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('user_create') }}">{{ 'Create'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_MENU_ITEM_OFFICE") %}
+                <li class="menu-dropdown classic-menu-dropdown ">
+            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                {{ 'Office'|trans }} <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu pull-left">
+                <li class=" dropdown-submenu">
+                    <a href=javascript:;>{{ 'DC Office'|trans }}</a>
+                    <ul class="dropdown-menu">
+                        <li class=" ">
+                            <a href="{{ path('office_list') }}">{{ 'List'|trans }}</a>
+                        </li>
+                        <li class=" ">
+                            <a href="{{ path('create_dc_office') }}">{{ 'Create'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" dropdown-submenu">
+                    <a href=javascript:;>{{ 'AC Land Office'|trans }} </a>
+                    <ul class="dropdown-menu">
+                        <li class=" ">
+                            <a href="{{ path('office_list', {'type': 'ac_land'}) }}">{{ 'List'|trans }}</a>
+                        </li>
+                        <li class=" ">
+                            <a href="{{ path('create_ac_land_office') }}">{{ 'Create'|trans }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+            {% endif %}
+
+            {#<li class="menu-dropdown classic-menu-dropdown ">#}
+                {#<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">#}
+                    {#{{ 'Settings'|trans }}<i class="fa fa-angle-down"></i>#}
+                {#</a>#}
+                {#<ul class="dropdown-menu pull-left">#}
+                {#{% if is_granted("ROLE_MANAGE_APP_UPOZILAS") %}#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('app_upozila_list') }}">{{ 'Upozila'|trans }}</a>#}
+                    {#</li>#}
+                {#{% endif %}#}
+                {#{% if is_granted("ROLE_MANAGE_APP_DISTRICTS") %}#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('app_district_list') }}">{{ 'District'|trans }}</a>#}
+                    {#</li>#}
+                {#{% endif %}#}
+                {#{% if is_granted("ROLE_MANAGE_APP_DIVISIONS") %}#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('app_division_list') }}">{{ 'Division'|trans }}</a>#}
+                    {#</li>#}
+                {#{% endif %}#}
+
+                {#{% if is_granted("ROLE_OWN_OFFICE_SETTING") %}#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('dc_office_setting_update') }}">{{ 'Own office setting'|trans }}</a>#}
+                    {#</li>#}
+                {#{% endif %}#}
+                {#{% if app.user.isNessUser != true %}#}
+                {#<li class="">#}
+                    {#<a href="{{ path('fos_user_change_password') }}">{{ 'Password Change'|trans }}</a>#}
+                {#</li>#}
+                {#{% endif %}#}
+            {#</ul>#}
+         {#</li>#}
+
+        {% endif %}
+
+        {#<li>#}
+            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                {#<a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a>#}
+            {#{% else %}#}
+                {#<a href="{{ path('fos_user_security_login') }}">{{ 'Login'|trans }}</a>#}
+            {#{% endif %}#}
+        {#</li>#}
+    </ul>
+</div>

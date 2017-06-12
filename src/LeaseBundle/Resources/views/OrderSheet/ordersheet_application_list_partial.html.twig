@@ -1,0 +1,88 @@
+<table class="table table-bordered table-striped table-condensed flip-content sticky-header">
+    <thead>
+    {% if applications is not empty %}
+    <tr class="uppercase">
+        <th>{{  'SL. NO'|trans  }}</th>
+        {% if applications[0].leaselist.lease.type == 'Market'  %}
+            <th>{{  'Market Body'|trans }}</th>
+        {% else %}
+            <th>{{  'Lease Type'|trans }}</th>
+        {% endif %}
+        {% if applications[0].leaselist.lease.type != 'Gadget'  %}
+            <th>{{  'Khatian'|trans  }}</th>
+        {% endif %}
+
+        {% if applications[0].leaselist.lease.type == 'Market'  %}
+            <th>{{  'Shop No'|trans}}</th>
+        {% else %}
+            <th>{{  'Khatian dag No'|trans}} </th>
+        {% endif %}
+        <th>{{  'total application count'|trans  }}</th>
+        <th width="170"></th>
+    </tr>
+    {% endif %}
+    </thead>
+    <tbody>
+    {% if applications is not empty %}
+        {% for index,application in applications %}
+            <tr>
+                <td>{{ ((applications.getCurrentPageNumber - 1) * applications.getItemNumberPerPage + index + 1)|numberBanglaConvert }}</td>
+
+                {% if application.leaselist.lease.type == 'Market'  %}
+                    <td>{{ application.leaselist.lease.marketDetail.market.marketName }}</td>
+                {% else %}
+                    <td>{{ application.leaselist.lease.Bntype }}</td>
+                {% endif %}
+
+                {% if not  applications[0].leaselist.lease.gadget %}
+
+                    {% if application.leaselist.lease.khatian.id is defined%}
+                        <td>{{ application.leaselist.lease.khatian.khatianNo }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if application.leaselist.lease.marketDetail.shopNo is defined %}
+                        <td>{{ application.leaselist.lease.marketDetail.shopNo|numberBanglaConvert }}</td>
+                    {% endif %}
+                    <td>
+                        {% if application.leaselist.lease.waterBodyDetails is defined %}
+                            {% for khatianDag in application.leaselist.lease.waterBodyDetails %}
+                                {{ khatianDag.khatianDagNo }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if application.leaselist.lease.marketDetail.khatianDagNo is defined %}
+                            {{ application.leaselist.lease.marketDetail.khatianDagNo }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td> <span class="badge badge-success" >{{ application.totalApp }}</span> </td>
+
+                <td>
+
+                    {% if is_granted('ROLE_LEASE_WISE_ORDER_SHEET_LIST') %}
+                        <a href="{{ path('lease_wise_order_sheet_view', {'id': application.leaselist.lease.id}) }}" class="btn btn-lg"  title="{{ 'View'|trans }}">
+                            <i class="fa fa-list"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if application.leaselist.lease.khatian.id is defined%}
+                    <a href="{{ path('khatian_pages',{'id':application.leaselist.lease.khatian.id}) }}" target="_blank" class="btn btn-lg"  title="{{ 'Khatian view'|trans }}">
+                        <i class="fa fa-file"></i>
+                    </a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr class="ta-center">
+            <td colspan="9">{{ 'No record found'|trans }}</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(applications) }}
+</div>

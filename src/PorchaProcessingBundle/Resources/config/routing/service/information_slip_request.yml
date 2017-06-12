@@ -1,0 +1,25 @@
+information_slip_create:
+    path:     /service/information-slip
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:create, serviceType:information_slip }
+
+information_slip_edit:
+    path:     /service/information-slip/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:edit }
+    requirements:
+        id: \d+
+
+information_slip_list:
+    path:     /service/information-slip/list
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:list, serviceType:information_slip }
+
+information_slip_view:
+    path:     /service/information-slip/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:view }
+
+information_slip_print:
+    path:     /service/information-slip/{id}/print
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:print }
+
+information_slip_update_delivery_status:
+    path:     /service/information-slip/{id}/update-delivery-status
+    defaults: { _controller: PorchaProcessingBundle:Service/InformationSlipRequest:updateDeliveryStatus }

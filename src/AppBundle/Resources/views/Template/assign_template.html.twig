@@ -1,0 +1,63 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}Assign Templates | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>Assign Templates</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">Dashboard</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active"> Assign Templates </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row">
+        <div class="col-sm-12">
+            {% include 'flash.html.twig' %}
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">Assign Khatian Entry Templates</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="form-assign-template" class="form-horizontal" role="form" method="post" action="{{ path('office_mgt_assign_template') }}">
+                                <div class="form-body">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Default</label>
+                                        <div class="col-md-9">
+                                            <select multiple="multiple" class="multi-select" id="my_multi_select1" name="template[]">
+                                                {% for template in templates %}
+                                                    <option value="{{ template.id }}">{{ template.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions right">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="btn green" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <hr/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}

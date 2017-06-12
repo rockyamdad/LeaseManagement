@@ -1,0 +1,47 @@
+body.cke_editable {
+    margin: 0 1px;
+    font-size: 12px;
+}
+
+table td {
+    word-break: break-all;
+    vertical-align: top;
+    padding-top: 4px;
+    padding-left: 1px;
+}
+
+table td p {
+    margin: 0;
+    padding-top: 0;
+}
+
+body.entry-area {
+    background: url("../../assets/layout3/img/line.png");
+    font-size: 17px;
+    line-height: 23px;
+    padding-top: 0;
+    background-attachment: local;
+}
+
+.entry-area-fraction{
+    position: relative;
+}
+
+.entry-area-fraction span.first{
+    font-size: 10px;
+    line-height: 10px;
+    position: absolute;
+    top: 0;
+    border-bottom: green 1px solid;
+}
+.entry-area-fraction span.sp{
+    border-bottom: 1px red solid;
+}
+.entry-area-fraction span.last{
+    /* margin: 0; */
+    /* display: inline; */
+    font-size: 10px;
+    line-height: 0;
+    position: absolute;
+    bottom: 4px;
+}

@@ -1,0 +1,131 @@
+{% extends "@PorchaProcessing/layout.html.twig" %}
+
+{% block title %}{{ 'Direct Application'|trans }} {{ 'Create'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ 'Direct Application'|trans }}</h1>{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@LeaseBundle/Resources/public/css/fileview.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('lease_application_list') }}">{{ 'List of Lease Application'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ 'Create'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="volume-add-page">
+
+        <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ 'Direct Application'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <form class="form-horizontal" id="fileupload" role="form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="form-body">
+                            <div class="form-group {{ form_errors(form.applicationDetails) != '' ? 'has-error' : '' }}">
+                                <label class="col-md-2 control-label ">{{ 'Application Detail'|trans }}</label>
+                                <div class="col-md-9">
+                                    {{ form_widget(form.applicationDetails) }}
+                                    <span class="help-block">{{ form_errors(form.applicationDetails) }}</span>
+                                </div>
+                            </div>
+                            <h4 class="caption-subject font-blue-sharp bold uppercase">{{ 'Applicant Info'|trans }}</h4>
+                            <div>
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        <table class="table table-bordered table-striped table-condensed flip-content table-list" style="margin-bottom: 0;margin-left: 141px"  width="100%" id="row-clone2" data-prototype="
+                                        {% filter escape %}
+                                         {{ include('LeaseBundle:Gadget:applicantInfo.html.twig', { 'form': form.applicants.vars.prototype }) }}
+                                        {% endfilter %}">
+                                            <thead>
+                                            <tr>
+                                                <th><input type="button" id="add-applicant-info" class="btn green"  value="{{ 'Applicant Information Add'|trans }}" /></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="applicant-info-list">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{ 'Document'|trans }}</label>
+                                <div class="col-md-9">
+
+                                    <div class="wrapper">
+                                        <div id="doc_upload1" class="button fl">ডকুমেন্ট ফাইল নির্বাচন করুন </div>
+                                    </div>
+                                    <div class="wrapper"><br>
+                                        <div id="selected_doc_file1"></div>
+                                        <br>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a class="btn purple" href="javascript: window.history.go(-1)">{{ 'Cancel'|trans }}</a>
+                                        <button type="submit" class="btn green">{{ 'Save'|trans }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    {% javascripts
+        "@LeaseBundle/Resources/public/js/rajax.js"
+        "@LeaseBundle/Resources/public/js/application.js"
+        "@LeaseBundle/Resources/public/js/lease.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        var rowCountApplicant = {{ (form.applicants is defined) ? form.applicants|length : 0 }};
+
+    </script>
+
+{% endblock %}
+
+{% block document_ready %}
+    {{ parent() }}
+    $('.date2').datepicker({ format: 'yyyy/mm/dd' });
+{% endblock %}
+
+

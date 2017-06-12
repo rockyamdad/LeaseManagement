@@ -1,0 +1,12 @@
+report_udc_received:
+    path:     /report/udc-received/{reportType}
+    defaults: { _controller: PorchaProcessingBundle:Report/UdcReport:index, reportType: RECEIVED}
+    methods: [GET,POST]
+    options:
+        expose: true
+
+report_udc_delivered:
+    path:     /report/udc-delivered/{reportType}
+    defaults: { _controller: PorchaProcessingBundle:Report/UdcReport:index, reportType: DELIVERED}
+    options:
+            expose: true

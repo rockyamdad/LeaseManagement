@@ -1,0 +1,75 @@
+<style>
+    @media print {
+        .print-page{
+            display: block !important;
+            page-break-after: always;
+        }
+
+        .print-page:last-of-type {
+            page-break-after: avoid;
+        }
+    }
+</style>
+{#<div class="visible-print" style="margin-left: 35%">
+{% if app.user.office %}
+    <div class="text-center">
+        <h4>{{ app.user.office.name }}, {{ app.user.office.district.name }}</h4>
+        <h4>{{ app.user.office.getOfficeTypeName|trans }}</h4>
+
+    </div>
+{% endif %}
+</div>#}
+    {% if serviceRequest is not empty %}
+
+            {% if(serviceType == 'PORCHA_REQUEST' or serviceType == 'MOUZA_MAP' ) %}
+
+                <div>
+                    {% for index ,pr in serviceRequest %}
+                        <div style="width:80%;">
+                            <div style="float: left;width:40%;">
+                                {{ 'Application ID'|trans }} : {{ pr.serviceRequest.id }}<br/>
+                                {{ pr.serviceRequest.address|nl2br }}
+                            </div>
+                        </div>
+
+                        {% if((index+1) % 2 == 0) %}
+
+                            <div style="clear: both;margin-bottom: 20px;"></div>
+                        {% endif %}
+                        {% if((index+1) % 5 == 0) %}
+                            <div class="print-page"></div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+            {% else %}
+
+                <div>
+                    {% for index ,pr in serviceRequest %}
+                        <div style="width:80%;">
+                            <div style="float: left;width:40%;">
+                                {{ 'Application ID'|trans }} : {{ pr.id }}<br/>
+                                {{ pr.address|nl2br }}
+                            </div>
+                        </div>
+
+                        {% if((index+1) % 2 == 0) %}
+
+                            <div style="clear: both; margin-bottom: 20px;"></div>
+                        {% endif %}
+                        {% if((index+1) % 5 == 0) %}
+                            <div class="print-page"></div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+    {% else %}
+
+        {{ 'No record found'|trans }}
+    {% endif %}
+
+<script>
+    print();
+</script>
+

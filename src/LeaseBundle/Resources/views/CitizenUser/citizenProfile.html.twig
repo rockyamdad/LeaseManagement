@@ -1,0 +1,186 @@
+{% extends "::portal_base.html.twig" %}
+
+{% block body %}
+<div class="page-container">
+
+        <div class="row profile">
+            <div class="col-md-12">
+
+                <div class="tabbable tabbable-custom tabbable-noborder">
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-body">
+                                    <h3 class="form-section caption-color">ব্যক্তিগত তথ্যসমূহ</h3>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">জাতীয় পরিচয় পত্:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                       {{ user.nationalID }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">পিতার নাম:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.fatherName }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">মাতার নাম:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.motherName }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">জন্ম তারিখ:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.birthDate }}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;margin-left: 60px;">
+                                                        {% if user.profile.path is defined and user.profile.path %}
+                                                            <img src="/uploads/profile/{{ user.profile.path }}" width="100%" height="100%">
+                                                        {% else %}
+                                                            <img alt="" class="img" src="{{ asset('assets/elrs-assets/blank-profile.jpg') }}"/>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">লিঙ্গ:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.gender }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">নাম:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.fullname }}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">মোবাইল নম্বর:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.phoneNumber }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">ইমেইল :</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.email }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--/span-->
+                                    </div>
+
+                                    <h3 class="form-section caption-color">ঠিকানা</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">বর্তমান   ঠিকানা:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        {{ user.profile.address }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#<div class="row">#}
+                                        {#<div class="col-md-6">#}
+                                            {#<div class="form-group">#}
+                                                {#<label class="control-label col-md-3">শহর:</label>#}
+                                                {#<div class="col-md-9">#}
+                                                    {#<p class="form-control-static">#}
+                                                        {#কুমিল্লা#}
+                                                    {#</p>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<!--/row-->#}
+                                    {#<div class="row">#}
+                                        {#<div class="col-md-6">#}
+                                            {#<div class="form-group">#}
+                                                {#<label class="control-label col-md-3">পোস্টকোড:</label>#}
+                                                {#<div class="col-md-9">#}
+                                                    {#<p class="form-control-static">#}
+                                                        {#২৩৪৩২৪#}
+                                                    {#</p>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                        {#<!--/span-->#}
+
+                                        {#<!--/span-->#}
+                                    {#</div>#}
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <a href="{{ path('portal_profile_edit', {'phoneNumber': app.session.get('phoneNumber')}) }}" class="btn green"><i class="fa fa-pencil"></i> সম্পাদন করুন </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+</div>
+{% endblock %}

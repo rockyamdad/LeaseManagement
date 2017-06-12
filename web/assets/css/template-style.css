@@ -1,0 +1,91 @@
+#template-view {
+    font-family: "NikoshBAN","Nikosh","Vrinda","Arial";
+    font-size: 16px;
+}
+#template-update textarea {
+    height: 100% !important;
+    width: 100% !important;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#template-view {
+    font-family: "NikoshBAN","Nikosh","Vrinda","Arial";
+    font-size: 16px;
+}
+
+#template-view pre {
+    line-height: normal;
+}
+
+#template-view td {
+    word-break: break-all;
+    vertical-align: top;
+    padding-top: 4px;
+    padding-left: 4px;
+}
+#template-view td h3, #template-view td h2, #template-view td h1{
+    margin: inherit;
+}
+
+#template-view table td p {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#template-update textarea {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+#template-update td {
+    height: 100%;
+}
+
+.pull-right{
+    float: right;
+}
+
+.pull-left{
+    float: left;
+}
+pre{
+    background-color: inherit;
+    border: none;
+    border-radius: inherit;
+    padding: 0;
+    margin: 0;
+    font-family: "NikoshBAN", "Nikosh", "Vrinda", "Arial";
+    font-size: 16px;
+    line-height: normal;
+}
+
+pre br {
+    display: none;
+}
+pre textarea {
+    max-height: 50px!important;
+}
+.print-page pre, .print-page td{
+    font-size: 16px;
+    font-family: "NikoshBAN", "Nikosh", "Vrinda", "Arial";
+}
+#update-khatian {
+
+}
+
+.text-center{
+    text-align: center;
+}
+
+h4{
+    font-size: 20px;
+    margin: 0;
+}
+
+span.t-highlight {
+    background-color: yellow;
+}
+#template-update input[type=text]{
+    padding: 5px 2px!important;
+}

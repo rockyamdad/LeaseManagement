@@ -1,0 +1,48 @@
+template_new_template:
+    path:     /template/new
+    defaults: { _controller: PorchaProcessingBundle:Template:new }
+    methods: [GET]
+
+template_edit_template:
+    path:     /template/{id}/edit
+    defaults: { _controller: PorchaProcessingBundle:Template:edit }
+    methods: [GET]
+
+template_create_template:
+    path:     /template/save
+    defaults: { _controller: PorchaProcessingBundle:Template:create }
+    methods: [POST]
+
+template_update_template:
+    path:     /template/{id}/update
+    defaults: { _controller: PorchaProcessingBundle:Template:update }
+    methods: [POST]
+
+template_preview_template:
+    path:     /template/{id}/preview
+    defaults: { _controller: PorchaProcessingBundle:Template:previewTemplate }
+    methods: [GET]
+    options:
+        expose: true
+
+template_ministry_template_list:
+    path:     /template/list
+    defaults: { _controller: PorchaProcessingBundle:Template:ministryTemplateList }
+    options:
+        expose: true
+
+template_dc_office_template_list:
+    path:     /office-template/list
+    defaults: { _controller: PorchaProcessingBundle:Template:DCOfficeTemplateList }
+    options:
+        expose: true
+
+template_view_template:
+    path:     /template/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Template:viewTemplate }
+    methods: [GET]
+
+template_set_for_my_office:
+    path:     /template/{id}/set
+    defaults: { _controller: PorchaProcessingBundle:Template:setToMyOffice }
+    methods: [GET]

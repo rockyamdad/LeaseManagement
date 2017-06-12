@@ -1,0 +1,32 @@
+<div class="table-scrollable table-scrollable-borderless">
+    <table class="table table-hover table-light table-list">
+        <thead>
+        <tr class="uppercase">
+            <th>{{ knp_pagination_sortable(jlnumbers, 'J. L. No'|trans, 'm.name') }}</th>
+            <th>{{ knp_pagination_sortable(jlnumbers, 'Mouza'|trans, 't.name') }}</th>
+            <th>{{ 'Thana'|trans }}</th>
+            <th>{{ 'Upozila'|trans }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if jlnumbers is not empty %}
+            {% for jlnumber in jlnumbers %}
+                <tr>
+                    <td><a href="{{ path('jlnumber_update', {id: jlnumber.id}) }}">{{ jlnumber.name }}</a></td>
+                    <td>{{ jlnumber.mouza.name }}</td>
+                    <td>{{ (jlnumber.mouza.thana) ? jlnumber.mouza.thana.name : 'N/A' }}</td>
+                    <td>{{ (jlnumber.mouza.upozila) ? jlnumber.mouza.upozila.name : 'N/A' }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="ta-center">
+                <td colspan="5">{{ 'No record found'|trans }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class='dataTables_paginate paging_bootstrap pagination'>
+    {{ knp_pagination_render(jlnumbers) }}
+</div>

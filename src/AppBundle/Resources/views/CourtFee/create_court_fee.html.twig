@@ -1,0 +1,105 @@
+{% extends "metronic.html.twig" %}
+
+{% block title %}{{ courtfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Court Fee'|trans }} | {{ parent() }}{% endblock %}
+{% block pageTitle %}<h1>{{ courtfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Court Fee'|trans }}</h1>{% endblock %}
+
+{% block body %}
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="/">{{ 'Dashboard'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="{{ path('courtfee_list') }}">{{ 'Court Fee'|trans }}</a><i class="fa fa-circle"></i>
+        </li>
+        <li class="active">
+            {{ courtfee.id ? 'Update'|trans : 'New'|trans }}
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="row" id="courtfee-update-page">
+
+        <form class="form-horizontal" id="form-update-courtfee" role="form" method="post" action="{{ form_action }}">
+
+            <div class="col-md-12">
+            <div class="portlet light">
+
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">{{ courtfee.id ? 'Update'|trans : 'New'|trans }} {{ 'Court Fee'|trans }}</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Application type'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.applicationType) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group survy_type">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Survey Name'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.survey) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 control-label extra-top-margin">{{ 'Court Fee'|trans }} ({{ 'Tk'|trans }})</label>
+
+                                <div class="col-md-2 col-sm-3">
+                                    <span class="help-block">{{ 'NORMAL'|trans }}</span>
+                                    {{ form_widget(form.normalCourtFee) }}
+                                </div>
+                                <div class="col-md-2 col-sm-3">
+                                    <span class="help-block">{{ 'VERY URGENT'|trans }}</span>
+                                    {{ form_widget(form.emergencyCourtFee) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 control-label">{{ 'Status'|trans }}</label>
+                                <div class="col-md-5 col-sm-5">
+                                    {{ form_widget(form.active) }}
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            {%  if current_user_office.type|upper == 'MINISTRY'%}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-5">
+                                        {{ form_widget(form.locked) }}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a class="btn default" href="{{ path('courtfee_list') }}">{{ 'Cancel'|trans }}</a>
+                                    <button type="submit" id="court_fee_submit" class="btn green">{{ 'Save'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        </form>
+
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+{% endblock %}
+
+{% block include_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/office.js') }}" type="text/javascript"></script>
+{% endblock %}

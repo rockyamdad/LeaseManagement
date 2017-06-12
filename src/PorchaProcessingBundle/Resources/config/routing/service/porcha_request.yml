@@ -1,0 +1,106 @@
+porcha_request_edit:
+    path:     /service/porcha-request/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:porchaRequestEdit }
+    requirements:
+        id: \d+
+
+porcha_request_view:
+    path:     /service/porcha-request/{id}/view
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:porchaRequestView }
+    requirements:
+        id: \d+
+
+porcha_request_create:
+    path:     /service/porcha-request/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:porchaRequestCreate, serviceType:porcha_request }
+
+porcha_request_list:
+    path:     /service/list/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestList,serviceType:porcha_request }
+
+porcha_request_address_print:
+    path:     /service/address/list/{serviceType}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:addressPrint,serviceType:porcha_request }
+    options:
+            expose: true
+
+service_request_view:
+    path:     /service/view/{id}/
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestView }
+
+service_request_print:
+    path:     /service/print/{id}/
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestPrint }
+
+porcha_application_token_print:
+    path:     /service/print/{id}/token
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:requestTokenPrint }
+
+porcha_request_receive_for_delivery:
+    path:     /service/received/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:serviceRequestReceiveConfirmation }
+
+porcha_request_delivered:
+    path:     /service/delivered/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:serviceRequestDelivered }
+
+porcha_request_status_delivered:
+    path:     /service/update/status/delivered/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:deliveredServiceRequest }
+
+porcha_request_draft_khatians:
+    path:     /service/khatian/drafts
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:drafts }
+
+porcha_request_sent_khatian_list:
+    path:     /service/khatian/sent-khatians
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:sentKhatianList }
+
+porcha_request_re_assigned_khatian_list:
+    path:     /service/khatian/reassigned-khatians
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:reAssignedKhatianList }
+
+porcha_request_verify_new_khatian_list:
+    path:     /service/khatian/verify-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:verifyNewKhatianList }
+
+porcha_request_compare_new_khatian_list:
+    path:     /service/khatian/compare-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:compareNewKhatianList }
+
+porcha_request_approve_new_khatian_list:
+    path:     /service/khatian/approve-new-khatians
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:approveNewKhatianList }
+
+porcha_request_applied_khatians:
+    path:     /service/filter-application
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:appliedKhatians }
+
+porcha_request_move_to_verification:
+    path:     /service/khatian/{id}/move-next
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:moveToVerification }
+
+porcha_request_ready_for_delivery:
+    path:     /service/khatian/ready-for-delivery
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:readyForDeliveryList }
+
+porcha_request_workflow_khatian_pages:
+    path:     /workflow/service/khatian/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:workflowKhatianPages }
+    methods: [GET,POST]
+    requirements:
+        id:  \d+
+
+porcha_request_workflow_action:
+    path:     /service/khatian/{id}/workflow-action
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:workflowAction }
+    methods: [POST]
+
+porcha_request_find_application_khatian:
+    path:     /service/khatian/find/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:findApplicationKhatian }
+    methods: [GET]
+
+porcha_request_move_to_draft:
+    path:     /service/khatian/move_to_draft/{id}
+    defaults: { _controller: PorchaProcessingBundle:Service/PorchaRequest:khatianMovetoDraft }
